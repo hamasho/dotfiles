@@ -98,7 +98,7 @@ export GREP_COLORS="fn=0;33"
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
 export PATH=$HOME/bin:$PATH
-export HISTSIZE=25000
+export HISTSIZE=2500000
 export LESS="-iRXF -j5"
 export LANG=en_US.UTF-8
 export LC_COLLATE="en_US.UTF-8"

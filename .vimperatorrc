@@ -15,6 +15,7 @@ nnoremap h <c-p>
 nnoremap l <c-n>
 nnoremap <c-l> :noh<cr>
 nnoremap <c-g> g<c-g>
+nnoremap <c-q> :noh<cr>
 nnoremap ; :
 vnoremap ; :
 nnoremap s ;
