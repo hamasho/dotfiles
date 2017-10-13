@@ -1,0 +1,69 @@
+" vim: set filetype=vim :
+
+set cpt=ls
+set focuscontent
+set gui=none
+set gui=tabs
+set statuslinevisibility=hidden
+set hintchars="asdfghjkl;"
+set titlestring=""
+
+let mapleader = ","
+nnoremap j 3j
+nnoremap k 3k
+nnoremap h <c-p>
+nnoremap l <c-n>
+nnoremap <c-l> :noh<cr>
+nnoremap <c-g> g<c-g>
+nnoremap ; :
+vnoremap ; :
+nnoremap s ;
+vnoremap <c-e> $
+vnoremap V <esc><esc><esc>
+nnoremap <leader>r :source ~/.vimperatorrc<cr>:echo "Reload .vimperatorrc"<cr>
+nnoremap <leader>h :set gui=none<cr>
+nnoremap <leader>s :set gui=navigation<cr>
+nnoremap <leader>t :set gui=tabs<cr>
+map \'g :tabopen https://github.com/<cr>
+map \'m :tabopen https://mail.google.com/mail/u/0/#inbox<cr>
+map \'a :tabopen https://us-west-2.console.aws.amazon.com/console/home?region=us-west-2#<cr>
+map \'r :tabopen https://www.rarejob.com/reservation/bookmark/#page=1<cr>
+map \'n :tabopen https://www.rarejob.com/dna/<cr>
+map \'l :tabopen http://www.lumosity.com/app/v4/dashboard<cr>
+map \'t :tabopen https://www.youtube.com/watch?v=okshAFHVtL8<cr>
+map \'h :tabopen https://dashboard.heroku.com/apps<cr>
+map \'jg :tabopen https://github.com/joyz-inc<cr>
+map \'jq :tabopen https://joyz.quip.com/<cr>
+map \'js :tabopen https://joyz.slack.com/<cr>
+map \'ja :tabopen https://app.asana.com/<cr>
+map \'jd :tabopen https://tt-develop.herokuapp.com/admin/<cr>
+map \'f :tabopen file:///home/shinsuke<cr>
+map \'b :tabopen file:///home/shinsuke/doc/books<cr>
+map \'d :tabopen file:///home/shinsuke/downloads<cr>
+map \'p :emenu Edit.Preferences<cr>
+
+inoremap <c-f> <right>
+inoremap <c-b> <left>
+cnoremap <c-f> <right>
+cnoremap <c-b> <left>
+cnoremap <c-p> <up>
+cnoremap <c-n> <down>
+inoremap <c-p> <up>
+inoremap <c-n> <down>
+
+hi Hint background: #eee; color: #666; letter-spacing: 1px; font-size: 16px; padding-left: 5px; padding-right: 5px; border-radius: 5px; border: 2px solid #666;
+hi HintElem opacity: 1;
+hi HintActive background: #eee;
+hi Normal background: #fff; color: #666;
+hi CmdLine background: #eee; color: #666; font-size: 12pt;
+hi CmdTitle background: #eee; color: #666; font-weight: bold; padding: 2px;
+hi CmdDesc background: #fff; color: #666;
+hi CmdDesc[selected] background: #ddd; color: #666;
+hi CmdMsg background: #fff; color: #999;
+hi CompDesc background: fff; color: #666;
+hi CompTitle background: #eee; color: #666; padding: 2px;
+hi CompGroup background: #fff; color: #666;
+hi CompItem background: #fff; color: #666;
+hi CompItem[selected] background: #eee; color: #666;
+hi ErrorMsg background: #fff; color: #f00;
+hi Filter background: #fff; color: #666;

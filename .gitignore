@@ -1,0 +1,55 @@
+/.Xauthority
+/.Xclients
+/.backup/
+/.bash_logout
+/.bash_profile
+/.bashrc
+/.cache/
+/.dmenurc
+/.dmrc
+/.elinks/
+/.esd_auth
+/.extend.bashrc
+/.ff-theme-util_1strun
+/.fonts/
+/.gimp-2.8/
+/.gnupg/
+/.gtkrc-2.0
+/.icons/
+/.lesshst
+/.local/
+/.moc/
+/.moonchild productions/
+/.mozc/
+/.mozilla/
+/.mycli-history
+/.mycli.log
+/.mysql_history
+/.node_repl_history
+/.oh-my-zsh/
+/.pylint.d/
+/.python_history
+/.vim/
+/.viminfo
+/.vimperator/
+/.virtualenvs/
+/.wget-hsts
+/.xsession-errors
+/.xsession-errors.old
+/.yarn/
+/.z
+/.zhistory
+/.zompdump*
+/.zsh_history
+/devel/
+/dl/
+
+# .config
+.config/somefiles
+
+# .ipython
+.ipython/profile_default/startup/README
+
+# other common ignored files
+__pycache__
+*.sqlite

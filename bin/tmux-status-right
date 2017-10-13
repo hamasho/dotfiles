@@ -1,0 +1,33 @@
+#!/bin/zsh
+
+# For light color
+# fg_color=colour014
+# bg_color=colour007
+# For dark color
+fg_color=colour007
+bg_color=colour000
+space_bg_color=$bg_color
+
+mydate() {
+    date '+%Y/%m/%d %a %H:%M'
+}
+
+myuptime() {
+    uptime|grep -o 'up [^,]*'
+}
+
+mybattery() {
+    echo -n 'battery: '
+    upower -i /org/freedesktop/UPower/devices/battery_BAT0 | \
+        grep percentage | egrep -o '[0-9]*%'
+    upower -i /org/freedesktop/UPower/devices/battery_BAT0 | \
+        grep 'time to empty' | sed 's/^ *time to empty: *//'
+}
+
+display_commands=(myuptime mydate)
+
+for com in $display_commands; do
+    echo -n "#[fg=${fg_color},bg=${bg_color},bold]["
+    echo -n `${com}`
+    echo -n "]#[bg=${space_bg_color}] "
+done
