@@ -1,3 +1,4 @@
+### ignored files
 /.Xauthority
 /.Xclients
 /.backup/
@@ -44,12 +45,27 @@
 /devel/
 /dl/
 
-# .config
-.config/somefiles
+### .config
+# used by some node packages to store temporary data
+.config/configstore/
+# GUI related files
+.config/dconf/
+.config/dmenu-recent/
+.config/gconf/
+.config/gtk-3.0/
+.config/Mousepad/
+# sound system
+.config/pulse
+.config/volumeicon/
+# dont use because I use firefox
+.config/epdfview/
+# yarn data
+.config/yarn
 
+### other ignored files
 # .ipython
 .ipython/profile_default/startup/README
 
-# other common ignored files
+### common ignored files
 __pycache__
 *.sqlite
