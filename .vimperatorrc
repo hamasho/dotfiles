@@ -1,6 +1,6 @@
 " vim: set filetype=vim :
 
-set cpt=ls
+set cpt=tlsS
 set focuscontent
 set gui=none
 set gui=tabs
@@ -52,19 +52,20 @@ cnoremap <c-n> <down>
 inoremap <c-p> <up>
 inoremap <c-n> <down>
 
+colorscheme darkness
 hi Hint background: #eee; color: #666; letter-spacing: 1px; font-size: 16px; padding-left: 5px; padding-right: 5px; border-radius: 5px; border: 2px solid #666;
 hi HintElem opacity: 1;
 hi HintActive background: #eee;
-hi Normal background: #fff; color: #666;
-hi CmdLine background: #eee; color: #666; font-size: 12pt;
-hi CmdTitle background: #eee; color: #666; font-weight: bold; padding: 2px;
-hi CmdDesc background: #fff; color: #666;
-hi CmdDesc[selected] background: #ddd; color: #666;
-hi CmdMsg background: #fff; color: #999;
-hi CompDesc background: fff; color: #666;
-hi CompTitle background: #eee; color: #666; padding: 2px;
-hi CompGroup background: #fff; color: #666;
-hi CompItem background: #fff; color: #666;
-hi CompItem[selected] background: #eee; color: #666;
-hi ErrorMsg background: #fff; color: #f00;
-hi Filter background: #fff; color: #666;
+" hi Normal background: #fff; color: #666;
+" hi CmdLine background: #eee; color: #666; font-size: 12pt;
+" hi CmdTitle background: #eee; color: #666; font-weight: bold; padding: 2px;
+" hi CmdDesc background: #fff; color: #666;
+" hi CmdDesc[selected] background: #ddd; color: #666;
+" hi CmdMsg background: #fff; color: #999;
+" hi CompDesc background: fff; color: #666;
+" hi CompTitle background: #eee; color: #666; padding: 2px;
+" hi CompGroup background: #fff; color: #666;
+" hi CompItem background: #fff; color: #666;
+" hi CompItem[selected] background: #eee; color: #666;
+" hi ErrorMsg background: #fff; color: #f00;
+" hi Filter background: #fff; color: #666;
