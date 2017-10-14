@@ -29,6 +29,7 @@
 /.oh-my-zsh/
 /.pylint.d/
 /.python_history
+/.swp
 /.thumbnails/
 /.vim/
 /.viminfo
@@ -38,6 +39,7 @@
 /.xsession-errors
 /.xsession-errors.old
 /.yarn/
+/.yarnrc
 /.z
 /.zhistory
 /.zompdump*
