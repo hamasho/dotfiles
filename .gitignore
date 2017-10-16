@@ -42,7 +42,7 @@
 /.yarnrc
 /.z
 /.zhistory
-/.zompdump*
+/.zcompdump*
 /.zsh_history
 /devel/
 /dl/
