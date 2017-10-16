@@ -26,11 +26,14 @@
 /.mycli.log
 /.mysql_history
 /.node_repl_history
+/.npm/
 /.oh-my-zsh/
 /.pylint.d/
 /.python_history
 /.swp
 /.thumbnails/
+/.tig_history
+/.vboxclient-*
 /.vim/
 /.viminfo
 /.vimperator/
@@ -46,6 +49,7 @@
 /.zsh_history
 /devel/
 /dl/
+/works/
 
 ### .config
 # used by some node packages to store temporary data

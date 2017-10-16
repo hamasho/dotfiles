@@ -18,6 +18,8 @@ nnoremap <c-g> g<c-g>
 nnoremap <c-q> :noh<cr>
 nnoremap ; :
 vnoremap ; :
+nnoremap : ;
+vnoremap : ;
 nnoremap s ;
 vnoremap <c-e> $
 vnoremap V <esc><esc><esc>
@@ -71,3 +73,5 @@ hi HintActive background: #eee;
 " hi CompItem[selected] background: #eee; color: #666;
 " hi ErrorMsg background: #fff; color: #f00;
 " hi Filter background: #fff; color: #666;
+
+source .vimperatorrc.local
