@@ -112,7 +112,7 @@ export LC_ALL="en_US.UTF-8"
 # export PATH=${HOME}/lib/npm_modules/bin:$PATH
 export PATH=${HOME}/.config/yarn/global/node_modules/.bin:$PATH
 
-alias -g L=less
+alias -g L=' | less'
 alias -g H='--help | less'
 alias v=vim
 alias ag="ag --color-match='1;32' --color-line-number='2;35;1' --color-path='1;31' --pager 'less -XF'"
