@@ -32,7 +32,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git python web-search tmux vi-mode zsh-completions zsh-syntax-highlighting)
+plugins=(git python web-search tmux vi-mode zsh-completions zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search)
 
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -161,3 +161,5 @@ fi
 [[ -e ~/.zshrc.private ]] && . ~/.zshrc.private
 [[ -e ~/.zshrc.play ]]    && . ~/.zshrc.play
 [[ -e ~/.shell-utility ]] && . ~/.shell-utility
+
+true
