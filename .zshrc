@@ -153,6 +153,7 @@ if hash virtualenvwrapper_lazy.sh 2>&1; then
     export VIRTUALENVWRAPPER_PYTHON=`which python`
     export VIRTUALENVWRAPPER_VIRTUALENV=`which virtualenv`
     export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+    export VIRTUAL_ENV_DISABLE_PROMPT=1
     . `which virtualenvwrapper_lazy.sh`
 fi
 
