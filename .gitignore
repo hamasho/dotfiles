@@ -36,6 +36,7 @@
 /.swp
 /.thumbnails/
 /.tig_history
+/.uim.d/customs/*
 /.vboxclient-*
 /.vim/
 /.viminfo
@@ -85,3 +86,5 @@ __pycache__
 
 ### reset ignore
 !/.vimperator/plugin
+!/.uim.d/customs/custom-global-*
+!/.uim.d/customs/custom-google-*
