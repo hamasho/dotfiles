@@ -1,4 +1,4 @@
-# vim: set ft=zsh
+# vim: ft=zsh
 
 SYMBOL_BAD="✘"
 RPROMPT_DEFAULT_COLOR="$fg[white]"
@@ -35,7 +35,7 @@ prompt_git_status() {
 
 prompt_pwd() {
     prompt_segment
-    echo -n $(pwd | sed "s@$HOME@~@")
+    echo -n $(shortest_path_display "$PWD")
 }
 
 build_prompt() {

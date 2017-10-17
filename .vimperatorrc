@@ -36,12 +36,6 @@ map \'r :tabopen https://www.rarejob.com/reservation/bookmark/#page=1<cr>
 map \'n :tabopen https://www.rarejob.com/dna/<cr>
 map \'l :tabopen http://www.lumosity.com/app/v4/dashboard<cr>
 map \'t :tabopen https://www.youtube.com/watch?v=okshAFHVtL8<cr>
-map \'h :tabopen https://dashboard.heroku.com/apps<cr>
-map \'jg :tabopen https://github.com/joyz-inc<cr>
-map \'jq :tabopen https://joyz.quip.com/<cr>
-map \'js :tabopen https://joyz.slack.com/<cr>
-map \'ja :tabopen https://app.asana.com/<cr>
-map \'jd :tabopen https://tt-develop.herokuapp.com/admin/<cr>
 map \'f :tabopen file:///home/shinsuke<cr>
 map \'b :tabopen file:///home/shinsuke/doc/books<cr>
 map \'d :tabopen file:///home/shinsuke/downloads<cr>

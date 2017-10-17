@@ -144,6 +144,7 @@ alias pm='python3 manage.py'
 alias tk='task project:endojo'
 alias ca='calcurse'
 alias itree='tree -I ".git|node_modules|__pycache__"'
+alias http='http --style=rrt'
 hash thefuck 2> /dev/null && eval $(thefuck --alias)
 # eval $(dircolors ~/.dircolors.solarized.light)
 

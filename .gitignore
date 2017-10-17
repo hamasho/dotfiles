@@ -11,8 +11,10 @@
 /.elinks/
 /.esd_auth
 /.extend.bashrc
+/.extend.xinitrc
 /.ff-theme-util_1strun
 /.fonts/
+/.gem/
 /.gimp-2.8/
 /.gnupg/
 /.gtkrc-2.0
@@ -20,6 +22,7 @@
 /.lesshst
 /.local/
 /.moc/
+/.moonchild\ productions/
 /.mozc/
 /.mozilla/
 /.mycli-history
@@ -39,6 +42,7 @@
 /.vimperator/*
 /.virtualenvs/
 /.wget-hsts
+/.xinitrc
 /.xsession-errors
 /.xsession-errors.old
 /.yarn/
@@ -50,6 +54,9 @@
 /devel/
 /dl/
 /works/
+
+### local files
+/.vimperatorrc.local
 
 ### .config
 # used by some node packages to store temporary data
