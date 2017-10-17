@@ -36,7 +36,7 @@
 /.vboxclient-*
 /.vim/
 /.viminfo
-/.vimperator/
+/.vimperator/*
 /.virtualenvs/
 /.wget-hsts
 /.xsession-errors
@@ -75,3 +75,6 @@
 ### common ignored files
 __pycache__
 *.sqlite
+
+### reset ignore
+!/.vimperator/plugin
