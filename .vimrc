@@ -92,7 +92,7 @@ nnoremap <leader>n :e .<cr>
 
 " CtrlP
 Plugin 'ctrlpvim/ctrlp.vim'
-let g:ctrlp_working_path_mode = 'ar'
+let g:ctrlp_working_path_mode = 'a'
 let g:ctrlp_custom_ignore = '\v[\/]node_modules$'
 nnoremap <leader>p :CtrlPBuffer<cr>
 nnoremap <leader><leader>p :CtrlPMRU<cr>

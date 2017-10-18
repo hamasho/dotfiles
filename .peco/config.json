@@ -1,0 +1,16 @@
+{
+  "Prompt": "-->",
+  "InitialFilter": "SmartCase",
+  "Keymap": {
+    "C-j": "peco.SelectDown",
+    "C-k": "peco.SelectUp",
+    "C-f": "peco.ScrollPageDown",
+    "C-b": "peco.ScrollPageUp",
+    "C-v": "peco.ToggleRangeMode"
+  },
+  "Style": {
+    "Matched": ["bold"],
+    "Selected": ["bold", "on_black", "white"],
+    "SavedSelection": ["on_white"]
+  }
+}

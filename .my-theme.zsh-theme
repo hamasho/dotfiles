@@ -49,6 +49,7 @@ build_prompt() {
 }
 
 build_rprompt() {
+    [[ $PWD =~ $HOME/works/osx_works ]] && return
     prompt_virtualenv
     prompt_git_status
     prompt_pwd

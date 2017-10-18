@@ -111,9 +111,19 @@ export LC_ALL="en_US.UTF-8"
 # export NODE_PATH=${HOME}/lib/npm_modules/lib/node_modules
 # export PATH=${HOME}/lib/npm_modules/bin:$PATH
 export PATH=${HOME}/.config/yarn/global/node_modules/.bin:$PATH
+export PATH=${HOME}/.gem/ruby/2.4.0/bin:$PATH
 
 alias -g L=' | less'
 alias -g H='--help | less'
+alias -g V='--version'
+alias -g C='--color=always | less'
+alias -g W='| w3m -T text/html'
+
+alias gll='git log --no-color --graph --pretty="%h - %d %s (%cr) <%an>"'
+alias -g BR='$(git branch | peco | sed "s/\*//")'
+alias -g CMT='$(gll | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
+alias -g BCMT='$(gll BR | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
+
 alias v=vim
 alias ag="ag --color-match='1;32' --color-line-number='2;35;1' --color-path='1;31' --pager 'less -XF'"
 alias .z='source ~/.zshrc'
