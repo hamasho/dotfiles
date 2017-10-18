@@ -154,6 +154,9 @@ let g:UltiSnipsExpandTrigger       = "<tab>"
 let g:UltiSnipsJumpForwardTrigger  = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
+" Complete source
+Plugin 'maralla/completor.vim'
+
 " Async syntax checker
 Plugin 'w0rp/ale'
 
