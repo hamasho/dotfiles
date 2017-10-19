@@ -100,6 +100,9 @@ nnoremap <leader><leader>p :CtrlPMRU<cr>
 " Fzf
 Plugin 'junegunn/fzf'
 
+" Async grep
+Plugin 'ramele/agrep'
+
 " Open browser easily
 Plugin 'tyru/open-browser.vim'
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
