@@ -1,10 +1,10 @@
 # vim: ft=zsh
 
 SYMBOL_BAD="✘"
-RPROMPT_DEFAULT_COLOR="$fg[white]"
+RPROMPT_DEFAULT_COLOR="$fg[default]"
 
 prompt_separator() {
-    echo -n "%{$fg[white]%}│%{$reset_color%}%{$RPROMPT_DEFAULT_COLOR%}"
+    echo -n "%{$fg[default]%}│%{$reset_color%}%{$RPROMPT_DEFAULT_COLOR%}"
 }
 
 prompt_segment() {

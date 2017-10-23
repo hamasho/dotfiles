@@ -58,8 +58,7 @@ set foldenable
 set foldlevelstart=10   " open most folds by default
 set foldmethod=syntax
 set shortmess=atIT
-"set showtabline=2
-"set statusline=%t\ %m\ %y\ %r%=[%{&encoding}\ %{&fileformat}\ %{strlen(&ft)?&ft:'none'}\ %{getfperm(@%)}]\ %12.(%c:%l/%L%)\ \(%p%%)
+set showtabline=1
 set ttyfast
 set history=2000
 set switchbuf=useopen
@@ -72,18 +71,34 @@ let mapleader = ","
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+""" Appearance
+
 " Let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-""" Misc
-
-" Powerline
-Plugin 'Lokaltog/vim-powerline'
-let g:Powerline_symbols = 'unicode'
-let g:Powerline_stl_path_style = 'short'
+" Nice status & tab line
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+" powerline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = '☰'
+let g:airline_symbols.maxlinenr = ''
 
 " Colors
 Plugin 'flazz/vim-colorschemes'
+
+" Pretty file type icons
+Plugin 'ryanoasis/vim-devicons'
+
+""" Misc
 
 " NERDTree
 Plugin 'scrooloose/nerdtree'
@@ -94,14 +109,7 @@ nnoremap <leader>n :e .<cr>
 Plugin 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_working_path_mode = 'a'
 let g:ctrlp_custom_ignore = '\v[\/]node_modules$'
-nnoremap <leader>p :CtrlPBuffer<cr>
-nnoremap <leader><leader>p :CtrlPMRU<cr>
-
-" Fzf
-Plugin 'junegunn/fzf'
-
-" Async grep
-Plugin 'ramele/agrep'
+let g:ctrlp_extensions = ['tag']
 
 " Open browser easily
 Plugin 'tyru/open-browser.vim'
@@ -144,11 +152,21 @@ Plugin 'vim-scripts/tComment'
 " Automatic closing
 Plugin 'jiangmiao/auto-pairs'
 
+" Indentation level selecting
+Plugin 'michaeljsmith/vim-indent-object'
+
 """ Coding
 
-" Code tag
+" Code tags in page
 Plugin 'majutsushi/tagbar'
-nmap <leader>t :TagbarToggle<CR>
+nnoremap <leader>t :TagbarToggle<cr>
+
+" Automatic update ctags
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
+
+" Easy tag navigation
+Plugin 'devjoe/vim-codequery'
 
 " Ultimate snippets
 Plugin 'SirVer/ultisnips'
@@ -158,7 +176,7 @@ let g:UltiSnipsJumpForwardTrigger  = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " Complete source
-Plugin 'maralla/completor.vim'
+" Plugin 'maralla/completor.vim'
 
 " Async syntax checker
 Plugin 'w0rp/ale'
@@ -187,10 +205,10 @@ augroup MarkDown
 augroup END
 
 " Python
-Plugin 'klen/python-mode'
-let g:pymode_options_max_line_length = 80
-let g:pymode_rope = 0
-let g:pymode_lint = 0
+" Plugin 'klen/python-mode'
+" let g:pymode_options_max_line_length = 80
+" let g:pymode_rope = 0
+" let g:pymode_lint = 0
 
 " Jinja2
 Plugin 'Glench/Vim-Jinja2-Syntax'
@@ -287,6 +305,7 @@ augroup END
 augroup ApplyAll
     au!
     au BufRead * setlocal breakindent breakindentopt=shift:2
+    au BufReadPost * if line("'\"'") > 0 && line("'\"'") <= line("$") | exe "normal! g'\"" | endif
     au BufNewFile * setlocal breakindent breakindentopt=shift:2
 augroup END
 
@@ -297,5 +316,6 @@ set background=dark
 colorscheme gruvbox
 hi Normal ctermbg=NONE
 syn match Braces display '[{}()\[\]]'
+let g:airline_theme = 'zenburn'
 
 filetype indent plugin on
