@@ -52,6 +52,7 @@
 /.zhistory
 /.zcompdump*
 /.zsh_history
+/.zsh-update
 /devel/
 /dl/
 /works/

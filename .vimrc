@@ -210,8 +210,18 @@ augroup END
 " let g:pymode_rope = 0
 " let g:pymode_lint = 0
 
+Plugin 'Vimjas/vim-python-pep8-indent'
+
 " Jinja2
-Plugin 'Glench/Vim-Jinja2-Syntax'
+" Plugin 'Glench/Vim-Jinja2-Syntax'
+Plugin 'lepture/vim-jinja'
+augroup Jinja
+    au!
+    au FileType jinja
+      \ setlocal softtabstop=2 |
+      \ setlocal tabstop=2     |
+      \ setlocal shiftwidth=2
+augroup END
 
 call vundle#end()
 
@@ -225,6 +235,7 @@ augroup LoadOnce
     " Auto reload .vimrc after saving
     au BufWritePost .vimrc :source ~/.vimrc
     au BufReadPost .vimrc :set foldmethod=marker
+    au BufNewFile,BufRead *.html set ft=jinja
 augroup END
 
 " Frequently editing files {{{1
@@ -275,7 +286,6 @@ augroup END
 " Python {{{2
 augroup PYTHON
     au!
-    au FileType htmldjango setlocal foldmethod=indent shiftwidth=2 tabstop=2 softtabstop=2
     au BufRead *.py setlocal foldmethod=indent
     au BufNewFile *.py setlocal foldmethod=indent
 augroup END

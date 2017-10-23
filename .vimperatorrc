@@ -25,8 +25,11 @@ vnoremap <c-e> $
 vnoremap V <esc><esc><esc>
 nnoremap <leader>r :source ~/.vimperatorrc<cr>:echo "Reload .vimperatorrc"<cr>
 nnoremap <leader>h :set gui=none<cr>
-nnoremap <leader>s :set gui=navigation<cr>
+
 nnoremap <leader>t :set gui=tabs<cr>
+nnoremap <leader>T :set gui=notabs<cr>
+nnoremap <leader>n :set gui=navigation<cr>
+nnoremap <leader>N :set gui=nonavigation<cr>
 nnoremap <leader>b :set slv=visible<cr>
 nnoremap <leader>B :set slv=hidden<cr>
 
