@@ -103,6 +103,7 @@ alias -g CMT='$(gll | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
 alias -g BCMT='$(gll BR | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
 
 alias ag="ag --color-match='1;32' --color-line-number='2;35;1' --color-path='1;31' --pager less"
+alias gdiff='git diff --no-index'
 alias .z='source ~/.zshrc'
 alias glances='glances --process-short-name --byte'
 alias open='2>/dev/null xdg-open'
