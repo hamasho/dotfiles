@@ -79,7 +79,7 @@ set $down j
 set $up k
 set $right l
 
-# focus_follows_mouse no
+focus_follows_mouse no
 
 # change focus
 bindsym $mod+$left focus left

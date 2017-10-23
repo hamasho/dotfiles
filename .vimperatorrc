@@ -33,17 +33,17 @@ nnoremap <leader>N :set gui=nonavigation<cr>
 nnoremap <leader>b :set slv=visible<cr>
 nnoremap <leader>B :set slv=hidden<cr>
 
-map \'g :tabopen https://github.com/<cr>
-map \'m :tabopen https://mail.google.com/mail/u/0/#inbox<cr>
-map \'a :tabopen https://us-west-2.console.aws.amazon.com/console/home?region=us-west-2#<cr>
-map \'r :tabopen https://www.rarejob.com/reservation/bookmark/#page=1<cr>
-map \'n :tabopen https://www.rarejob.com/dna/<cr>
-map \'l :tabopen http://www.lumosity.com/app/v4/dashboard<cr>
-map \'t :tabopen https://www.youtube.com/watch?v=okshAFHVtL8<cr>
-map \'f :tabopen file:///home/shinsuke<cr>
-map \'b :tabopen file:///home/shinsuke/doc/books<cr>
-map \'d :tabopen file:///home/shinsuke/downloads<cr>
-map \'p :emenu Edit.Preferences<cr>
+nnoremap \'g :tabopen https://github.com/<cr>
+nnoremap \'m :tabopen https://mail.google.com/mail/u/0/#inbox<cr>
+nnoremap \'a :tabopen https://us-west-2.console.aws.amazon.com/console/home?region=us-west-2#<cr>
+nnoremap \'r :tabopen https://www.rarejob.com/reservation/bookmark/#page=1<cr>
+nnoremap \'n :tabopen https://www.rarejob.com/dna/<cr>
+nnoremap \'l :tabopen http://www.lumosity.com/app/v4/dashboard<cr>
+nnoremap \'t :tabopen https://www.youtube.com/watch?v=okshAFHVtL8<cr>
+nnoremap \'f :tabopen file:///home/shinsuke<cr>
+nnoremap \'b :tabopen file:///home/shinsuke/doc/books<cr>
+nnoremap \'d :tabopen file:///home/shinsuke/downloads<cr>
+nnoremap \'p :emenu Edit.Preferences<cr>
 
 inoremap <c-f> <right>
 inoremap <c-b> <left>
