@@ -130,6 +130,7 @@ Plugin 'tpope/tpope-vim-abolish'
 
 " Async search
 Plugin 'mhinz/vim-grepper'
+nnoremap <leader>g :Grepper<cr>
 
 " Git helper
 Plugin 'tpope/vim-fugitive'
