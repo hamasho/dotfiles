@@ -1,2 +1,2 @@
 [MESSAGE CONTROL]
-disable = invalid-name,missing-docstring,global-statement
+disable = invalid-name,missing-docstring,global-statement,relative-beyond-top-level
