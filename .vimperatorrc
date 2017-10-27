@@ -54,18 +54,62 @@ cnoremap <c-n> <down>
 inoremap <c-p> <up>
 inoremap <c-n> <down>
 
-colorscheme darkness
-hi Hint background: #eee; color: #666; letter-spacing: 1px; font-size: 16px; padding-left: 5px; padding-right: 5px; border-radius: 5px; border: 2px solid #666;
+let g:my_color_dark1 = '#012345'
+let g:my_color_dark2 = '#123456'
+let g:my_color_dark3 = '#234567'
+let g:my_color_dark4 = '#345678'
+let g:my_color_dark5 = '#456789'
+let g:my_color_light1 = '#a0adbb'
+
+" firefox devtools dark theme
+" https://developer.mozilla.org/en-US/docs/Tools/DevToolsColors
+"
+" tab-toolbar: #252c33
+" toolbar: #343c45
+" selection-background: #1d4f73
+" selection-text: #f5f7fa
+" splitters: #000000
+" comment: #5c6773
+"
+" background-body: #14171a
+" background-sidebar: #181d20
+" background-attention: #b28025
+"
+" body-text: #8fa1b2
+" foreground-text-grey: #b6babf
+" content-text-high-contrast: #a9bacb
+" content-text-grey: #8fa1b2
+" content-text-dark-grey: #667380
+"
+" blue: #46afe3
+" purple: #6b7abb
+" pink: #df80ff
+" red: #eb5368
+" orange: #d96629
+" light-orange: #d99b28
+" green: #70bf53
+" blue: #5e88b0
+" yellow: #ffffb4
+
+hi Hint background: #eee; color: #666; letter-spacing: 1px; font-size: 16px; padding-left: 3px; padding-right: 3px; border-radius: 3px; border: 1px solid #666;
 hi HintElem opacity: 1;
-hi HintActive background: #eee;
-" hi Normal background: #fff; color: #666;
-" hi CmdLine background: #eee; color: #666; font-size: 12pt;
+hi HintActive background: #000; color: #fff; font-weight: bold;
+
+hi Normal background: #343c45; color: #8fa1b2;
+hi CmdLine background: #343c45; color: #8fa1b2;
+hi CompTitle background: #181d20; color: #8fa1b2; padding: 2px;
+hi CompTitle background: #343c45; color: #8fa1b2; font: sans-serif;
+hi CompItem background: #343c45; color: #8fa1b2;
+hi Filter background: #343c45; color: #8fa1b2; font-weight: bold;
+hi CompItem[selected] background: #5c6773; color: #8fa1b2; font-weight: bold;
+hi CompDesc background: #343c45; color: #8fa1b2;
+hi CompDesc[selected] background: #5c6773; color: #8fa1b2; font-weight: bold;
+
+
 " hi CmdTitle background: #eee; color: #666; font-weight: bold; padding: 2px;
 " hi CmdDesc background: #fff; color: #666;
 " hi CmdDesc[selected] background: #ddd; color: #666;
 " hi CmdMsg background: #fff; color: #999;
-" hi CompDesc background: fff; color: #666;
-" hi CompTitle background: #eee; color: #666; padding: 2px;
 " hi CompGroup background: #fff; color: #666;
 " hi CompItem background: #fff; color: #666;
 " hi CompItem[selected] background: #eee; color: #666;

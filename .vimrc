@@ -273,6 +273,7 @@ cnoremap <c-p> <up>
 cnoremap <c-f> <right>
 cnoremap <c-b> <left>
 cnoremap <c-h> <delete>
+cnoremap <c-a> <home>
 
 command! Q :mksession! | qa
 
