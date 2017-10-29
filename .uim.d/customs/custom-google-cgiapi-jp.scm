@@ -3,7 +3,7 @@
 (define google-cgiapi-jp-use-candidate-window? #t)
 (define google-cgiapi-jp-candidate-op-count 1)
 (define google-cgiapi-jp-nr-candidate-max 10)
-(define google-cgiapi-jp-select-candidate-by-numeral-key? #f)
+(define google-cgiapi-jp-select-candidate-by-numeral-key? #t)
 (define google-cgiapi-jp-widgets '(widget_google-cgiapi-jp_input_mode widget_google-cgiapi-jp_kana_input_method))
 (define default-widget_google-cgiapi-jp_input_mode 'action_google-cgiapi-jp_direct)
 (define google-cgiapi-jp-input-mode-actions '(action_google-cgiapi-jp_direct action_google-cgiapi-jp_hiragana action_google-cgiapi-jp_katakana action_google-cgiapi-jp_halfkana action_google-cgiapi-jp_halfwidth_alnum action_google-cgiapi-jp_fullwidth_alnum))

@@ -5,6 +5,7 @@
 /.bash_logout
 /.bash_profile
 /.bashrc
+/.bin/
 /.cache/
 /.dmenurc
 /.dmrc
@@ -62,19 +63,25 @@
 /.vimperatorrc.local
 
 ### .config
+
 # used by some node packages to store temporary data
 .config/configstore/
+
 # GUI related files
 .config/dconf/
 .config/dmenu-recent/
 .config/gconf/
 .config/gtk-3.0/
 .config/Mousepad/
+.config/qt5ct/
+
 # sound system
 .config/pulse
 .config/volumeicon/
+
 # dont use because I use firefox
 .config/epdfview/
+
 # yarn data
 .config/yarn
 

@@ -75,7 +75,8 @@ export TERM=xterm-256color
 export GREP_COLORS="fn=0;33"
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
-export PATH=$HOME/bin:$PATH
+[[ -d $HOME/bin ]]  && export PATH=$HOME/bin:$PATH
+[[ -d $HOME/.bin ]] && export PATH=$HOME/.bin:$PATH
 export HISTSIZE=2500000
 export LESS="-iRXF -j5"
 export LANG="en_US.UTF-8"
@@ -91,16 +92,18 @@ export LC_ALL="en_US.UTF-8"
 export PATH=${HOME}/.config/yarn/global/node_modules/.bin:$PATH
 export PATH=${HOME}/.gem/ruby/2.4.0/bin:$PATH
 
-alias -g L=' | less'
-alias -g H='--help | less'
-alias -g V='--version'
 alias -g C='--color=always | less'
+alias -g H='--help | less'
+alias -g J=' | jq -S . | less'
+alias -g JC=' | jq -SC . | less'
+alias -g L=' | less'
+alias -g V='--version'
 alias -g W='| w3m -T text/html'
 
 alias gll='git log --no-color --graph --pretty="%h - %d %s (%cr) <%an>"'
 alias -g BR='$(git branch | peco | sed "s/\*//")'
-alias -g CMT='$(gll | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
 alias -g BCMT='$(gll BR | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
+alias -g CMT='$(gll | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
 
 alias ag="ag --color-match='1;32' --color-line-number='2;35;1' --color-path='1;31' --pager less"
 alias gdiff='git diff --color-words --no-index --word-diff-regex=. --color=always'

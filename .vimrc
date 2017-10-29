@@ -62,6 +62,7 @@ set showtabline=1
 set ttyfast
 set history=2000
 set switchbuf=useopen
+set t_Co=256
 
 " Change <leader> to ','
 let mapleader = ","
@@ -77,23 +78,20 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " Nice status & tab line
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-" powerline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.maxlinenr = ''
+Plugin 'itchyny/lightline.vim'
 
 " Colors
 Plugin 'flazz/vim-colorschemes'
+let g:lightline = {
+    \ 'colorscheme': 'jellybeans',
+    \ 'active': {
+    \     'left': [ [ 'mode', 'paste' ],
+    \               [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+    \ },
+    \ 'component_function': {
+    \     'gitbranch': 'fugitive#head'
+    \ },
+\ }
 
 " Pretty file type icons
 Plugin 'ryanoasis/vim-devicons'
@@ -323,11 +321,9 @@ augroup END
 
 " Set colors {{{1
 
-set t_Co=256
 set background=dark
 colorscheme gruvbox
 hi Normal ctermbg=NONE
 syn match Braces display '[{}()\[\]]'
-let g:airline_theme = 'zenburn'
 
 filetype indent plugin on
