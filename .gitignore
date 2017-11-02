@@ -61,6 +61,7 @@
 /.zsh-update
 /devel/
 /dl/
+/misc/
 /works/
 
 ### local files
@@ -78,6 +79,7 @@
 .config/gtk-3.0/
 .config/Mousepad/
 .config/qt5ct/
+.config/xfce4/
 
 # sound system
 .config/pulse
