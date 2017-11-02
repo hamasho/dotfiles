@@ -1,22 +1,20 @@
 #!/bin/zsh
 
-# For light color
-# fg_color=colour014
-# bg_color=colour007
 # For dark color
 fg_color=colour007
-bg_color=colour000
+# bg_color=colour000
+bg_color=colour235
 space_bg_color=$bg_color
 
-mydate() {
+uptime_info() {
+    uptime | grep -o 'up [^,]*'
+}
+
+date_info() {
     date '+%Y/%m/%d %a %H:%M'
 }
 
-myuptime() {
-    uptime|grep -o 'up [^,]*'
-}
-
-mybattery() {
+battery_info() {
     echo -n 'battery: '
     upower -i /org/freedesktop/UPower/devices/battery_BAT0 | \
         grep percentage | egrep -o '[0-9]*%'
@@ -24,10 +22,21 @@ mybattery() {
         grep 'time to empty' | sed 's/^ *time to empty: *//'
 }
 
+docker_info() {
+    echo -n 'docker: '
+    docker ps | tail +2 | awk '{ print $NF }' ORS=', ' | sed 's/, $//'
+}
+
+# print info and extra space
+print_info() {
+    echo -n "#[fg=${fg_color},bg=${bg_color}]["
+    echo -n $($1)
+    echo -n "]#[bg=${space_bg_color}] "
+}
+
 display_commands=(myuptime mydate)
 
-for com in $display_commands; do
-    echo -n "#[fg=${fg_color},bg=${bg_color}]["
-    echo -n `${com}`
-    echo -n "]#[bg=${space_bg_color}] "
-done
+print_info uptime_info
+print_info date_info
+# print_info battery_info
+systemctl status docker >/dev/null && print_info docker_info

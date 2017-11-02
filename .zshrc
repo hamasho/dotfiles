@@ -78,6 +78,7 @@ export VISUAL=/usr/bin/vim
 [[ -d $HOME/bin ]]  && export PATH=$HOME/bin:$PATH
 [[ -d $HOME/.bin ]] && export PATH=$HOME/.bin:$PATH
 export HISTSIZE=2500000
+export SAVEHIST=$HISTSIZE
 export LESS="-iRXF -j5"
 export LANG="en_US.UTF-8"
 export LC_COLLATE="en_US.UTF-8"
@@ -87,8 +88,8 @@ export LC_MONETARY="en_US.UTF-8"
 export LC_NUMERIC="en_US.UTF-8"
 export LC_TIME="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
-# export NODE_PATH=${HOME}/lib/npm_modules/lib/node_modules
-# export PATH=${HOME}/lib/npm_modules/bin:$PATH
+export NODE_PATH=${HOME}/.npm-global/lib/node_modules
+export PATH=${HOME}/.npm-global/bin:$PATH
 export PATH=${HOME}/.config/yarn/global/node_modules/.bin:$PATH
 export PATH=${HOME}/.gem/ruby/2.4.0/bin:$PATH
 
@@ -105,7 +106,7 @@ alias -g BR='$(git branch | peco | sed "s/\*//")'
 alias -g BCMT='$(gll BR | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
 alias -g CMT='$(gll | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
 
-alias ag="ag --color-match='1;32' --color-line-number='2;35;1' --color-path='1;31' --pager less"
+alias ag="ag --color-match='1;33' --color-line-number='2;34;1' --color-path='1;35' --pager less"
 alias gdiff='git diff --color-words --no-index --word-diff-regex=. --color=always'
 alias .z='source ~/.zshrc'
 alias glances='glances --process-short-name --byte'
@@ -116,8 +117,13 @@ alias ccat='pygmentize'
 alias ca='calcurse'
 alias itree='tree -I ".git|node_modules|__pycache__"'
 alias http='http --style=rrt'
-hash thefuck 2> /dev/null && eval $(thefuck --alias)
 # eval $(dircolors ~/.dircolors.solarized.light)
+
+vim-bin() {
+    touch $1
+    chmod +x $1
+    vim $1
+}
 
 if hash virtualenvwrapper_lazy.sh 2>&1; then
     export WORKON_HOME=$HOME/.virtualenvs

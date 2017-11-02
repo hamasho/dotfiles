@@ -1,4 +1,5 @@
 ### ignored files
+/.NERDTreeBookmarks
 /.Xauthority
 /.Xclients
 /.backup/
@@ -32,9 +33,11 @@
 /.mysql_history
 /.node_repl_history
 /.npm/
+/.npm-global/
 /.oh-my-zsh/
 /.pylint.d/
 /.python_history
+/.ssh/
 /.swp
 /.thumbnails/
 /.tig_history
@@ -43,6 +46,7 @@
 /.vim/
 /.viminfo
 /.vimperator/*
+/.vimtags
 /.virtualenvs/
 /.wget-hsts
 /.xinitrc

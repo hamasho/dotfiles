@@ -91,6 +91,10 @@ let g:lightline = {
     \ 'component_function': {
     \     'gitbranch': 'fugitive#head'
     \ },
+    \ 'tabline': {
+    \     'left': [ [ 'tabs' ] ],
+    \     'right': [ [ ] ],
+    \ },
 \ }
 
 " Pretty file type icons
@@ -263,6 +267,13 @@ nnoremap <c-c> :bp\|bd #<cr>
 nnoremap <c-e> $
 vnoremap <c-e> $h
 nnoremap <c-s> :w<cr>
+
+" Ritch key bindings in insert mode
+inoremap <c-f> <right>
+inoremap <c-b> <left>
+inoremap <c-h> <delete>
+inoremap <c-a> <home>
+inoremap <c-e> <end>
 inoremap <c-s> <esc>:w<cr>
 
 " Ritch key bindings in command mode
@@ -272,6 +283,7 @@ cnoremap <c-f> <right>
 cnoremap <c-b> <left>
 cnoremap <c-h> <delete>
 cnoremap <c-a> <home>
+cnoremap <c-e> <end>
 
 command! Q :mksession! | qa
 
@@ -309,6 +321,13 @@ augroup JS
     au!
     au BufRead *.js setlocal shiftwidth=2 tabstop=2 softtabstop=2
     au BufNewFile *.js setlocal shiftwidth=2 tabstop=2 softtabstop=2
+augroup END
+
+" YAML {{{2
+augroup YAML
+    au!
+    au BufRead *.yml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    au BufNewFile *.yml setlocal shiftwidth=2 tabstop=2 softtabstop=2
 augroup END
 
 " All files {{{2

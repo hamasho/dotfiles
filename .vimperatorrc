@@ -4,9 +4,9 @@ set cpt=tlsS
 set focuscontent
 set gui=none
 set gui=tabs
-set statuslinevisibility=hidden
 set hintchars="asdfghjkl;"
 set titlestring=""
+set editor="/home/hamasho/bin/terminal-vim"
 
 let mapleader = ","
 nnoremap j 3j
@@ -47,19 +47,14 @@ nnoremap \'p :emenu Edit.Preferences<cr>
 
 inoremap <c-f> <right>
 inoremap <c-b> <left>
+inoremap <c-p> <up>
+inoremap <c-n> <down>
+inoremap <c-s-a> <c-home><c-s-end>
+
 cnoremap <c-f> <right>
 cnoremap <c-b> <left>
 cnoremap <c-p> <up>
 cnoremap <c-n> <down>
-inoremap <c-p> <up>
-inoremap <c-n> <down>
-
-let g:my_color_dark1 = '#012345'
-let g:my_color_dark2 = '#123456'
-let g:my_color_dark3 = '#234567'
-let g:my_color_dark4 = '#345678'
-let g:my_color_dark5 = '#456789'
-let g:my_color_light1 = '#a0adbb'
 
 " firefox devtools dark theme
 " https://developer.mozilla.org/en-US/docs/Tools/DevToolsColors
@@ -91,11 +86,10 @@ let g:my_color_light1 = '#a0adbb'
 " blue: #5e88b0
 " yellow: #ffffb4
 
-hi Hint background: #eee; color: #666; letter-spacing: 1px; font-size: 16px; padding-left: 3px; padding-right: 3px; border-radius: 3px; border: 1px solid #666;
+hi Hint background: #eee; color: #666; letter-spacing: 1px; font-size: 16px; padding-left: 3px; padding-right: 3px; border-radius: 3px; border: 1px solid #666; word-break: normal;
 hi HintElem opacity: 1;
-hi HintActive background: #000; color: #fff; font-weight: bold;
+hi HintActive background: #eee; font-weight: bold; word-break: normal;
 
-hi Normal background: #343c45; color: #8fa1b2;
 hi CmdLine background: #343c45; color: #8fa1b2;
 hi CompTitle background: #343c45; color: #8fa1b2;
 hi CompTitle>* border-top: 1px solid #8fa1b2; border-bottom: 1px solid #8fa1b2; padding 1px; font-weight: bold;
@@ -104,5 +98,11 @@ hi CompItem[selected] background: #5c6773; color: #8fa1b2; font-weight: bold;
 hi Filter background: #343c45; color: #8fa1b2; font-weight: bold;
 hi CompDesc background: #343c45; color: #8fa1b2;
 hi CompDesc[selected] background: #5c6773; color: #8fa1b2; font-weight: bold;
+hi Title background: #343c45; color: #8fa1b2; font-weight: bold;
+
+hi Normal background: #343c45; color: #8fa1b2;
+hi InfoMsg background: #343c45; color: #8fa1b2;
+hi WarningMsg background #eb5368; color: #eb5368;
+hi ErrorMsg background #eb5368; color: #eb5368;
 
 source .vimperatorrc.local
