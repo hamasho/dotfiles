@@ -28,19 +28,14 @@
 /.moonchild\ productions/
 /.mozc/
 /.mozilla/
-/.mycli-history
 /.mycli.log
-/.mysql_history
-/.node_repl_history
 /.npm/
 /.npm-global/
 /.oh-my-zsh/
 /.pylint.d/
-/.python_history
 /.ssh/
 /.swp
 /.thumbnails/
-/.tig_history
 /.uim.d/customs/*
 /.vboxclient-*
 /.vim/
@@ -55,17 +50,20 @@
 /.yarn/
 /.yarnrc
 /.z
-/.zhistory
 /.zcompdump*
-/.zsh_history
 /.zsh-update
 /devel/
 /dl/
+/doc/
 /misc/
 /works/
 
 ### local files
 /.vimperatorrc.local
+/.zshrc.local
+
+### history
+/.*history
 
 ### .config
 

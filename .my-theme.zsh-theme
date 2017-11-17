@@ -54,6 +54,7 @@ build_rprompt() {
     prompt_git_status
     prompt_pwd
     prompt_segment
+    echo -n "%{$reset_color%}"
 }
 
 # PROMPT="%B%{$fg[cyan]%}%(4~|%-1~/.../%2~|%~)%u%b >%{$fg[cyan]%}>%B%(?.%{$fg[cyan]%}.%{$fg[red]%})>%{$reset_color%}%b " # Print some system information when the shell is first started
