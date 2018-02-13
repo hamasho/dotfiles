@@ -92,6 +92,7 @@ export NODE_PATH=${HOME}/.npm-global/lib/node_modules
 export PATH=${HOME}/.npm-global/bin:$PATH
 export PATH=${HOME}/.config/yarn/global/node_modules/.bin:$PATH
 export PATH=${HOME}/.gem/ruby/2.4.0/bin:$PATH
+export PATH=${HOME}/.local/bin:$PATH
 
 alias -g C='--color=always | less'
 alias -g H='--help | less'
@@ -115,7 +116,7 @@ alias fz='fzf --preview "pygmentize {} || cat {}"'
 alias fzl='fzf --preview "cat {}"'
 alias ccat='pygmentize'
 alias ca='calcurse'
-alias itree='tree -I ".git|node_modules|__pycache__"'
+alias tree='tree -I ".git|node_modules|__pycache__"'
 alias http='http --style=rrt'
 # eval $(dircolors ~/.dircolors.solarized.light)
 

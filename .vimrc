@@ -22,6 +22,7 @@ set smartcase
 set smarttab
 set hlsearch
 set incsearch
+set autoread
 " Allow backspacing over autoindent, line breaks and start of insert action
 set backspace=indent,eol,start
 set autoindent
@@ -187,9 +188,10 @@ Plugin 'w0rp/ale'
 " JasvScript
 Plugin 'pangloss/vim-javascript'
 let g:javascript_plugin_jsdoc = 1
-Plugin 'mxw/vim-jsx'
-let g:jsx_ext_required = 0
+let g:javascript_opfirst = 1
 Plugin 'ternjs/tern_for_vim'
+
+Plugin 'posva/vim-vue'
 
 " Emmet (Zen cording HTML)
 Plugin 'mattn/emmet-vim'
@@ -215,17 +217,6 @@ augroup END
 
 Plugin 'Vimjas/vim-python-pep8-indent'
 
-" Jinja2
-" Plugin 'Glench/Vim-Jinja2-Syntax'
-Plugin 'lepture/vim-jinja'
-augroup Jinja
-    au!
-    au FileType jinja
-      \ setlocal softtabstop=2 |
-      \ setlocal tabstop=2     |
-      \ setlocal shiftwidth=2
-augroup END
-
 call vundle#end()
 
 " Basic autocmd {{{1
@@ -239,6 +230,9 @@ augroup LoadOnce
     au BufWritePost .vimrc :source ~/.vimrc
     au BufReadPost .vimrc :set foldmethod=marker
     au BufNewFile,BufRead *.html set ft=jinja
+
+    " Check if file is edited outside vim
+    au CursorHold * checktime
 augroup END
 
 " Frequently editing files {{{1
@@ -295,6 +289,23 @@ augroup HTML
     au FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 augroup END
 
+" Pug {{{2
+Plugin 'digitaltoad/vim-pug'
+
+" Stylus {{{2
+Plugin 'wavded/vim-stylus'
+
+" Jinja2 {{{2
+" Plugin 'Glench/Vim-Jinja2-Syntax'
+Plugin 'lepture/vim-jinja'
+augroup Jinja
+    au!
+    au FileType jinja
+      \ setlocal softtabstop=2 |
+      \ setlocal tabstop=2     |
+      \ setlocal shiftwidth=2
+augroup END
+
 " Python {{{2
 augroup PYTHON
     au!
@@ -321,6 +332,12 @@ augroup JS
     au!
     au BufRead *.js setlocal shiftwidth=2 tabstop=2 softtabstop=2
     au BufNewFile *.js setlocal shiftwidth=2 tabstop=2 softtabstop=2
+augroup END
+
+augroup VUE
+    au!
+    au BufRead *.vue setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    au BufNewFile *.vue setlocal shiftwidth=2 tabstop=2 softtabstop=2
 augroup END
 
 " YAML {{{2
