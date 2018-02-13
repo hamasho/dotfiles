@@ -183,6 +183,8 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " Async syntax checker
 Plugin 'w0rp/ale'
+" Write this in your vimrc file
+let g:ale_lint_on_text_changed = 'never'
 
 " JasvScript
 Plugin 'pangloss/vim-javascript'

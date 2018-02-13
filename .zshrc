@@ -10,7 +10,7 @@ COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(git python web-search tmux vi-mode zsh-completions zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search)
+plugins=(git python web-search tmux vi-mode zsh-completions zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search zsh-peco-history)
 
 # initialize PATH
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
@@ -52,7 +52,6 @@ bindkey '^y' yank
 bindkey '^z' undo
 # Other keybinds
 bindkey '^o' accept-line-and-down-history
-bindkey '^r' history-incremental-search-backward
 bindkey '^d' delete-char-or-list
 bindkey '^t' history-search-backward
 bindkey '^s' history-search-forward
@@ -92,6 +91,7 @@ export NODE_PATH=${HOME}/.npm-global/lib/node_modules
 export PATH=${HOME}/.npm-global/bin:$PATH
 export PATH=${HOME}/.config/yarn/global/node_modules/.bin:$PATH
 export PATH=${HOME}/.gem/ruby/2.4.0/bin:$PATH
+export PATH=${HOME}/.local/bin:${PATH}
 
 alias -g C='--color=always | less'
 alias -g H='--help | less'
@@ -102,10 +102,6 @@ alias -g V='--version'
 alias -g W='| w3m -T text/html'
 
 alias gll='git log --no-color --graph --pretty="%h - %d %s (%cr) <%an>"'
-alias -g BR='$(git branch | peco | sed "s/\*//")'
-alias -g BCMT='$(gll BR | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
-alias -g CMT='$(gll | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
-
 alias ag="ag --color-match='1;33' --color-line-number='2;34;1' --color-path='1;35' --pager less"
 alias gdiff='git diff --color-words --no-index --word-diff-regex=. --color=always'
 alias .z='source ~/.zshrc'
@@ -117,6 +113,11 @@ alias ccat='pygmentize'
 alias ca='calcurse'
 alias itree='tree -I ".git|node_modules|__pycache__"'
 alias http='http --style=rrt'
+
+alias -g BR='$(git branch | peco | sed "s/\*//")'
+alias -g BCMT='$(gll BR | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
+alias -g CMT='$(gll | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
+
 # eval $(dircolors ~/.dircolors.solarized.light)
 
 vim-bin() {
