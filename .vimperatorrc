@@ -98,7 +98,7 @@ hi CompItem[selected] background: #5c6773; color: #8fa1b2; font-weight: bold;
 hi Filter background: #343c45; color: #8fa1b2; font-weight: bold;
 hi CompDesc background: #343c45; color: #8fa1b2;
 hi CompDesc[selected] background: #5c6773; color: #8fa1b2; font-weight: bold;
-hi Title background: #343c45; color: #8fa1b2; font-weight: bold;
+hi Title background: #343c45; color: #eb5368; font-weight: bold;
 
 hi Normal background: #343c45; color: #8fa1b2;
 hi InfoMsg background: #343c45; color: #8fa1b2;
