@@ -2,7 +2,9 @@
 const skColors = {
   bg: {
     normal: '#fbf1c7',
-    normal2: '#ebdbb2',
+    highContrast: '#f9f5d7',
+    normal0: '#fbf1c7',
+    normal1: '#ebdbb2',
     red: '#cc241d',
     green: '#98971a',
     yellow: '#d79921',
@@ -66,10 +68,14 @@ settings.theme = `
   color: ${skColors.fg.red};
 }
 .sk_theme ul>li:nth-child(odd) {
-  background: ${skColors.bg.normal2};
+  background: ${skColors.bg.normal1};
 }
 .sk_theme ul>li.focused {
   background: ${skColors.bg.gray};
+}
+#sk_status input {
+  color: ${skColors.fg.normal};
+  font-size: 1em;
 }
 #sk_hints>div {
   background: ${skColors.bg.normal};
