@@ -19,8 +19,25 @@ prompt_virtualenv() {
 
 prompt_git_status() {
     local git_status_color
+    local FILE=/tmp/.ignore_git_prompt_dirs
+    local dir
+    local start_time="$(date '+%s').$(date '+%N')"
+    local end_time total
+
+    if [[ -f $FILE ]]; then
+        while read dir; do
+            if [[ $PWD = $dir ]]; then
+                prompt_segment
+                echo -n "%{$fg[cyan]%}skip!"
+                return
+            fi
+        done < $FILE
+    fi
 
     if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1); then
+        # Dont show anything if cwd is git-ignored
+        git check-ignore --quiet . && return
+
         prompt_segment
 
         if [[ -n $(git status --porcelain --ignore-submodules) ]]; then
@@ -30,6 +47,12 @@ prompt_git_status() {
         fi
 
         echo -n "%{$git_status_color%}$(git_prompt_info)$(git_prompt_status)"
+    fi
+
+    end_time="$(date '+%s').$(date '+%N')"
+    total=$(echo $(( $end_time - $start_time )) | bc)
+    if (( $total > 0.3 )); then
+        echo $PWD >> $FILE
     fi
 }
 

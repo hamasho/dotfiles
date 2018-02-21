@@ -264,6 +264,9 @@ nnoremap <c-e> $
 vnoremap <c-e> $h
 nnoremap <c-s> :w<cr>
 
+nnoremap <c-n> "+y
+vnoremap <c-n> "+y
+
 " Ritch key bindings in insert mode
 inoremap <c-f> <right>
 inoremap <c-b> <left>
