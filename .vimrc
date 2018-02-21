@@ -87,7 +87,7 @@ let g:lightline = {
     \ 'colorscheme': 'jellybeans',
     \ 'active': {
     \     'left': [ [ 'mode', 'paste' ],
-    \               [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+    \               [ 'gitbranch', 'readonly', 'relativepath', 'modified' ] ]
     \ },
     \ 'component_function': {
     \     'gitbranch': 'fugitive#head'
@@ -165,9 +165,10 @@ Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'majutsushi/tagbar'
 nnoremap <leader>t :TagbarToggle<cr>
 
+" TODO: check vim-easytags slow down python files after first save
 " Automatic update ctags
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
+" Plugin 'xolox/vim-misc'
+" Plugin 'xolox/vim-easytags'
 
 " Easy tag navigation
 Plugin 'devjoe/vim-codequery'
@@ -184,8 +185,10 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " Async syntax checker
 Plugin 'w0rp/ale'
-" Write this in your vimrc file
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_linters = {
+\ 'python': ['pylint'],
+\}
 
 " JasvScript
 Plugin 'pangloss/vim-javascript'
