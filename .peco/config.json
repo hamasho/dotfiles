@@ -9,8 +9,8 @@
     "C-v": "peco.ToggleRangeMode"
   },
   "Style": {
-    "Matched": ["bold"],
-    "Selected": ["bold", "on_black", "white"],
+    "Matched": ["bold", "magenta"],
+    "Selected": ["bold", "on_black", "green"],
     "SavedSelection": ["on_white"]
   }
 }

@@ -10,7 +10,7 @@ COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(git python web-search tmux vi-mode zsh-completions zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search zsh-peco-history)
+plugins=(git python web-search tmux vi-mode zsh-completions zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search)
 
 # initialize PATH
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
@@ -107,16 +107,23 @@ alias gdiff='git diff --color-words --no-index --word-diff-regex=. --color=alway
 alias .z='source ~/.zshrc'
 alias glances='glances --process-short-name --byte'
 alias open='2>/dev/null xdg-open'
-alias fz='fzf --preview "pygmentize {} || cat {}"'
-alias fzl='fzf --preview "cat {}"'
 alias ccat='pygmentize'
 alias ca='calcurse'
 alias tree='tree -I ".git|node_modules|__pycache__"'
 alias http='http --style=rrt'
+alias gs='glances'
 
 alias -g BR='$(git branch | peco | sed "s/\*//")'
 alias -g BCMT='$(gll BR | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
 alias -g CMT='$(gll | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
+
+alias fzr='fzf --preview "cat {}"'
+alias fzc='fzf --preview "pygmentize {} 2>&1 || cat {}"'
+fzg() {
+    # colorize matched pattern
+    # usage: fzg PATTERN
+    fzf --preview "egrep --color=always '$1|' {}"
+}
 
 # eval $(dircolors ~/.dircolors.solarized.light)
 
@@ -132,6 +139,25 @@ if hash virtualenvwrapper_lazy.sh 2>&1; then
     export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
     export VIRTUAL_ENV_DISABLE_PROMPT=1
     . `which virtualenvwrapper_lazy.sh`
+fi
+
+# ZSH_PECO_HISTORY with UNIQ modification
+# https://github.com/jimeh/zsh-peco-history
+if which peco &> /dev/null; then
+  function peco_select_history() {
+    local tac
+    ((($+commands[gtac])) && tac="gtac") || \
+      (($+commands[tac])) && tac="tac" || \
+      tac="tail -r"
+    BUFFER=$(fc -l -n 1 | eval $tac | \
+        perl -ne 'print unless $seen{$_}++' | \
+        peco --layout=bottom-up --query "$LBUFFER")
+    CURSOR=$#BUFFER # move cursor
+    zle -R -c       # refresh
+  }
+
+  zle -N peco_select_history
+  bindkey '^R' peco_select_history
 fi
 
 [[ -e /usr/share/z/z.sh ]] && . /usr/share/z/z.sh
