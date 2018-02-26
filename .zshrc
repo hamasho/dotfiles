@@ -168,4 +168,26 @@ fi
 [[ -e /usr/share/z/z.sh ]] && . /usr/share/z/z.sh
 [[ -e ~/.zshrc.local ]] && . ~/.zshrc.local
 
+[[ -e ~/devel/forks/zsh-peco-history/zsh-peco-history.zsh ]] && . ~/devel/forks/zsh-peco-history/zsh-peco-history.zsh
+
+unalias z
+z() {
+    _z $1 2>&1
+    pwd
+}
+
+fast_pyg() {
+    [[ -z "$1" ]] && echo 'usage: fast_pyg FILENAME' && exit 1
+    local fpath="$1"
+    local fname="$(basename "$fpath")"
+    local ext="${fname##*.}"
+    local lexer
+    case $ext in
+        py) lexer=python ;;
+        js) lexer=javascript ;;
+        *) cat "$fpath" && return
+    esac
+    pygmentize -l $lexer
+}
+
 true
