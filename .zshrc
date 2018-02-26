@@ -102,7 +102,6 @@ alias -g V='--version'
 alias -g W='| w3m -T text/html'
 
 alias gll='git log --no-color --graph --pretty="%h - %d %s (%cr) <%an>"'
-alias ag="ag --color-match='1;33' --color-line-number='2;34;1' --color-path='1;35' --pager less"
 alias gdiff='git diff --color-words --no-index --word-diff-regex=. --color=always'
 alias .z='source ~/.zshrc'
 alias glances='glances --process-short-name --byte'
@@ -113,9 +112,11 @@ alias tree='tree -I ".git|node_modules|__pycache__"'
 alias http='http --style=rrt'
 alias gs='glances'
 
-alias -g BR='$(git branch | peco | sed "s/\*//")'
-alias -g BCMT='$(gll BR | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
-alias -g CMT='$(gll | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
+alias ag="ag --color-match='1;33' --color-line-number='2;34;1' --color-path='1;35' --pager less"
+function _ag_raw_func() {
+    ag --nofilename --nonumbers $@ | sort -u | sed '/^$/d'
+}
+alias agr=_ag_raw_func
 
 alias fzr='fzf --preview "cat {}"'
 alias fzc='fzf --preview "pygmentize {} 2>&1 || cat {}"'
@@ -124,6 +125,10 @@ fzg() {
     # usage: fzg PATTERN
     fzf --preview "egrep --color=always '$1|' {}"
 }
+
+alias -g BR='$(git branch | peco | sed "s/\*//")'
+alias -g BCMT='$(gll BR | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
+alias -g CMT='$(gll | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
 
 # eval $(dircolors ~/.dircolors.solarized.light)
 
@@ -141,8 +146,8 @@ if hash virtualenvwrapper_lazy.sh 2>&1; then
     . `which virtualenvwrapper_lazy.sh`
 fi
 
-# ZSH_PECO_HISTORY with UNIQ modification
-# https://github.com/jimeh/zsh-peco-history
+ZSH_PECO_HISTORY with UNIQ modification
+https://github.com/jimeh/zsh-peco-history
 if which peco &> /dev/null; then
   function peco_select_history() {
     local tac
