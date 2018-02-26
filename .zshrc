@@ -146,8 +146,8 @@ if hash virtualenvwrapper_lazy.sh 2>&1; then
     . `which virtualenvwrapper_lazy.sh`
 fi
 
-ZSH_PECO_HISTORY with UNIQ modification
-https://github.com/jimeh/zsh-peco-history
+# ZSH_PECO_HISTORY with UNIQ modification
+# https://github.com/jimeh/zsh-peco-history
 if which peco &> /dev/null; then
   function peco_select_history() {
     local tac
