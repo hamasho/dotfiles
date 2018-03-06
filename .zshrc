@@ -123,7 +123,13 @@ alias fzc='fzf --preview "pygmentize {} 2>&1 || cat {}"'
 fzg() {
     # colorize matched pattern
     # usage: fzg PATTERN
+    # pattern '$1|' means to show both of matched and unmatched lines
     fzf --preview "egrep --color=always '$1|' {}"
+}
+fzgg() {
+    # colorize matched pattern, and only list matched files
+    # usage: fzgg PATTERN
+    ag -l "$1" | fzf --preview "egrep --color=always '$1|' {}"
 }
 
 alias -g BR='$(git branch | peco | sed "s/\*//")'

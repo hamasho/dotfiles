@@ -50,10 +50,10 @@ prompt_git_status() {
     fi
 
     end_time="$(date '+%s').$(date '+%N')"
-    total=$(echo $(( $end_time - $start_time )) | bc)
-    if (( $total > 0.3 )); then
-        echo $PWD >> $FILE
-    fi
+    # total=$(echo $(( $end_time - $start_time )) | bc)
+    # if (( $total > 0.3 )); then
+    #     echo $PWD >> $FILE
+    # fi
 }
 
 prompt_pwd() {
