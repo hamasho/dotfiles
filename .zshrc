@@ -51,18 +51,14 @@ bindkey '^k' kill-line
 bindkey '^y' yank
 bindkey '^z' undo
 # Other keybinds
-bindkey '^o' accept-line-and-down-history
 bindkey '^d' delete-char-or-list
 bindkey '^t' history-search-backward
 bindkey '^s' history-search-forward
 bindkey '^g' insert-last-word
 bindkey '^]' push-line-or-edit
 bindkey '^\\' run-help
-bindkey -s '^ve' "echo "
-bindkey -s '^vl' "| less "
-bindkey -s '^vg' "| grep "
-bindkey -s '^vs' "| sed 's/'"
-bindkey -s '^vo' "| sort "
+# replace command name
+bindkey -s '^o' "^[0cE"
 # Enable to edit multi line script by <esc>v
 autoload -U edit-command-line
 zle -N edit-command-line
@@ -104,7 +100,6 @@ alias -g W='| w3m -T text/html'
 alias gll='git log --no-color --graph --pretty="%h - %d %s (%cr) <%an>"'
 alias ag="ag --color-match='1;33' --color-line-number='2;34;1' --color-path='1;35' --pager less"
 alias gdiff='git diff --color-words --no-index --word-diff-regex=. --color=always'
-alias .z='source ~/.zshrc'
 alias glances='glances --process-short-name --byte'
 alias open='2>/dev/null xdg-open'
 alias ccat='pygmentize'
@@ -112,6 +107,8 @@ alias ca='calcurse'
 alias tree='tree -I ".git|node_modules|__pycache__"'
 alias http='http --style=rrt'
 alias gs='glances'
+alias p='ipython'
+alias di='myougiden -w'
 
 alias -g BR='$(git branch | peco | sed "s/\*//")'
 alias -g BCMT='$(gll BR | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
@@ -124,13 +121,60 @@ fzg() {
     # usage: fzg PATTERN
     fzf --preview "egrep --color=always '$1|' {}"
 }
+# Modified version where you can press
+#   - CTRL-O to open with `open` command,
+#   - CTRL-E or Enter key to open with the $EDITOR
+fo() {
+    local out file key
+    IFS=$'\n' out=($(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
+    key=$(head -1 <<< "$out")
+    file=$(head -2 <<< "$out" | tail -1)
+    if [ -n "$file" ]; then
+        [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
+    fi
+}
+# fuzzy grep open via ag
+vg() {
+    local file
+    file="$(ag --nobreak --noheading $@ | fzf -0 -1 | awk -F: '{print $1 " +" $2}')"
+    if [[ -n $file ]]
+    then
+        vim $file
+    fi
+}
 
-# eval $(dircolors ~/.dircolors.solarized.light)
+# fh - repeat history
+function fh() {
+    BUFFER=$( ([ -n "$ZSH_NAME" ] && fc -l -n 1 || history) \
+        | tac \
+        | perl -ne 'print unless $seen{$_}++' \
+        | fzf +s --query="$LBUFFER")
+    CURSOR=$#BUFFER
+    zle -R -c
+}
+zle -N fh
+bindkey '^r' fh
 
-vim-bin() {
-    touch $1
-    chmod +x $1
-    vim $1
+# fkill - kill process
+fkill() {
+    local pid
+    pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+
+    if [ "x$pid" != "x" ]
+    then
+        echo $pid | xargs kill -${1:-9}
+    fi
+}
+
+# ftags - search ctags
+ftags() {
+  local line
+  [ -e tags ] &&
+  line=$(
+    awk 'BEGIN { FS="\t" } !/^!/ {print toupper($4)"\t"$1"\t"$2"\t"$3}' tags |
+    cut -c1-80 | fzf --nth=1,2
+  ) && ${EDITOR:-vim} $(cut -f3 <<< "$line") -c "set nocst" \
+                                      -c "silent tag $(cut -f2 <<< "$line")"
 }
 
 if hash virtualenvwrapper_lazy.sh 2>&1; then
@@ -141,48 +185,17 @@ if hash virtualenvwrapper_lazy.sh 2>&1; then
     . `which virtualenvwrapper_lazy.sh`
 fi
 
-# ZSH_PECO_HISTORY with UNIQ modification
-# https://github.com/jimeh/zsh-peco-history
-if which peco &> /dev/null; then
-  function peco_select_history() {
-    local tac
-    ((($+commands[gtac])) && tac="gtac") || \
-      (($+commands[tac])) && tac="tac" || \
-      tac="tail -r"
-    BUFFER=$(fc -l -n 1 | eval $tac | \
-        perl -ne 'print unless $seen{$_}++' | \
-        peco --layout=bottom-up --query "$LBUFFER")
-    CURSOR=$#BUFFER # move cursor
-    zle -R -c       # refresh
-  }
-
-  zle -N peco_select_history
-  bindkey '^R' peco_select_history
-fi
-
 [[ -e /usr/share/z/z.sh ]] && . /usr/share/z/z.sh
 [[ -e ~/.zshrc.local ]] && . ~/.zshrc.local
 
-[[ -e ~/devel/forks/zsh-peco-history/zsh-peco-history.zsh ]] && . ~/devel/forks/zsh-peco-history/zsh-peco-history.zsh
-
-unalias z
-z() {
-    _z $1 2>&1
-    pwd
-}
-
-fast_pyg() {
-    [[ -z "$1" ]] && echo 'usage: fast_pyg FILENAME' && exit 1
-    local fpath="$1"
-    local fname="$(basename "$fpath")"
-    local ext="${fname##*.}"
-    local lexer
-    case $ext in
-        py) lexer=python ;;
-        js) lexer=javascript ;;
-        *) cat "$fpath" && return
-    esac
-    pygmentize -l $lexer
-}
+eval "$(fasd --init auto)"
+alias a='fasd -a'        # any
+alias s='fasd -si'       # show / search / select
+alias d='fasd -d'        # directory
+alias f='fasd -f'        # file
+alias sd='fasd -sid'     # interactive directory selection
+alias sf='fasd -sif'     # interactive file selection
+alias j='fasd_cd -d'     # cd, same functionality as j in autojump
+alias jj='fasd_cd -d -i' # cd with interactive selection
 
 true
