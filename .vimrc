@@ -271,6 +271,9 @@ nnoremap <c-s> :w<cr>
 nnoremap <c-n> "+y
 vnoremap <c-n> "+y
 
+" Replace all word under the cursor
+nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
+
 " Ritch key bindings in insert mode
 inoremap <c-f> <right>
 inoremap <c-b> <left>

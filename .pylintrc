@@ -1,4 +1,4 @@
 [MESSAGE CONTROL]
-disable = invalid-name,missing-docstring,global-statement,relative-beyond-top-level,too-few-public-methods,too-many-arguments,too-many-ancestors
+disable = invalid-name,missing-docstring,global-statement,relative-beyond-top-level,too-few-public-methods,too-many-arguments,too-many-ancestors,too-many-function-args
 ignored-modules = sqlalchemy,falcon
 ignored-classes=faker.generator.Generator

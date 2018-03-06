@@ -98,7 +98,6 @@ alias -g V='--version'
 alias -g W='| w3m -T text/html'
 
 alias gll='git log --no-color --graph --pretty="%h - %d %s (%cr) <%an>"'
-alias ag="ag --color-match='1;33' --color-line-number='2;34;1' --color-path='1;35' --pager less"
 alias gdiff='git diff --color-words --no-index --word-diff-regex=. --color=always'
 alias glances='glances --process-short-name --byte'
 alias open='2>/dev/null xdg-open'
@@ -110,17 +109,26 @@ alias gs='glances'
 alias p='ipython'
 alias di='myougiden -w'
 
-alias -g BR='$(git branch | peco | sed "s/\*//")'
-alias -g BCMT='$(gll BR | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
-alias -g CMT='$(gll | peco | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
+alias ag="ag --color-match='1;33' --color-line-number='2;34;1' --color-path='1;35' --pager less"
+function _ag_raw_func() {
+    ag --nofilename --nonumbers $@ | sort -u | sed '/^$/d'
+}
+alias agr=_ag_raw_func
 
 alias fzr='fzf --preview "cat {}"'
 alias fzc='fzf --preview "pygmentize {} 2>&1 || cat {}"'
 fzg() {
     # colorize matched pattern
     # usage: fzg PATTERN
+    # pattern '$1|' means to show both of matched and unmatched lines
     fzf --preview "egrep --color=always '$1|' {}"
 }
+fzgg() {
+    # colorize matched pattern, and only list matched files
+    # usage: fzgg PATTERN
+    ag -l "$1" | fzf --preview "egrep --color=always '$1|' {}"
+}
+
 # Modified version where you can press
 #   - CTRL-O to open with `open` command,
 #   - CTRL-E or Enter key to open with the $EDITOR
@@ -142,6 +150,10 @@ vg() {
         vim $file
     fi
 }
+
+alias -g BR='$(git branch | fzf | sed "s/\*//")'
+alias -g BCMT='$(gll BR | fzf | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
+alias -g CMT='$(gll | fzf | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
 
 # fh - repeat history
 function fh() {

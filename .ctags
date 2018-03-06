@@ -1,10 +1,10 @@
 --exclude=.git
---exclude=\*.min.\*
---exclude=\*.pyc
 
+--exclude=\*.pyc
 --python-kinds=-i
 
 --exclude=gulp
+--exclude=\*.min.\*
 --exclude=node_modules
 
 --languages=-javascript
