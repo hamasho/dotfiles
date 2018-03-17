@@ -26,8 +26,9 @@ set autoread
 " Allow backspacing over autoindent, line breaks and start of insert action
 set backspace=indent,eol,start
 set autoindent
+set cindent
 set nostartofline
-set ruler
+set noruler
 " Always display the status line, even if only one window is displayed
 set laststatus=2
 " Rise a dialogue asking if you wish to save changed files.
@@ -84,13 +85,23 @@ Plugin 'itchyny/lightline.vim'
 " Colors
 Plugin 'flazz/vim-colorschemes'
 let g:lightline = {
-    \ 'colorscheme': 'jellybeans',
+    \ 'colorscheme': 'seoul256',
     \ 'active': {
     \     'left': [ [ 'mode', 'paste' ],
-    \               [ 'gitbranch', 'readonly', 'relativepath', 'modified' ] ]
+    \               [ 'gitbranch', 'readonly', 'relativepath', 'tagbar',
+    \                  'modified'] ],
+    \     'right': [ [ 'fileencoding', 'filetype' ],
+    \                [ 'percent' ] ]
+    \ },
+    \ 'inactive': {
+    \     'left': [ [ 'filename', 'modified'] ],
+    \     'right': [ [ 'percent' ] ]
+    \ },
+    \ 'component' : {
+    \     'tagbar': '%{tagbar#currenttag("%s", "", "f")}'
     \ },
     \ 'component_function': {
-    \     'gitbranch': 'fugitive#head'
+    \     'gitbranch': 'fugitive#head',
     \ },
     \ 'tabline': {
     \     'left': [ [ 'tabs' ] ],
