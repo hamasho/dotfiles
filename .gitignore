@@ -3,6 +3,7 @@
 /.Xauthority
 /.Xclients
 /.aws/
+/.babel.json
 /.backup/
 /.bash_logout
 /.bash_profile
