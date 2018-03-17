@@ -186,6 +186,19 @@ fi
 
 [[ -e ~/.zshrc.local ]] && . ~/.zshrc.local
 
+alias pmq='pacman -Qo'
+alias pml='pacman -Ql'
+alias pmi='pacman -Qi'
+function pmif() {
+    if [[ -z "$1" ]]; then
+        echo 'get package information from file'
+        echo 'usage: pmif PATH'
+        return 1
+    fi
+    local package=$(pacman -Qoq $1)
+    pacman -Qi "$package"
+}
+
 eval "$(fasd --init auto)"
 alias a='fasd -a'        # any
 alias s='fasd -si'       # show / search / select
