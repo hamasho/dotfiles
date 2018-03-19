@@ -90,6 +90,7 @@ export GOPATH=$HOME/.golang
 export PATH=$GOPATH/bin:$PATH
 
 alias -g C='--color=always | less'
+alias -g G='| grep'
 alias -g H='--help | less'
 alias -g J=' | jq -SC . | less'
 alias -g L=' | less'
@@ -186,17 +187,18 @@ fi
 
 [[ -e ~/.zshrc.local ]] && . ~/.zshrc.local
 
-alias pmq='pacman -Qo'
-alias pml='pacman -Ql'
-alias pmi='pacman -Qi'
-function pmif() {
+alias pcq='pacaur -Qo'
+alias pcl='pacaur -Ql'
+alias pci='pacaur -Qi'
+alias pcs='pacaur -Ss'
+function pcif() {
     if [[ -z "$1" ]]; then
         echo 'get package information from file'
-        echo 'usage: pmif PATH'
+        echo 'usage: pcif PATH'
         return 1
     fi
-    local package=$(pacman -Qoq $1)
-    pacman -Qi "$package"
+    local package=$(pacaur -Qoq $1)
+    pacaur -Qi "$package"
 }
 
 eval "$(fasd --init auto)"
