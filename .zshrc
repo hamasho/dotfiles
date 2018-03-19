@@ -52,8 +52,6 @@ bindkey '^y' yank
 bindkey '^z' undo
 # Other keybinds
 bindkey '^d' delete-char-or-list
-bindkey '^t' history-search-backward
-bindkey '^s' history-search-forward
 bindkey '^g' insert-last-word
 bindkey '^]' push-line-or-edit
 bindkey '^\\' run-help
@@ -74,7 +72,7 @@ export VISUAL=/usr/bin/vim
 [[ -d $HOME/.bin ]] && export PATH=$HOME/.bin:$PATH
 export HISTSIZE=2500000
 export SAVEHIST=$HISTSIZE
-export LESS="-iRXF -j5"
+export LESS="-iRXF"
 export LANG="en_US.UTF-8"
 export LC_COLLATE="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
@@ -83,16 +81,18 @@ export LC_MONETARY="en_US.UTF-8"
 export LC_NUMERIC="en_US.UTF-8"
 export LC_TIME="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
-export NODE_PATH=${HOME}/.npm-global/lib/node_modules
-export PATH=${HOME}/.npm-global/bin:$PATH
-export PATH=${HOME}/.config/yarn/global/node_modules/.bin:$PATH
-export PATH=${HOME}/.gem/ruby/2.4.0/bin:$PATH
-export PATH=${HOME}/.local/bin:$PATH
+export NODE_PATH=$HOME/.npm-global/lib/node_modules
+export PATH=$HOME/.npm-global/bin:$PATH
+export PATH=$HOME/.config/yarn/global/node_modules/.bin:$PATH
+export PATH=$HOME/.gem/ruby/2.4.0/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export GOPATH=$HOME/.golang
+export PATH=$GOPATH/bin:$PATH
 
 alias -g C='--color=always | less'
+alias -g G='| grep'
 alias -g H='--help | less'
-alias -g J=' | jq -S . | less'
-alias -g JC=' | jq -SC . | less'
+alias -g J=' | jq -SC . | less'
 alias -g L=' | less'
 alias -g V='--version'
 alias -g W='| w3m -T text/html'
@@ -115,6 +115,7 @@ function _ag_raw_func() {
 }
 alias agr=_ag_raw_func
 
+[[ -d /usr/share/fzf ]] && . /usr/share/fzf/completion.zsh /usr/share/fzf/key-bindings.zsh
 alias fzr='fzf --preview "cat {}"'
 alias fzc='fzf --preview "pygmentize {} 2>&1 || cat {}"'
 fzg() {
@@ -129,7 +130,7 @@ fzgg() {
     ag -l "$1" | fzf --preview "egrep --color=always '$1|' {}"
 }
 
-# Modified version where you can press
+# open file for view/edit
 #   - CTRL-O to open with `open` command,
 #   - CTRL-E or Enter key to open with the $EDITOR
 fo() {
@@ -142,11 +143,10 @@ fo() {
     fi
 }
 # fuzzy grep open via ag
-vg() {
+fag() {
     local file
     file="$(ag --nobreak --noheading $@ | fzf -0 -1 | awk -F: '{print $1 " +" $2}')"
-    if [[ -n $file ]]
-    then
+    if [[ -n $file ]]; then
         vim $file
     fi
 }
@@ -154,18 +154,6 @@ vg() {
 alias -g BR='$(git branch | fzf | sed "s/\*//")'
 alias -g BCMT='$(gll BR | fzf | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
 alias -g CMT='$(gll | fzf | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
-
-# fh - repeat history
-function fh() {
-    BUFFER=$( ([ -n "$ZSH_NAME" ] && fc -l -n 1 || history) \
-        | tac \
-        | perl -ne 'print unless $seen{$_}++' \
-        | fzf +s --query="$LBUFFER")
-    CURSOR=$#BUFFER
-    zle -R -c
-}
-zle -N fh
-bindkey '^r' fh
 
 # fkill - kill process
 fkill() {
@@ -197,8 +185,21 @@ if hash virtualenvwrapper_lazy.sh 2>&1; then
     . `which virtualenvwrapper_lazy.sh`
 fi
 
-[[ -e /usr/share/z/z.sh ]] && . /usr/share/z/z.sh
 [[ -e ~/.zshrc.local ]] && . ~/.zshrc.local
+
+alias pcq='pacaur -Qo'
+alias pcl='pacaur -Ql'
+alias pci='pacaur -Qi'
+alias pcs='pacaur -Ss'
+function pcif() {
+    if [[ -z "$1" ]]; then
+        echo 'get package information from file'
+        echo 'usage: pcif PATH'
+        return 1
+    fi
+    local package=$(pacaur -Qoq $1)
+    pacaur -Qi "$package"
+}
 
 eval "$(fasd --init auto)"
 alias a='fasd -a'        # any
@@ -209,5 +210,7 @@ alias sd='fasd -sid'     # interactive directory selection
 alias sf='fasd -sif'     # interactive file selection
 alias j='fasd_cd -d'     # cd, same functionality as j in autojump
 alias jj='fasd_cd -d -i' # cd with interactive selection
+
+alias dj='python manage.py'
 
 true
