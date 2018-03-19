@@ -6,7 +6,7 @@ env:
 extends: 'eslint:recommended'
 parserOptions:
   ecmaFeatures:
-    jsx: true
+    jsx: false
   sourceType: module
 rules:
   indent:
