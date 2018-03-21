@@ -90,8 +90,9 @@ export GOPATH=$HOME/.golang
 export PATH=$GOPATH/bin:$PATH
 
 alias -g C='--color=always | less'
-alias -g G='| grep'
-alias -g H='--help | less'
+alias -g G='| ag'
+alias -g GV='| ag -v'
+alias -g H='2>&1 --help | less'
 alias -g J=' | jq -SC . | less'
 alias -g L=' | less'
 alias -g V='--version'
@@ -101,7 +102,7 @@ alias gll='git log --no-color --graph --pretty="%h - %d %s (%cr) <%an>"'
 alias gdiff='git diff --color-words --no-index --word-diff-regex=. --color=always'
 alias glances='glances --process-short-name --byte'
 alias open='2>/dev/null xdg-open'
-alias ccat='pygmentize'
+alias pyg='pygmentize -f terminal256 -O style=rrt'
 alias ca='calcurse'
 alias tree='tree -I ".git|node_modules|__pycache__"'
 alias http='http --style=rrt'
@@ -115,7 +116,7 @@ function _ag_raw_func() {
 }
 alias agr=_ag_raw_func
 
-[[ -d /usr/share/fzf ]] && . /usr/share/fzf/completion.zsh /usr/share/fzf/key-bindings.zsh
+[[ -d /usr/share/fzf ]] && . /usr/share/fzf/completion.zsh && . /usr/share/fzf/key-bindings.zsh
 alias fzr='fzf --preview "cat {}"'
 alias fzc='fzf --preview "pygmentize {} 2>&1 || cat {}"'
 fzg() {
