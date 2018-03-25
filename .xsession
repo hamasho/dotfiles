@@ -7,10 +7,16 @@
 #
 
 [[ -f ~/.extend.xsession ]] && . ~/.extend.xsession
-[[ -f ~/.xmodmap ]] && xmodmap ~/.xmodmap
 
+# toggle Control <-> CapsLock
+# but if CapsLock is pressed by alone, behave as Escape
+[[ -f ~/.xmodmap ]] && xmodmap ~/.xmodmap
+xcape -e 'Control_L=Escape'
+
+# Hide mouse after 1 second idle
 unclutter -idle 1 -root &
 
+# use fcitx as input method
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
