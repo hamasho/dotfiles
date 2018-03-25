@@ -136,6 +136,9 @@ Plugin 'easymotion/vim-easymotion'
 map s <plug>(easymotion-s)
 map <leader>s <plug>(easymotion-overwin-f)
 
+" Jump to various pairs
+Plugin 'tpope/vim-unimpaired'
+
 " Find closing pair
 Plugin 'adelarsq/vim-matchit'
 
@@ -279,8 +282,8 @@ nnoremap <c-e> $
 vnoremap <c-e> $h
 nnoremap <c-s> :w<cr>
 
-nnoremap <c-n> "+y
-vnoremap <c-n> "+y
+nnoremap <c-n> "+
+vnoremap <c-n> "+
 
 " Replace all word under the cursor
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
