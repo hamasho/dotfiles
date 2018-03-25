@@ -72,6 +72,7 @@ export VISUAL=/usr/bin/vim
 [[ -d $HOME/.bin ]] && export PATH=$HOME/.bin:$PATH
 export HISTSIZE=2500000
 export SAVEHIST=$HISTSIZE
+[[ -x /usr/bin/lesspipe.sh ]] && export LESSOPEN='| lesspipe.sh %s'
 export LESS="-iRXF"
 export LANG="en_US.UTF-8"
 export LC_COLLATE="en_US.UTF-8"
@@ -118,7 +119,7 @@ alias agr=_ag_raw_func
 
 [[ -d /usr/share/fzf ]] && . /usr/share/fzf/completion.zsh && . /usr/share/fzf/key-bindings.zsh
 alias fzr='fzf --preview "cat {}"'
-alias fzc='fzf --preview "pygmentize {} 2>&1 || cat {}"'
+alias fzc='fzf --preview "pygmentize {} 2>/dev/null" || cat {}'
 fzg() {
     # colorize matched pattern
     # usage: fzg PATTERN

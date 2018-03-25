@@ -11,8 +11,7 @@
 
 unclutter -idle 1 -root &
 
-# IMF
-export GTK_IM_MODULE='uim'
-export QT_IM_MODULE='uim'
-uim-xim &
-export XMODIFIERS='@im=uim'
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+fcitx

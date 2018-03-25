@@ -10,9 +10,11 @@
 /.bashrc
 /.bin/
 /.cache/
+/.cargo/
+/.dbus/session-bus/
 /.dmenurc
 /.dmrc
-/.docker/buildNodeID
+/.docker/.buildNodeID
 /.dropbox/
 /.dropbox-dist/
 /.elinks/
@@ -25,6 +27,7 @@
 /.gem/
 /.gimp-2.8/
 /.gitconfig
+/.glide/cache/
 /.gnupg/
 /.golang/
 /.gtkrc-2.0
@@ -36,22 +39,28 @@
 /.mozc/
 /.mozilla/
 /.mycli.log
+/.node-gyp/
 /.npm/
 /.npm-global/
 /.oh-my-zsh/
+/.pip-global/
+/.pki/
 /.pylint.d/
+/.rustup/downloads/
+/.rustup/tmp/
+/.rustup/toolchains/
+/.rustup/update-hashes/
 /.ssh/
 /.swp
 /.thumbnails/
-/.uim.d/customs/*
+/.v8flags.*
 /.vboxclient-*
 /.vim/
 /.viminfo
-/.vimperator/*
 /.vimtags
 /.virtualenvs/
+/.vue-templates/
 /.wget-hsts
-/.xinitrc
 /.xsession-errors
 /.xsession-errors.old
 /.yarn/
@@ -67,7 +76,6 @@
 /Dropbox/
 
 ### local files
-/.vimperatorrc.local
 /.zshrc.local
 
 ### history
@@ -76,36 +84,59 @@
 ### .config
 
 # used by some node packages to store temporary data
-.config/configstore/
+/.config/configstore/
 
 # GUI related files
-.config/dconf/
-.config/dmenu-recent/
-.config/gconf/
-.config/gtk-3.0/
-.config/Mousepad/
-.config/qt5ct/
-.config/xfce4/
+/.config/chromium/
+/.config/dconf/
+/.config/dmenu-recent/
+/.config/gconf/
+/.config/gtk-2.0/
+/.config/gtk-3.0/
+/.config/mcomix/
+/.config/Mousepad/
+/.config/qt5ct/
+/.config/transmission/
+/.config/xarchiver/
+/.config/xfce4/
+
+# binary files
+/.config/copyq/copyq-bak.conf
+/.config/copyq/copyq_*.dat
+/.config/copyq/*.ini
+/.config/fcitx/cached_layout
+/.config/fcitx/clipboard
+/.config/fcitx/data/
+/.config/fcitx/dbus/
+/.config/fcitx/log/
 
 # sound system
-.config/pulse
-.config/volumeicon/
-
-# dont use because I use firefox
-.config/epdfview/
+/.config/pulse
+/.config/volumeicon/
 
 # yarn data
-.config/yarn
+/.config/yarn
+
+### seems unnecessary
+/.config/i3-scrot.conf
 
 ### other ignored files
-# .ipython
-.ipython/profile_default/startup/README
 
 ### common ignored files
 __pycache__
 *.sqlite
 
-### reset ignore
-!/.vimperator/plugin
-!/.uim.d/customs/custom-global-*
-!/.uim.d/customs/custom-google-*
+
+
+#####################
+#                   #
+#  temporaly unused #
+#                   #
+#####################
+/.rustup/
+/.sage/
+/.config/libfm/
+/.config/nitrogen/
+/.config/pcmanfm/
+/.config/ranger/
+/.config/viewnior/
