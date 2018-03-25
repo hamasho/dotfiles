@@ -1,0 +1,20 @@
+#!/bin/bash
+
+host=`hostname`
+is_home=$([[ $host = hamasho ]] && echo y || echo '')
+is_office=$([[ "$is_home" ]] && echo '' || echo y)
+
+case $1 in
+    lock)
+        [[ "$is_home" ]] && xautolock -time 30 -locker "systemctl suspend"
+        ;;
+    test)
+        echo host = $host
+        echo is_home = "'$is_home'"
+        echo is_office = "'$is_office'"
+        [[ "$is_home" ]] && echo home now || echo office now
+        ;;
+    *)
+        echo "invalid arg: $1" >&2
+        exit 1
+esac
