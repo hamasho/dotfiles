@@ -68,12 +68,15 @@
 /.z
 /.zcompdump*
 /.zsh-update
+
+
 /devel/
 /dl/
 /doc/
 /misc/
 /works/
 /Dropbox/
+/TODO.md
 
 ### local files
 /.zshrc.local
