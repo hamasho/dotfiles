@@ -120,7 +120,14 @@
 ### seems unnecessary
 /.config/i3-scrot.conf
 
+
 ### other ignored files
+
+# mutt
+/.mutt/cache
+/.mutt/certificates
+/.mutt/mutt-colors-solarized
+/.mutt/private.muttrc
 
 ### common ignored files
 __pycache__

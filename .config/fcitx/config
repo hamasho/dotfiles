@@ -109,7 +109,7 @@ ShareStateAmongWindow=All
 # Give the tips of Phrase
 # Available Value:
 # True False
-#PhraseTips=True
+PhraseTips=True
 # Do not commit preedit text when unfocus a window
 # Available Value:
 # True False
@@ -131,7 +131,7 @@ ShowInputWindowWhenFocusIn=True
 # Show Input Speed
 # Available Value:
 # True False
-ShowInputSpeed=True
+ShowInputSpeed=False
 # Show Version
 # Available Value:
 # True False
@@ -139,9 +139,9 @@ ShowInputSpeed=True
 # Do not show input window if there is only preedit string
 # Available Value:
 # True False
-#HideInputWindowWhenOnlyPreeditString=False
+HideInputWindowWhenOnlyPreeditString=False
 # Do not show input window if there is only one candidate and preedit
 # Available Value:
 # True False
-#HideInputWindowWhenOnlyOneCandidate=False
+HideInputWindowWhenOnlyOneCandidate=False
 
