@@ -23,7 +23,7 @@ set showmode " show insert/replace/visual mode
 set noswapfile
 set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 set formatoptions+=j
-set fillchars+=vert:│
+set fillchars+=vert:\ 
 " Use case insensitive search, except when using capital letters
 set ignorecase
 set smartcase
