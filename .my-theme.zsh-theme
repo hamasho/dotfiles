@@ -4,7 +4,7 @@ SYMBOL_BAD="✘"
 RPROMPT_DEFAULT_COLOR="$fg[white]"
 
 prompt_separator() {
-    echo -n "%{$fg[white]%}│%{$reset_color%}%{$RPROMPT_DEFAULT_COLOR%}"
+    echo -n "%{$bg[white]%} %{$reset_color%}%{$RPROMPT_DEFAULT_COLOR%}"
 }
 
 prompt_segment() {

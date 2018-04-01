@@ -64,7 +64,7 @@ macro index \cb |urlview\n
 macro pager \cb |urlview\n
 
 # color scheme
-source ~/.mutt/mutt-colors-solarized/mutt-colors-solarized-light-16.muttrc
+source ~/.mutt/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
 
 # language
 set charset="utf-8"

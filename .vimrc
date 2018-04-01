@@ -3,6 +3,14 @@ set nocompatible
 syntax on
 filetype off
 set hidden
+
+" Use true colour in vim
+" detail:
+" https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
+
 " Better command-line completion
 set wildmenu
 set complete-=i
@@ -65,6 +73,7 @@ set ttyfast
 set history=2000
 set switchbuf=useopen
 set t_Co=256
+set background=light
 
 " Change <leader> to ','
 let mapleader = ","
@@ -84,8 +93,9 @@ Plugin 'itchyny/lightline.vim'
 
 " Colors
 Plugin 'flazz/vim-colorschemes'
+Plugin 'shinchu/lightline-gruvbox.vim'
 let g:lightline = {
-    \ 'colorscheme': 'seoul256',
+    \ 'colorscheme': 'gruvbox',
     \ 'active': {
     \     'left': [ [ 'mode', 'paste' ],
     \               [ 'gitbranch', 'readonly', 'relativepath', 'tagbar',
@@ -383,9 +393,13 @@ augroup END
 
 " Set colors {{{1
 
-set background=dark
 colorscheme gruvbox
+let g:gruvbox_italic = 1
+let g:gruvbox_invert_selection = 0
+let g:gruvbox_contrast_light = "medium"
+
 hi Normal ctermbg=NONE
+hi Visual cterm=bold
 syn match Braces display '[{}()\[\]]'
 
 filetype indent plugin on
