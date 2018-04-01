@@ -38,7 +38,7 @@ prompt_git_status() {
 }
 
 prompt_pwd() {
-    echo -n " $(pwd | sed "s|$HOME|~|") "
+    echo -n " $(pwd | sed "s|$HOME|~|" | sed "s|/\(...\)[^/]\+|/\1|g") "
 }
 
 build_prompt() {
