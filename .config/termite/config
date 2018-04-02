@@ -33,46 +33,86 @@ filter_unmatched_urls = true
 
 [colors]
 
-# if unset, will reverse foreground and background
-highlight = #2f2f2f
+# hard contrast: background = #f9f5d7
+# background = #fbf1c7
+# soft contrast: background = #f2e5bc
+background = #fdf4c1
+foreground = #3c3836
+foreground_bold = #3c3836
 
-# special
-foreground      = #c5c8c6
-foreground_bold = #c5c8c6
-cursor          = #c5c8c6
-background      = #3f3f3f
+# light0 + gray
+color0 = #fdf4c1
+color8 = #928374
 
-# black
-color0  = #282a2e
-color8  = #373b41
+# neutral_red + faded_red
+color1 = #cc241d
+color9 = #9d0006
 
-# red
-color1  = #a54242
-color9  = #cc6666
+# neutral_green + faded_green
+color2 = #98971a
+color10 = #79740e
 
-# green
-color2  = #8c9440
-color10 = #b5bd68
+# neutral_yellow + faded_yellow
+color3 = #d79921
+color11 = #b57614
 
-# yellow
-color3  = #de935f
-color11 = #f0c674
+# neutral_blue + faded_blue
+color4 = #458588
+color12 = #076678
 
-# blue
-color4  = #5f819d
-color12 = #81a2be
+# neutral_purple + faded_purple
+color5 = #b16286
+color13 = #8f3f71
 
-# magenta
-color5  = #85678f
-color13 = #b294bb
+# neutral_aqua + faded_aqua
+color6 = #689d6a
+color14 = #427b58
 
-# cyan
-color6  = #5e8d87
-color14 = #8abeb7
+# dark4 + dark1
+color7 = #7c6f64
+color15 = #3c3836
 
-# white
-color7  = #707880
-color15 = #c5c8c6
+# default dark background color
+# # if unset, will reverse foreground and background
+# highlight = #2f2f2f
+#
+# # special
+# foreground      = #c5c8c6
+# foreground_bold = #c5c8c6
+# cursor          = #c5c8c6
+# background      = #3f3f3f
+#
+# # black
+# color0  = #282a2e
+# color8  = #373b41
+#
+# # red
+# color1  = #a54242
+# color9  = #cc6666
+#
+# # green
+# color2  = #8c9440
+# color10 = #b5bd68
+#
+# # yellow
+# color3  = #de935f
+# color11 = #f0c674
+#
+# # blue
+# color4  = #5f819d
+# color12 = #81a2be
+#
+# # magenta
+# color5  = #85678f
+# color13 = #b294bb
+#
+# # cyan
+# color6  = #5e8d87
+# color14 = #8abeb7
+#
+# # white
+# color7  = #707880
+# color15 = #c5c8c6
 
 [hints]
 #font = Monospace 12
