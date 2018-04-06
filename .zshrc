@@ -104,6 +104,7 @@ alias -g W='| w3m -T text/html'
 
 alias gll='git log --no-color --graph --pretty="%h - %d %s (%cr) <%an>"'
 alias gdiff='git diff --color-words --no-index --word-diff-regex=. --color=always'
+alias gdiff2='git diff --color-words --no-index --color=always'
 alias glances='glances --process-short-name --byte'
 alias open='2>/dev/null xdg-open'
 alias pyg='pygmentize -f terminal256 -O style=rrt'
@@ -213,8 +214,13 @@ alias d='fasd -d'        # directory
 alias f='fasd -f'        # file
 alias sd='fasd -sid'     # interactive directory selection
 alias sf='fasd -sif'     # interactive file selection
-alias j='fasd_cd -d'     # cd, same functionality as j in autojump
 alias jj='fasd_cd -d -i' # cd with interactive selection
+# jump to directory fazy
+function j() {
+    # alias j='fasd_cd -d'     # cd, same functionality as j in autojump
+    fasd_cd -d "$@"
+    pwd
+}
 
 alias dj='python manage.py'
 
