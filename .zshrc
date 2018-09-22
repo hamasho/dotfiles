@@ -191,6 +191,11 @@ if hash virtualenvwrapper_lazy.sh 2>&1; then
     . `which virtualenvwrapper_lazy.sh`
 fi
 
+# if nvm is installed, use node managed by nvm
+if [[ -f /usr/share/nvm/init-nvm.sh ]]; then
+    source /usr/share/nvm/init-nvm.sh
+fi
+
 [[ -e ~/.zshrc.local ]] && . ~/.zshrc.local
 
 alias pcq='pacaur -Qo'
