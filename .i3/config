@@ -126,6 +126,12 @@ bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
+# restore window layout
+bindsym $mod+Ctrl+1 \
+            append_layout ~/.i3/workspace_browser_term.json; \
+            exec --no-startup-id firefox; \
+            exec --no-startup-id $terminal;
+
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
@@ -268,6 +274,12 @@ mode "resize" {
         bindsym $down resize grow height 3 px or 3 ppt
         bindsym $up resize shrink height 3 px or 3 ppt
         bindsym $right resize shrink width 3 px or 3 ppt
+
+        # with fewer shift
+        bindsym Shift+$left resize grow width 1 px or 1 ppt
+        bindsym Shift+$down resize grow height 1 px or 1 ppt
+        bindsym Shift+$up resize shrink height 1 px or 1 ppt
+        bindsym Shift+$right resize shrink width 1 px or 1 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize grow width 10 px or 10 ppt
@@ -451,3 +463,11 @@ mode "$mode_gaps_outer" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
+
+#############################################
+### settings for autostart window layout: ###
+#############################################
+
+exec --no-startup-id i3-msg 'workspace 1; append_layout ~/.i3/workspace_browser_term.json'; \
+            exec --no-startup-id firefox; \
+            exec --no-startup-id $terminal;
