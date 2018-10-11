@@ -11,7 +11,7 @@ set $terminal termite
 # workspace_layout tabbed <stacking|tabbed>
 
 # set border pixel
-set $border 1
+set $border 6
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 new_window pixel $border
@@ -127,7 +127,7 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # restore window layout
-bindsym $mod+Ctrl+1 \
+bindsym $mod+Ctrl+d \
             append_layout ~/.i3/workspace_browser_term.json; \
             exec --no-startup-id firefox; \
             exec --no-startup-id $terminal;
@@ -398,11 +398,11 @@ bindsym $mod+m bar mode toggle
 
 # Theme colors
 # class                 border      backgr.     text        indic.      child_border
-client.focused          $i3_color8  $i3_color8  $i3_color11 $i3_color12
-client.focused_inactive $i3_color9  $i3_color9  $i3_color4  $i3_color10
-client.unfocused        $i3_color9  $i3_color9  $i3_color4  $i3_color10
+client.focused          $i3_color16 $i3_color8  $i3_color11 $i3_color12
+client.focused_inactive $i3_color9  $i3_color12 $i3_color4  $i3_color10
+client.unfocused        $i3_color16 $i3_color12 $i3_color4  $i3_color10
 client.urgent           $i3_color13 $i3_color12 $i3_color4  $i3_color14
-client.placeholder      $i3_color15 $i3_color17 $i3_color16 $i3_color15 $i3_color17
+client.placeholder      $i3_color15 $i3_color12 $i3_color16 $i3_color15 $i3_color17
 
 client.background       $i3_background
 
@@ -411,7 +411,7 @@ client.background       $i3_background
 #############################
 
 # Set inner/outer gaps
-gaps inner 10
+gaps inner 25
 gaps outer -4
 
 # Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
@@ -463,11 +463,3 @@ mode "$mode_gaps_outer" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-
-#############################################
-### settings for autostart window layout: ###
-#############################################
-
-exec --no-startup-id i3-msg 'workspace 1; append_layout ~/.i3/workspace_browser_term.json'; \
-            exec --no-startup-id firefox; \
-            exec --no-startup-id $terminal;
