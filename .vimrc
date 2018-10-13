@@ -212,6 +212,7 @@ Plugin 'w0rp/ale'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_linters = {
 \ 'python': ['pylint'],
+\ 'typescript': ['tslint'],
 \ 'c': [],
 \}
 
@@ -222,6 +223,16 @@ let g:javascript_opfirst = 1
 Plugin 'ternjs/tern_for_vim'
 
 Plugin 'posva/vim-vue'
+
+" TypeScript
+Plugin 'leafgarland/typescript-vim'
+augroup TypeScript
+    au!
+    au FileType typescript
+        \ setlocal softtabstop=2 |
+        \ setlocal tabstop=2     |
+        \ setlocal shiftwidth=2
+augroup END
 
 " Emmet (Zen cording HTML)
 Plugin 'mattn/emmet-vim'
