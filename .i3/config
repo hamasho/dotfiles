@@ -15,7 +15,7 @@ set $border 6
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 new_window pixel $border
-new_float normal
+new_float pixel $border
 
 # Hide borders
 hide_edge_borders none
@@ -33,7 +33,7 @@ font xft:Noto Sans 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec $terminal
+bindsym $mod+Return exec $terminal -e 'tmux new'
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -129,8 +129,8 @@ bindsym $mod+e layout toggle split
 # restore window layout
 bindsym $mod+Ctrl+d \
             append_layout ~/.i3/workspace_browser_term.json; \
-            exec --no-startup-id firefox; \
-            exec --no-startup-id $terminal;
+            exec firefox; \
+            exec $terminal -e 'tmux new';
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle

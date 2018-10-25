@@ -63,10 +63,10 @@ zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
 export CLICOLOR=1
-# export TERM=xterm-256color
+export TERM=xterm-256color
 # this TERM is customized one
 # detail: https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
-export TERM=xterm-256color-italic
+# export TERM=xterm-256color-italic
 # export LS_COLORS="di=1;33:ln=34:fi=90:ex=32;1:or=1;36;41:mi=1;37;41"
 export GREP_COLORS="fn=0;33"
 export EDITOR=/usr/bin/vim
