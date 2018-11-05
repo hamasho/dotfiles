@@ -390,8 +390,8 @@ augroup END
 " YAML {{{2
 augroup YAML
     au!
-    au BufRead *.yml setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    au BufNewFile *.yml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    au BufRead *.yml,*.yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    au BufNewFile *.yml,*.yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
 augroup END
 
 " All files {{{2

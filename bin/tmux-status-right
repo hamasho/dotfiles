@@ -41,4 +41,6 @@ display_commands=(myuptime mydate)
 print_info uptime_info
 print_info date_info
 # print_info battery_info
-systemctl status docker >/dev/null && print_info docker_info
+if systemctl status docker >/dev/null; then
+    print_info docker_info
+fi
