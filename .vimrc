@@ -360,6 +360,12 @@ augroup PYTHON
     au BufNewFile *.py setlocal foldmethod=indent
 augroup END
 
+" Ruby {{{2
+augroup RUBY
+    au!
+    au FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
+augroup END
+
 " CSS {{{2
 augroup CSS
     au!
