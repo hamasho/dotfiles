@@ -19,7 +19,7 @@ alias kd='kubectl describe'
 
 # initialize PATH
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-# export MANPATH="/usr/local/man:$MANPATH"
+export MANPATH="/usr/local/man:$MANPATH"
 zstyle ':completion:*' list-prompt   ''
 zstyle ':completion:*' select-prompt ''
 
@@ -67,6 +67,10 @@ autoload -U edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
+add_path() {
+    [[ -d $1 ]] && export PATH=$1:$PATH
+}
+
 export CLICOLOR=1
 export TERM=xterm-256color
 # this TERM is customized one
@@ -76,12 +80,13 @@ export TERM=xterm-256color
 export GREP_COLORS="fn=0;33"
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
-[[ -d $HOME/bin ]]  && export PATH=$HOME/bin:$PATH
-[[ -d $HOME/.bin ]] && export PATH=$HOME/.bin:$PATH
+add_path ${HOME}/bin
+add_path ${HOME}/.bin
 export HISTSIZE=2500000
 export SAVEHIST=$HISTSIZE
 [[ -x /usr/bin/lesspipe.sh ]] && export LESSOPEN='| lesspipe.sh %s'
 export LESS="-iRXF"
+
 export LANG="en_US.UTF-8"
 export LC_COLLATE="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
@@ -90,13 +95,16 @@ export LC_MONETARY="en_US.UTF-8"
 export LC_NUMERIC="en_US.UTF-8"
 export LC_TIME="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
+
 export NODE_PATH=$HOME/.npm-global/lib/node_modules
-export PATH=$HOME/.npm-global/bin:$PATH
-export PATH=$HOME/.config/yarn/global/node_modules/.bin:$PATH
-export PATH=$HOME/.gem/ruby/2.4.0/bin:$PATH
-export PATH=$HOME/.local/bin:$PATH
 export GOPATH=$HOME/.golang
-export PATH=$GOPATH/bin:$PATH
+
+add_path ${HOME}/.npm-global/bin
+add_path ${HOME}/.config/yarn/global/node_modules/.bin
+add_path ${HOME}/.gem/ruby/2.4.0/bin
+add_path ${HOME}/.local/bin
+add_path ${GOPATH}/bin
+add_path /snap/bin
 
 alias -g C='--color=always | less'
 alias -g G='| ag'
@@ -188,7 +196,7 @@ ftags() {
                                       -c "silent tag $(cut -f2 <<< "$line")"
 }
 
-if hash virtualenvwrapper_lazy.sh 2>&1; then
+if hash virtualenvwrapper_lazy.sh >/dev/null 2>&1; then
     export WORKON_HOME=$HOME/.virtualenvs
     export PROJECT_HOME=$HOME/devel/repos
     export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'

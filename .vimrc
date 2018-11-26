@@ -370,8 +370,6 @@ augroup END
 augroup RUBY
     au!
     au FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    au BufRead *.rb,*.rb setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    au BufNewFile *.rb,*.rb setlocal shiftwidth=2 tabstop=2 softtabstop=2
 augroup END
 
 " CSS {{{2
@@ -404,8 +402,7 @@ augroup END
 " YAML {{{2
 augroup YAML
     au!
-    au BufRead *.yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    au BufNewFile *.yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    au FileType yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
 augroup END
 
 " All files {{{2

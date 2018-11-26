@@ -27,6 +27,7 @@
 /.gem/
 /.gimp-2.8/
 /.gitconfig
+/.git-credentials
 /.glide/cache/
 /.gnupg/
 /.golang/
@@ -74,7 +75,7 @@
 /dl/
 /doc/
 /misc/
-/works/
+/work/
 /Dropbox/
 /TODO.md
 
