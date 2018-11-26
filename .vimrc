@@ -258,6 +258,12 @@ augroup END
 
 Plugin 'Vimjas/vim-python-pep8-indent'
 
+" Kubernetes
+Plugin 'c9s/helper.vim'
+Plugin 'c9s/treemenu.vim'
+Plugin 'c9s/vikube.vim'
+Plugin 'andrewstuart/vim-kubernetes'
+
 call vundle#end()
 
 " Basic autocmd {{{1
@@ -398,8 +404,8 @@ augroup END
 " YAML {{{2
 augroup YAML
     au!
-    au BufRead *.yml setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    au BufNewFile *.yml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    au BufRead *.yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    au BufNewFile *.yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
 augroup END
 
 " All files {{{2
