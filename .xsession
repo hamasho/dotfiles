@@ -14,7 +14,10 @@
 xcape -e 'Control_L=Escape'
 
 # Hide mouse after 1 second idle
-unclutter -idle 1 -root &
+type unclutter 2>&1 >/dev/null && unclutter -idle 1 -root &
+
+# Auto mount USB disks
+type udiskie 2>&1 >/dev/null && udiskie &
 
 # use fcitx as input method
 export GTK_IM_MODULE=fcitx
