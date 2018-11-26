@@ -1,11 +1,13 @@
 #!/bin/zsh
 
-# For dark color
-# fg_color=colour007
-# bg_color=colour235
-# For light color
-fg_color=colour015
-bg_color='#ebdbb2'
+## For dark color
+fg_color=colour007
+bg_color=colour235
+
+## For light color
+# fg_color=colour015
+# bg_color='#ebdbb2'
+
 space_bg_color=$bg_color
 
 uptime_info() {

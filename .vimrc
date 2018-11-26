@@ -73,7 +73,8 @@ set ttyfast
 set history=2000
 set switchbuf=useopen
 set t_Co=256
-set background=light
+" set background=light
+set background=dark
 
 " Change <leader> to ','
 let mapleader = ","
@@ -411,11 +412,12 @@ augroup END
 " Set colors {{{1
 
 colorscheme gruvbox
-let g:gruvbox_italic = 1
+let g:gruvbox_italic = 0
 let g:gruvbox_invert_selection = 0
-let g:gruvbox_contrast_light = "medium"
+let g:gruvbox_contrast_dark = "hard"
 
-hi Normal ctermbg=NONE
+hi Normal guibg=NONE ctermbg=NONE
+hi Normal guifg=NONE ctermfg=NONE
 hi Visual cterm=bold
 syn match Braces display '[{}()\[\]]'
 

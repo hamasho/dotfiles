@@ -3,15 +3,11 @@
 SYMBOL_BAD="✘"
 RPROMPT_DEFAULT_COLOR="$fg[white]"
 
-prompt_segment() {
-    echo -n "%{\e[48;2;235;219;178m%} %{$reset_color%}%{$RPROMPT_DEFAULT_COLOR%}"
-}
-
 prompt_vi_mode() {
     if [ "$KEYMAP" = "main" ]; then
-        echo -n "%{$bg[blue]$FG[000]%} INSERT "
+        echo -n "%{$bg[blue]$FG[015]%} vi:INS "
     else
-        echo -n "%{$bg[yellow]$FG[000]%} NORMAL "
+        echo -n "%{$bg[yellow]$FG[015]%} vi:NORM "
     fi
 }
 
@@ -28,17 +24,17 @@ prompt_git_status() {
         git check-ignore --quiet . && return
 
         if [[ -n $(git status --porcelain --ignore-submodules) ]]; then
-            git_status_color=$fg[red]
+            git_status_color=$BG[166]
         else
-            git_status_color=$fg[green]
+            git_status_color=$bg[green]
         fi
 
-        echo -n " %{$git_status_color%}$(git_prompt_info)$(git_prompt_status) "
+        echo -n "%{$git_status_color$FG[015]%} $(git_prompt_info)$(git_prompt_status) "
     fi
 }
 
 prompt_pwd() {
-    echo -n " $(pwd | sed "s|$HOME|~|" | sed "s|/\(...\)[^/]\+|/\1|g") "
+    echo -n "%{$bg[blue]%} $(pwd | sed "s|$HOME|~|" | sed "s|/\(...\)[^/]\+|/\1|g") "
 }
 
 build_prompt() {
@@ -54,14 +50,12 @@ build_prompt() {
 build_rprompt() {
     local command
     local prompt
-    for command in prompt_vi_mode prompt_virtualenv prompt_git_status prompt_pwd; do
+    for command in prompt_virtualenv prompt_git_status prompt_pwd; do
         prompt="`$command`"
         if [[ -n "$prompt" ]]; then
-            prompt_segment
             $command
         fi
     done
-    prompt_segment
     echo -n "%{$reset_color%}"
 }
 
