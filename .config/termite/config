@@ -45,9 +45,10 @@ filter_unmatched_urls = true
 # softest: background = #665c54
 background = #504945
 # light fg: foreground = #ebdbb2
+# normal fg: foreground = #d5c4a1
 # dark fg: foreground = #bdae93
-foreground = #bdae93
-foreground_bold = #bdae93
+foreground = #d5c4a1
+foreground_bold = #d5c4a1
 
 # dark0 + gray
 color0 = #282828

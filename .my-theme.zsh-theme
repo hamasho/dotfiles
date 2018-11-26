@@ -2,6 +2,7 @@
 
 SYMBOL_BAD="✘"
 RPROMPT_DEFAULT_COLOR="$fg[white]"
+CHAR_COLOR="$FG[252]"
 
 prompt_vi_mode() {
     if [ "$KEYMAP" = "main" ]; then
@@ -17,7 +18,7 @@ prompt_virtualenv() {
 }
 
 prompt_git_status() {
-    local git_status_color
+    local git_status_color git_status_str
 
     if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1); then
         # Dont show anything if cwd is git-ignored
@@ -28,13 +29,17 @@ prompt_git_status() {
         else
             git_status_color=$bg[green]
         fi
+        git_status_str=$(git rev-parse --abbrev-ref HEAD)
+        if (( ${#git_status_str} > 6 )); then
+            git_status_str=$(echo ${git_status_str} | sed 's/\(.....\).*$/\1../')
+        fi
 
-        echo -n "%{$git_status_color$FG[015]%} $(git_prompt_info)$(git_prompt_status) "
+        echo -n "%{$git_status_color$FG[015]%} git:%{$CHAR_COLOR%}${git_status_str}$(git_prompt_status) "
     fi
 }
 
 prompt_pwd() {
-    echo -n "%{$bg[blue]%} $(pwd | sed "s|$HOME|~|" | sed "s|/\(...\)[^/]\+|/\1|g") "
+    echo -n "%{$bg[blue]$FG[015]%} pwd:%{$CHAR_COLOR%}$(pwd | sed "s|$HOME|~|" | sed "s|/\(...\)[^/]\+|/\1|g") "
 }
 
 build_prompt() {
@@ -53,7 +58,7 @@ build_rprompt() {
     for command in prompt_virtualenv prompt_git_status prompt_pwd; do
         prompt="`$command`"
         if [[ -n "$prompt" ]]; then
-            $command
+            echo -n "$prompt%{$reset_color%}"
         fi
     done
     echo -n "%{$reset_color%}"
