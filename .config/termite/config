@@ -68,11 +68,13 @@ color3 = #d79921
 color11 = #fabd2f
 
 # neutral_blue + bright_blue
-color4 = #458588
+#color4 = #458588
+color4 = #83a598
 color12 = #83a598
 
 # neutral_purple + bright_purple
-color5 = #b16286
+#color5 = #b16286
+color5 = #d3869b
 color13 = #d3869b
 
 # neutral_aqua + faded_aqua
