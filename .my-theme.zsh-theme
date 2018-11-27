@@ -1,7 +1,6 @@
 # vim: ft=zsh
 
 SYMBOL_BAD="✘"
-RPROMPT_DEFAULT_COLOR="$fg[white]"
 CHAR_COLOR="$FG[252]"
 
 prompt_vi_mode() {
@@ -13,8 +12,13 @@ prompt_vi_mode() {
 }
 
 prompt_virtualenv() {
+    local venv_name
     [[ -z "$VIRTUAL_ENV" ]] && return
-    echo -n " %{$fg[magenta]%}py%{$RPROMPT_DEFAULT_COLOR%}: $(basename $VIRTUAL_ENV) "
+    venv_name=$(basename $VIRTUAL_ENV)
+    if (( ${#venv_name} > 6 )); then
+        venv_name=$(echo "$venv_name" | sed 's/\(.....\).*$/\1../')
+    fi
+    echo -n "%{$bg[magenta]%} py:%{$CHAR_COLOR%} ${venv_name} "
 }
 
 prompt_git_status() {
