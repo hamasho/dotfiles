@@ -96,7 +96,7 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'shinchu/lightline-gruvbox.vim'
 let g:lightline = {
-    \ 'colorscheme': 'gruvbox',
+    \ 'colorscheme': 'seoul256',
     \ 'active': {
     \     'left': [ [ 'mode', 'paste' ],
     \               [ 'gitbranch', 'readonly', 'relativepath', 'tagbar',
@@ -423,6 +423,8 @@ let g:gruvbox_contrast_dark = "hard"
 
 hi Normal guibg=NONE ctermbg=NONE
 hi Normal guifg=NONE ctermfg=NONE
+hi LineNr ctermbg=238 guibg=#444444
+hi VertSplit ctermbg=238 guibg=#444444
 hi Visual cterm=bold
 syn match Braces display '[{}()\[\]]'
 
