@@ -38,3 +38,4 @@ message/rfc822=userapp-Thunderbird.desktop;
 application/pdf=epdfview.desktop;
 application/x-bittorrent=transmission-gtk.desktop;
 application/x-xpinstall=firefox-nightly.desktop;
+application/json=firefox.desktop;
