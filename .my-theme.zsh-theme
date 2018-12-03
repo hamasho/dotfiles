@@ -57,12 +57,12 @@ prompt_pwd() {
 build_prompt() {
     RETVAL=$?
     local color="$fg[magenta]"
+    # check insert mode
+    [ "$KEYMAP" = "main" ] && color="$fg[cyan]"
     if [[ "$RETVAL" != "0" ]]; then
         color="$fg[red]"
         echo -n "%{$color%}$SYMBOL_BAD $RETVAL %{$reset_color%}"
     fi
-    # check insert mode
-    [ "$KEYMAP" = "main" ] && color="$fg[cyan]"
     echo -n "%B${PROMPT_CHAR}%b%{$color%}${PROMPT_CHAR}%B${PROMPT_CHAR}%b%{$reset_color%} "
 }
 
