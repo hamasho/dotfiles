@@ -8,7 +8,6 @@
        "x": 0,
        "y": 0
     },
-    "name": "i3 - ArchWiki - Mozilla Firefox",
     "percent": 0.3,
     "swallows": [
        {
@@ -30,7 +29,6 @@
        "x": 0,
        "y": 0
     },
-    "name": "<'tmux-title' not ready>",
     "percent": 0.7,
     "swallows": [
        {
@@ -41,4 +39,3 @@
     ],
     "type": "con"
 }
-
