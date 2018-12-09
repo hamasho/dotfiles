@@ -14,7 +14,6 @@
 /.cache/
 /.cargo/
 /.dbus/session-bus/
-/.dmenurc
 /.dmrc
 /.docker/.buildNodeID
 /.dropbox/

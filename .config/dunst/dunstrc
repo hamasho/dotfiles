@@ -74,7 +74,9 @@
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing windowmanager is
     # present (e.g. xcompmgr, compiz, etc.).
-    transparency = 0
+    transparency = 20
+
+    corner_radius = 10
     
     # Don't remove messages, if the user is idle (no mouse or keyboard input)
     # for longer than idle_threshold seconds.
@@ -156,7 +158,7 @@
 
 [frame]
     width = 2
-    color = "#7c6f64"
+    color = "#d5c4a1"
 
 [shortcuts]
 
@@ -178,18 +180,18 @@
     history = ctrl+mod4+h 
     
     # Context menu.
-    context = ctrl+mod1+c
+    context = mod1+c
 
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#fbf1c7"
-    foreground = "#7c6f64"
+    background = "#504945"
+    foreground = "#d5c4a1"
     timeout = 20
 
 [urgency_normal]
-    background = "#fbf1c7"
-    foreground = "#3c3836"
+    background = "#504945"
+    foreground = "#d5c4a1"
     timeout = 20
 
 [urgency_critical]
