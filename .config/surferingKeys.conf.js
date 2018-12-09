@@ -16,8 +16,8 @@ mapkey('<Ctrl-y>', 'Show me the money', function() {
 
 
 
-Hints.style('border: solid 1px #ff79c6; color:#44475a; background: #f1fa8c; background-color: #f1fa8c; font-size: 10pt; font-family: "Fira Code"');
-Hints.style('border: solid 8px #ff79c6;padding: 1px;background: #f1fa8c; font-family: "Fira Code"', "text");
+Hints.style('border: solid 1px #ff79c6; color: #f8f8f2; background: #282a36; background-color: #282a36; font-size: 10pt; font-family: "Fira Code"');
+Hints.style('border: solid 8px #ff79c6; padding: 1px; background: #282a36; font-family: "Fira Code"', "text");
 // -----------------------------------------------------------------------------------------------------------------------
 // Change search marks and cursor
 // -----------------------------------------------------------------------------------------------------------------------
