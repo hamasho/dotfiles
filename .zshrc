@@ -10,12 +10,17 @@ COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(git python tmux vi-mode zsh-completions zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search)
+plugins=(git python tmux vi-mode docker systemd)
+
+plugins+=(zsh-completions zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search)
 
 # kubectl
-plugins+=( kubectl )
-alias kg='kubectl get'
-alias kd='kubectl describe'
+if hash kubectl >/dev/null 2>&1; then
+    plugins+=(kubectl helm)
+    alias kg='kubectl get'
+    alias kd='kubectl describe'
+    alias kgall='kubectl get pod,deploy,svc,ingress,pv,pvc'
+fi
 
 # initialize PATH
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
@@ -36,6 +41,8 @@ setopt extendedglob
 
 # load my awesome theme
 source ~/.my-theme.zsh-theme
+
+[[ -f ~/.dir_colors ]] && eval $(dircolors ~/.dir_colors)
 
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
@@ -115,6 +122,7 @@ alias -g L=' | less'
 alias -g V='--version'
 alias -g W='| w3m -T text/html'
 
+alias watch='watch --color '
 alias gll='git log --no-color --graph --pretty="%h - %d %s (%cr) <%an>"'
 alias gdiff='git diff --color-words --no-index --word-diff-regex=. --color=always'
 alias gdiff2='git diff --color-words --no-index --color=always'
