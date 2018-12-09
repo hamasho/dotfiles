@@ -9,6 +9,9 @@ mapkey('<Ctrl-p>', 'Hello, world!', function() {
 // emulate <Ctrl-[>
 map('<Ctrl-[>', '<Esc>');
 
+// open mermaid
+map('<Ctrl-Alt-f>', '<Ctrl-Alt-d>');
+
 // an example to create a new mapping `ctrl-y`
 mapkey('<Ctrl-y>', 'Show me the money', function() {
   Front.showPopup('a well-known phrase uttered by characters in the 1996 film Jerry Maguire (Escape to close).');
@@ -23,6 +26,7 @@ Hints.style('border: solid 8px #ff79c6; padding: 1px; background: #282a36; font-
 // -----------------------------------------------------------------------------------------------------------------------
 Visual.style('marks', 'background-color: #f1fa8c;');
 Visual.style('cursor', 'background-color: #6272a4; color: #f8f8f2');
+
 // -----------------------------------------------------------------------------------------------------------------------
 // Change theme
 // // Change fonts
