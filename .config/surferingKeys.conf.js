@@ -1,29 +1,5 @@
-// Use `gruvbox light` color theme: https://github.com/morhetz/gruvbox
-const skColors = {
-  bg: {
-    normal: '#fbf1c7',
-    highContrast: '#f9f5d7',
-    normal0: '#fbf1c7',
-    normal1: '#ebdbb2',
-    red: '#cc241d',
-    green: '#98971a',
-    yellow: '#d79921',
-    blue: '#455888',
-    purple: '#b16286',
-    aqua: '#689d6a',
-    gray: '#7c6f64',
-  },
-  fg: {
-    gray: '#928374',
-    red: '#9d0006',
-    green: '#79740e',
-    yellow: '#b67614',
-    blue: '#076678',
-    purple: '#8f3f71',
-    aqua: '#427b58',
-    normal: '#3c3836',
-  },
-};
+// disable emoji compilation
+settings.startToShowEmoji = false;
 
 // make sure this config is loaded
 mapkey('<Ctrl-p>', 'Hello, world!', function() {
@@ -33,156 +9,178 @@ mapkey('<Ctrl-p>', 'Hello, world!', function() {
 // emulate <Ctrl-[>
 map('<Ctrl-[>', '<Esc>');
 
-// work related
-mapkey('gws', '#1Open Slack', function() {
-  tabOpenLink('https://c-chan.slack.com/messages/G43U479LN/');
-});
-mapkey('gwc', '#1Open Calendar', function() {
-  tabOpenLink('https://calendar.google.com/calendar/b/1/r');
-});
-mapkey('gwm', '#1Open E-Mail', function() {
-  tabOpenLink('https://mail.google.com/mail/u/1/#inbox');
-});
-mapkey('gwl', '#1Open Levtech', function() {
-  tabOpenLink('https://platform.levtech.jp/p/workreport/');
-});
-
-mapkey('gwgg', '#2Open Github CChan Home', function() {
-  tabOpenLink('https://github.com/CChannel');
-});
-mapkey('gwgw', '#2Open Github CChan Web (Python)', function() {
-  tabOpenLink('https://github.com/CChannel/cchan_web_python/tree/alpha');
-});
-mapkey('gwga', '#2Open Github CChan API', function() {
-  tabOpenLink('https://github.com/CChannel/cchan_api/tree/alpha');
-});
-mapkey('gwgo', '#2Open Github CChan Web (PHP)', function() {
-  tabOpenLink('https://github.com/CChannel/cchan-web/tree/alpha');
-});
-mapkey('gwgm', '#2Open Github Mama-Web', function() {
-  tabOpenLink('https://github.com/CChannel/mama-web/tree/alpha');
-});
-mapkey('gwge', '#2Open Github CChan ETC', function() {
-  tabOpenLink('https://github.com/CChannel/cchan-etc');
-});
-
-function _changeCchanUrl(toEnv, toRegion, inplace) {
-  const proto = toEnv ? (toEnv === 'local' ? 'http:' : 'https:') : window.location.protocol;
-  const loc = window.location;
-  const host = loc.host;
-  const first = host.split('.')[0];
-  const parts = first.split('-');
-  const env = parts.length == 1 ? 'release' : parts[0];
-  const region = env == 'release' ? parts[0] : parts[1];
-  toEnv = toEnv || env;
-  toRegion = toRegion || region;
-  let toHostSub = `${toEnv}-${toRegion}`;
-  if (toEnv == 'release') {
-    toHostSub = toRegion;
-  }
-  let toHost = `${toHostSub}.cchan.tv`;
-  if (toEnv == 'local') {
-    toHost = `${toHost}:8080`;
-  }
-
-  const toUrl = `${proto}//${toHost}${loc.pathname}${loc.search}${loc.hash}`;
-
-  console.log('[SK] SWITCH TO: ' + toUrl);
-  if (inplace) {
-    window.location.href = toUrl;
-  } else {
-    tabOpenLink(toUrl);
-  }
-}
-
-mapkey(',cel', '#1Change CChan URL to local and open in new tab', function() {
-  _changeCchanUrl('local', null, false);
-});
-mapkey(',cea', '#1Change CChan URL to alpha and open in new tab', function() {
-  _changeCchanUrl('alpha', null, false);
-});
-mapkey(',ceb', '#1Change CChan URL to beta and open in new tab', function() {
-  _changeCchanUrl('beta', null, false);
-});
-mapkey(',cer', '#1Change CChan URL to release and open in new tab', function() {
-  _changeCchanUrl('release', null, false);
-});
-
-mapkey(',iel', '#1Change CChan URL to local in current tab', function() {
-  _changeCchanUrl('local', null, true);
-});
-mapkey(',iea', '#1Change CChan URL to alpha in current tab', function() {
-  _changeCchanUrl('alpha', null, true);
-});
-mapkey(',ieb', '#1Change CChan URL to beta in current tab', function() {
-  _changeCchanUrl('beta', null, true);
-});
-mapkey(',ier', '#1Change CChan URL to release in current tab', function() {
-  _changeCchanUrl('release', null, true);
-});
-
-mapkey(',irj', '#1Change CChan URL to region jp', function() {
-  _changeCchanUrl(null, 'www', true);
-});
-mapkey(',ire', '#1Change CChan URL to region en', function() {
-  _changeCchanUrl(null, 'en', true);
-});
-mapkey(',irz', '#1Change CChan URL to region zh', function() {
-  _changeCchanUrl(null, 'zh', true);
-});
-mapkey(',iri', '#1Change CChan URL to region id', function() {
-  _changeCchanUrl(null, 'id', true);
-});
-mapkey(',irt', '#1Change CChan URL to region th', function() {
-  _changeCchanUrl(null, 'th', true);
-});
+// open mermaid
+map('<Ctrl-Alt-f>', '<Ctrl-Alt-d>');
 
 // an example to create a new mapping `ctrl-y`
 mapkey('<Ctrl-y>', 'Show me the money', function() {
   Front.showPopup('a well-known phrase uttered by characters in the 1996 film Jerry Maguire (Escape to close).');
 });
 
-// an example to replace `T` with `gt`, click `Default mappings` to see how `T` works.
-// map('gt', 'T');
 
-// an example to remove mapkey `Ctrl-i`
-// unmap('<Ctrl-i>');
 
-// set theme
+Hints.style('border: solid 1px #ff79c6; color: #f8f8f2; background: #282a36; background-color: #282a36; font-size: 10pt; font-family: "Fira Code"');
+Hints.style('border: solid 8px #ff79c6; padding: 1px; background: #282a36; font-family: "Fira Code"', "text");
+// -----------------------------------------------------------------------------------------------------------------------
+// Change search marks and cursor
+// -----------------------------------------------------------------------------------------------------------------------
+Visual.style('marks', 'background-color: #f1fa8c;');
+Visual.style('cursor', 'background-color: #6272a4; color: #f8f8f2');
+
+// -----------------------------------------------------------------------------------------------------------------------
+// Change theme
+// // Change fonts
+// // Change colors
+// -----------------------------------------------------------------------------------------------------------------------
 settings.theme = `
-.sk_theme {
-  background: ${skColors.bg.normal};
-  color: ${skColors.fg.normal};
-}
-.sk_theme tbody {
-  color: ${skColors.fg.normal};
-}
 .sk_theme input {
-  color: ${skColors.fg.normal};
-  font-size: 2em;
-  padding-bottom: 10px;
+    font-family: "Fira Code";
 }
 .sk_theme .url {
-  color: ${skColors.fg.blue};
+    font-size: 10px;
+}
+#sk_omnibarSearchResult li div.url {
+    font-weight: normal;
+}
+.sk_theme .omnibar_timestamp {
+    font-size: 11px;
+    font-weight: bold;
+}
+.sk_theme .omnibar_visitcount {
+    font-size: 11px;
+    font-weight: bold;
+}
+body {
+    font-family: "Fira Code", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 14px;
+}
+kbd {
+    font: 11px "Fira Code", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+#sk_omnibarSearchArea .prompt, #sk_omnibarSearchArea .resultPage {
+    font-size: 12px;
+}
+.sk_theme {
+    background: #282a36;
+    color: #f8f8f2;
+}
+.sk_theme tbody {
+    color: #ff5555;
+}
+.sk_theme input {
+    color: #ffb86c;
+}
+.sk_theme .url {
+    color: #6272a4;
+}
+#sk_omnibarSearchResult>ul>li {
+    background: #282a36;
+}
+#sk_omnibarSearchResult>ul>li:nth-child(odd) {
+    background: #282a36;
 }
 .sk_theme .annotation {
-  color: ${skColors.fg.gray};
+    color: #6272a4;
+}
+.sk_theme .focused {
+    background: #44475a !important;
+}
+.sk_theme kbd {
+    background: #f8f8f2;
+    color: #44475a;
+}
+.sk_theme .frame {
+    background: #8178DE9E;
 }
 .sk_theme .omnibar_highlight {
-  color: ${skColors.fg.red};
+    color: #8be9fd;
 }
-.sk_theme ul>li:nth-child(odd) {
-  background: ${skColors.bg.normal1};
+.sk_theme .omnibar_folder {
+    color: #ff79c6;
 }
-.sk_theme ul>li.focused {
-  background: ${skColors.bg.gray};
+.sk_theme .omnibar_timestamp {
+    color: #bd93f9;
 }
-#sk_status input {
-  color: ${skColors.fg.normal};
-  font-size: 1em;
+.sk_theme .omnibar_visitcount {
+    color: #f1fa8c;
 }
-#sk_hints>div {
-  background: ${skColors.bg.normal};
-  color: ${skColors.fg.normal};
+.sk_theme #sk_omnibarSearchResult>ul>li:nth-child(odd) {
+    background: #282a36;
+}
+.sk_theme .prompt, .sk_theme .resultPage {
+    color: #50fa7b;
+}
+.sk_theme .feature_name {
+    color: #ff5555;
+}
+.sk_omnibar_middle #sk_omnibarSearchArea {
+    border-bottom: 1px solid #282a36;
+}
+#sk_status {
+    border: 1px solid #282a36;
+}
+#sk_richKeystroke {
+    background: #282a36;
+    box-shadow: 0px 2px 10px rgba(40, 42, 54, 0.8);
+}
+#sk_richKeystroke kbd>.candidates {
+    color: #ff5555;
+}
+#sk_keystroke {
+    background-color: #282a36;
+    color: #f8f8f2;
+}
+kbd {
+    border: solid 1px #f8f8f2;
+    border-bottom-color: #f8f8f2;
+    box-shadow: inset 0 -1px 0 #f8f8f2;
+}
+#sk_frame {
+    border: 4px solid #ff5555;
+    background: #8178DE9E;
+    box-shadow: 0px 0px 10px #DA3C0DCC;
+}
+#sk_banner {
+    border: 1px solid #282a36;
+    background: rgb(68, 71, 90);
+}
+div.sk_tabs_bg {
+    background: #f8f8f2;
+}
+div.sk_tab {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6272a4), color-stop(100%,#44475a));
+}
+div.sk_tab_title {
+    color: #f8f8f2;
+}
+div.sk_tab_url {
+    color: #8be9fd;
+}
+div.sk_tab_hint {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f1fa8c), color-stop(100%,#ffb86c));
+    color: #282a36;
+    border: solid 1px #282a36;
+}
+#sk_bubble {
+    border: 1px solid #f8f8f2;
+    color: #282a36;
+    background-color: #f8f8f2;
+}
+#sk_bubble * {
+    color: #282a36 !important;
+}
+div.sk_arrow[dir=down]>div:nth-of-type(1) {
+    border-top: 12px solid #f8f8f2;
+}
+div.sk_arrow[dir=up]>div:nth-of-type(1) {
+    border-bottom: 12px solid #f8f8f2;
+}
+div.sk_arrow[dir=down]>div:nth-of-type(2) {
+    border-top: 10px solid #f8f8f2;
+}
+div.sk_arrow[dir=up]>div:nth-of-type(2) {
+    border-bottom: 10px solid #f8f8f2;
+}
 }`;
+
 // click `Save` button to make above settings to take effect.

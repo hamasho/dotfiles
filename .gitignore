@@ -2,6 +2,8 @@
 /.NERDTreeBookmarks
 /.Xauthority
 /.Xclients
+/.ansible
+/.ansible_galaxy
 /.aws/
 /.babel.json
 /.backup/
@@ -12,7 +14,6 @@
 /.cache/
 /.cargo/
 /.dbus/session-bus/
-/.dmenurc
 /.dmrc
 /.docker/.buildNodeID
 /.dropbox/
@@ -33,6 +34,9 @@
 /.golang/
 /.gtkrc-2.0
 /.icons/
+/.java/
+/.jenkins/
+/.keras/
 /.lesshst
 /.local/
 /.moc/
@@ -43,7 +47,9 @@
 /.node-gyp/
 /.npm/
 /.npm-global/
+/.nvm/
 /.oh-my-zsh/
+/.phoronix-test-suite/
 /.pip-global/
 /.pki/
 /.pylint.d/
@@ -55,6 +61,7 @@
 /.swp
 /.thumbnails/
 /.v8flags.*
+/.vagrant.d/
 /.vboxclient-*
 /.vim/
 /.viminfo
@@ -70,13 +77,13 @@
 /.zcompdump*
 /.zsh-update
 
-
 /devel/
 /dl/
 /doc/
 /misc/
 /work/
 /Dropbox/
+/VirtualBox\ VMs/
 /TODO.md
 
 ### local files
@@ -98,12 +105,15 @@
 /.config/dconf/
 /.config/dmenu-recent/
 /.config/gconf/
+/.config/GIMP/
 /.config/gtk-2.0/
 /.config/gtk-3.0/
 /.config/mcomix/
 /.config/Mousepad/
 /.config/qt5ct/
 /.config/transmission/
+/.config/VirtualBox/
+/.config/vlc/
 /.config/xarchiver/
 /.config/xfce4/
 
@@ -136,6 +146,11 @@
 /.mutt/mutt-colors-solarized
 /.mutt/private.muttrc
 
+# kube
+/.kube
+/.minikube
+/.helm
+
 ### common ignored files
 __pycache__
 *.sqlite
@@ -149,6 +164,7 @@ __pycache__
 #####################
 /.rustup/
 /.sage/
+/.config/htop/
 /.config/libfm/
 /.config/nitrogen/
 /.config/pcmanfm/
