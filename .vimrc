@@ -225,6 +225,8 @@ Plugin 'ternjs/tern_for_vim'
 
 Plugin 'posva/vim-vue'
 
+Plugin 'mustache/vim-mustache-handlebars'
+
 " TypeScript
 Plugin 'leafgarland/typescript-vim'
 augroup TypeScript

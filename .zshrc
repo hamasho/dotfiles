@@ -16,10 +16,11 @@ plugins+=(zsh-completions zsh-syntax-highlighting zsh-autosuggestions zsh-histor
 
 # kubectl
 if hash kubectl >/dev/null 2>&1; then
-    plugins+=(kubectl helm)
+    plugins+=(kubectl)
     alias kg='kubectl get'
     alias kd='kubectl describe'
-    alias kgall='kubectl get pod,deploy,svc,ingress,pv,pvc'
+    alias kgall='kubectl get pod,svc,deploy,sts,ingress,pv,pvc'
+    alias -g KAN=--all-namespaces
 fi
 
 # initialize PATH
@@ -117,6 +118,10 @@ alias -g C='--color=always | less'
 alias -g G='| ag'
 alias -g GV='| ag -v'
 alias -g H='2>&1 --help | less'
+alias -g E='2>&1'
+alias -g ON='>/dev/null'
+alias -g EN='2>/dev/null'
+alias -g AN='2>&1 >/dev/null'
 alias -g J=' | jq -SC . | less'
 alias -g L=' | less'
 alias -g V='--version'
@@ -249,5 +254,7 @@ function j() {
 }
 
 alias dj='python manage.py'
+
+[ $commands[helm] ] && source <(helm completion zsh)
 
 true
