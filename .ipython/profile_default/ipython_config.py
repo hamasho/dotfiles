@@ -22,6 +22,9 @@ c.TerminalInteractiveShell.confirm_exit = False
 # nomal key bindings
 c.TerminalInteractiveShell.editing_mode = 'vi'
 
+# set colors
+c.TerminalInteractiveShell.colors = 'linux'
+
 
 ### MODULES ###
 
