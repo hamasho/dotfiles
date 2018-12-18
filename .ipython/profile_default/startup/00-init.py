@@ -29,17 +29,16 @@ ip.prompts = MyPrompt(ip)
 
 
 ## Keyboard Shortcuts
-handle = ip.pt_cli.application.key_bindings_registry.add_binding
+registry = ip.pt_app.key_bindings
 vi_ins = ViInsertMode()
 
 # use emacs bindings in vi insert mode
-handle(Keys.ControlA, filter=vi_ins)(get_by_name('beginning-of-line'))
-handle(Keys.ControlB, filter=vi_ins)(get_by_name('backward-char'))
-handle(Keys.ControlE, filter=vi_ins)(get_by_name('end-of-line'))
-handle(Keys.ControlF, filter=vi_ins)(get_by_name('forward-char'))
-handle(Keys.ControlK, filter=vi_ins)(get_by_name('kill-line'))
-handle(Keys.ControlY, filter=vi_ins)(get_by_name('yank'))
-
+registry.add_binding(Keys.ControlA, filter=vi_ins)(get_by_name('beginning-of-line'))
+registry.add_binding(Keys.ControlB, filter=vi_ins)(get_by_name('backward-char'))
+registry.add_binding(Keys.ControlE, filter=vi_ins)(get_by_name('end-of-line'))
+registry.add_binding(Keys.ControlF, filter=vi_ins)(get_by_name('forward-char'))
+registry.add_binding(Keys.ControlK, filter=vi_ins)(get_by_name('kill-line'))
+registry.add_binding(Keys.ControlY, filter=vi_ins)(get_by_name('yank'))
 
 ##
 ## Util functions
