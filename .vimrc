@@ -178,6 +178,9 @@ Plugin 'tpope/vim-surround'
 " Easy comment
 Plugin 'vim-scripts/tComment'
 
+" Colorize hex
+Plugin 'chrisbra/Colorizer'
+
 " Automatic closing
 Plugin 'jiangmiao/auto-pairs'
 

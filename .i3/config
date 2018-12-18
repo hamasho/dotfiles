@@ -41,7 +41,8 @@ bindsym $mod+Return exec $terminal -e 'tmux new'
 bindsym $mod+Shift+q kill
 
 # start program launcher
-bindsym $mod+semicolon exec --no-startup-id dmenu_recency
+#bindsym $mod+semicolon exec --no-startup-id dmenu_recency
+bindsym $mod+semicolon exec --no-startup-id i3-dmenu-desktop
 
 # launch categorized menu
 bindsym $mod+z exec --no-startup-id morc_menu
@@ -252,8 +253,8 @@ bindsym $mod+0 mode "$mode_system"
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id i3exit lock, mode "default"
-    # bindsym s exec --no-startup-id i3exit suspend, mode "default"
-    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    # bindsym s exec --no-startup-id systemctl suspend, mode "default"
     bindsym u exec --no-startup-id i3exit switch_user, mode "default"
     bindsym e exec --no-startup-id i3exit logout, mode "default"
     bindsym h exec --no-startup-id i3exit hibernate, mode "default"
@@ -343,30 +344,48 @@ set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
 
 # Color palette used for i3 
-# Variables are set based on the documentation:
-# https://i3wm.org/dovs/userguide.html#variables
-# Changing the value of one of the variables will
-# effect all the areas with the same color.
-set $i3_background      #2B2C2B
-set $i3_text            #F9FAF9
-set $i3_separator       #454947
-set $i3_color1          #f9faf9
-set $i3_color2          #595B5B
-set $i3_color3          #353836
-set $i3_color4          #16A085
-set $i3_color5          #FDF6E3
-set $i3_color6          #EEE8D5
-set $i3_color7          #E5201D
-set $i3_color8          #808380
-set $i3_color9          #434745
-set $i3_color10         #454948
-set $i3_color11         #80FFF9
-set $i3_color12         #FDF6E3
-set $i3_color13         #CB4B16
-set $i3_color14         #268BD2
-set $i3_color15         #000000
-set $i3_color16         #ffffff
-set $i3_color17         #0c0c0c
+# set $i3_background      #2B2C2B
+# set $i3_text            #F9FAF9
+# set $i3_separator       #454947
+# set $i3_color1          #f9faf9
+# set $i3_color2          #595B5B
+# set $i3_color3          #353836
+# set $i3_color4          #16A085
+# set $i3_color5          #FDF6E3
+# set $i3_color6          #EEE8D5
+# set $i3_color7          #E5201D
+# set $i3_color8          #808380
+# set $i3_color9          #434745
+# set $i3_color10         #454948
+# set $i3_color11         #80FFF9
+# set $i3_color12         #FDF6E3
+# set $i3_color13         #CB4B16
+# set $i3_color14         #268BD2
+# set $i3_color15         #000000
+# set $i3_color16         #ffffff
+# set $i3_color17         #0c0c0c
+
+set $i3_background = #504945
+set $i3_text = #d5c4a1
+set $i3_separator = #504945
+set $i3_color0 = #282828
+set $i3_color1 = #fb4934
+set $i3_color2 = #98971a
+set $i3_color3 = #d79921
+set $i3_color4 = #458588
+set $i3_color5 = #b16286
+set $i3_color6 = #689d6a
+set $i3_color7 = #a89984
+set $i3_color8 = #928374
+set $i3_color9 = #fb4934
+set $i3_color10 = #b8bb26
+set $i3_color11 = #fabd2f
+set $i3_color12 = #83a598
+set $i3_color13 = #d3869b
+set $i3_color14 = #8ec07c
+set $i3_color15 = #504945
+set $i3_color16 = #d5c4a1
+set $i3_color17 = #504945
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
@@ -379,19 +398,19 @@ bar {
 
 	bindsym button4 nop
 	bindsym button5 nop
-	font xft:Noto Sans 10.5
+	font xft:Noto Sans 11
 	strip_workspace_numbers yes
 
+# can't understand but sometimes only hard coded colors work
 	colors {
-#       background $transparent
-        background $i3_background
-        statusline $i3_text
-        separator  $i3_separator
+        background #504945
+        statusline $i3_color7
+        separator  $i3_color7
 
 #                                  border  backgr. text
-        focused_workspace   $i3_color1  $i3_color4  $i3_text
-        active_workspace    $i3_color2  $i3_color3  $i3_color5
-        inactive_workspace  $i3_color2  $i3_color3  $i3_color6
+        focused_workspace   $i3_color7  #000000     #ffffff
+        active_workspace    $i3_color0  $i3_color3  $i3_color5
+        inactive_workspace  $i3_color0  $i3_color3  $i3_color6
         urgent_workspace    $i3_color4  $i3_color5  $i3_color7
     }
 }

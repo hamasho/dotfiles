@@ -19,7 +19,7 @@ if hash kubectl >/dev/null 2>&1; then
     plugins+=(kubectl)
     alias kg='kubectl get'
     alias kd='kubectl describe'
-    alias kgall='kubectl get pod,svc,deploy,sts,ingress,pv,pvc'
+    alias kgall='kubectl get pod,svc,deploy,sts,ingress,pvc'
     alias -g KAN=--all-namespaces
 fi
 

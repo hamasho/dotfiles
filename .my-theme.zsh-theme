@@ -38,7 +38,7 @@ prompt_git_status() {
             git_status="%{$fg[green]%}${SYMBOL_GOOD}%{$fg[white]%}"
         else
             modified_files=$(echo $modified_files | wc -l)
-            git_status="%{$fg[red]%}${SYMBOL_BAD} ${modified_files}%{$fg[white]%}"
+            git_status="%{$fg[red]%}${SYMBOL_BAD}${modified_files}%{$fg[white]%}"
         fi
 
         git_branch=$(git rev-parse --abbrev-ref HEAD)

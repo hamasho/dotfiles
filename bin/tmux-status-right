@@ -27,8 +27,9 @@ battery_info() {
 }
 
 docker_info() {
-    echo -n 'docker: '
-    docker ps | tail +2 | awk '{ print $NF }' ORS=', ' | sed 's/, $//'
+    local processes=`docker ps --format '{{.Names}}'`
+    echo -n "docker($(echo $processes | wc -l)): "
+    echo $processes | tr '\n' ' ' | cut -c 1-20
 }
 
 # print info and extra space
