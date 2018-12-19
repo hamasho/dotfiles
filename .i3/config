@@ -86,6 +86,7 @@ set $up k
 set $right l
 
 focus_follows_mouse no
+mouse_warping none
 
 # change focus
 bindsym $mod+$left focus left
