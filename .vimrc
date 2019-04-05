@@ -92,16 +92,24 @@ Plugin 'VundleVim/Vundle.vim'
 " Nice status & tab line
 Plugin 'itchyny/lightline.vim'
 
+" ale/lightline bundle
+Plugin 'maximbaz/lightline-ale'
+
 " Colors
 Plugin 'flazz/vim-colorschemes'
 Plugin 'shinchu/lightline-gruvbox.vim'
+
+let g:lightline#ale#indicator_checking = "\uf110"
+let g:lightline#ale#indicator_warnings = "\uf071 "
+let g:lightline#ale#indicator_errors = "\uf05e "
+let g:lightline#ale#indicator_ok = "\uf00c"
 let g:lightline = {
     \ 'colorscheme': 'seoul256',
     \ 'active': {
     \     'left': [ [ 'mode', 'paste' ],
-    \               [ 'gitbranch', 'readonly', 'relativepath', 'tagbar',
-    \                  'modified'] ],
-    \     'right': [ [ 'fileencoding', 'filetype' ],
+    \               [ 'gitbranch', 'readonly', 'relativepath', 'tagbar', 'modified'] ],
+    \     'right': [ [ 'fileencoding', 'filetype',
+    \                   'linter_checking', 'linter_warnings', 'linter_errors', 'linter_ok' ],
     \                [ 'percent' ] ]
     \ },
     \ 'inactive': {
@@ -111,8 +119,18 @@ let g:lightline = {
     \ 'component' : {
     \     'tagbar': '%{tagbar#currenttag("%s", "", "f")}'
     \ },
+    \ 'component_type' : {
+    \     'linter_checking': 'left',
+    \     'linter_warning': 'warnings',
+    \     'linter_errors': 'error',
+    \     'linter_ok': 'left',
+    \ },
     \ 'component_function': {
     \     'gitbranch': 'fugitive#head',
+    \     'linter_checking': 'lightline#ale#checking',
+    \     'linter_warnings': 'lightline#ale#warnings',
+    \     'linter_errors': 'lightline#ale#errors',
+    \     'linter_ok': 'lightline#ale#ok',
     \ },
     \ 'tabline': {
     \     'left': [ [ 'tabs' ] ],
@@ -159,6 +177,9 @@ Plugin 'tpope/tpope-vim-abolish'
 " Async search
 Plugin 'mhinz/vim-grepper'
 nnoremap <leader>g :Grepper<cr>
+
+" Local search with index number
+Plugin 'henrik/vim-indexed-search'
 
 " Git helper
 Plugin 'tpope/vim-fugitive'
@@ -235,9 +256,9 @@ Plugin 'leafgarland/typescript-vim'
 augroup TypeScript
     au!
     au FileType typescript
-        \ setlocal softtabstop=2 |
-        \ setlocal tabstop=2     |
-        \ setlocal shiftwidth=2
+        \ setlocal softtabstop=4 |
+        \ setlocal tabstop=4     |
+        \ setlocal shiftwidth=4
 augroup END
 
 " Emmet (Zen cording HTML)
@@ -360,9 +381,9 @@ Plugin 'lepture/vim-jinja'
 augroup Jinja
     au!
     au FileType jinja
-      \ setlocal softtabstop=2 |
-      \ setlocal tabstop=2     |
-      \ setlocal shiftwidth=2
+      \ setlocal softtabstop=4 |
+      \ setlocal tabstop=4     |
+      \ setlocal shiftwidth=4
 augroup END
 
 " Python {{{2

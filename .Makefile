@@ -1,10 +1,15 @@
 ARCH_BASE_PACKAGES :=
-ARCH_USER_PACKAGES := git gvim zsh
+ARCH_USER_PACKAGES := \
+	git gvim zsh \
+	rubygems
 ARCH_PACKAGES := $(ARCH_BASE_PACKAGES) $(ARCH_USER_PACKAGES)
 
 ARCH_AUR_PACKAGES := vi-vim-symlink
 
 ARCH_PACKAGE_UPGRADE := n
+
+RUBY_PACKAGES := tmuxinator
+
 
 define ZSH_PLUGIN_URLS
 https://github.com/marzocchi/zsh-notify
@@ -32,3 +37,6 @@ oh-my-zsh: arch-packages
 	# manually rename zsh-notify to notify cuz filename is `notify.plugin.zsh`
 	cd ~/.oh-my-zsh/custom/plugins && \
 		mv zsh-notify notify
+
+ruby-packages: arch-packages
+	gem install $(RUBY_PACKAGES)

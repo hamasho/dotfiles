@@ -114,6 +114,7 @@
 /.config/mcomix/
 /.config/Mousepad/
 /.config/qt5ct/
+/.config/QtProject.conf
 /.config/transmission/
 /.config/VirtualBox/
 /.config/vlc/
@@ -173,3 +174,4 @@ __pycache__
 /.config/pcmanfm/
 /.config/ranger/
 /.config/viewnior/
+/.config/Cypress/

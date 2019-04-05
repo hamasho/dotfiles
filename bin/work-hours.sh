@@ -6,23 +6,26 @@ usage() {
     echo "${BIN} [-ch]"
     echo "options:"
     echo "  -c: CSV output"
+    echo "  -m MONTH: Month"
     echo "  -l: Only print git commit log for each working day"
     echo "  -h: Show this help"
 }
 
 FORMAT=human
 PRINT_COMMIT_LOG=false
+MONTH=$(date +%m)
 
-while getopts chl opt; do
+while getopts clm:h opt; do
     case $opt in
         c) FORMAT=csv;;
         l) PRINT_COMMIT_LOG=true;;
         h) usage; exit;;
+        m) MONTH=$(printf "%02d" $OPTARG);;
         *) usage; exit 1;;
     esac
 done
 
-TARGET_MONTH=$(date '+%Y-%m')
+TARGET_MONTH=$(date +%Y)-${MONTH}
 ALL_COMMANDS=$(fc -li 1 | sed 's/^ *[0-9]* *//' | grep "^$TARGET_MONTH")
 
 current_date=
@@ -49,11 +52,10 @@ print_summary() {
 }
 
 count_remaining_weekdays() {
-    local month=$(date +%m) today=$(date +%d) next_month total=0 day
-    next_month=$(( month + 1 ))
+    local today=$(date +%d) total=0 day next_month=$(( MONTH + 1 ))
     last_day=$(date +%d -d "$(date +%Y-$next_month-01) -1 day")
     for day in $(seq $(( today + 1 )) $last_day); do
-        week=$(date +%a -d "2019-${month}-${day}")
+        week=$(date +%a -d "2019-${MONTH}-${day}")
         if [ $week != Sun ] && [ $week != Sat ]; then
             total=$(( total + 1 ))
         fi
@@ -68,9 +70,10 @@ min_to_time() {
     echo -n "$(printf '%02d' $hour):$(printf '%02d' $min)"
 }
 
+echo
 for day in $(seq 1 31); do
-    [[ ${#day} -eq 1 ]] && day="0${day}"
-    com=$(echo $ALL_COMMANDS | grep "^$(date '+%Y-%m')-$day")
+    day=$(printf "%02d" day)
+    com=$(echo $ALL_COMMANDS | grep "^${TARGET_MONTH}-$day")
 
     if [[ $PRINT_COMMIT_LOG == true ]]; then
         if [[ -n "$com" ]]; then
@@ -118,8 +121,8 @@ if [[ $FORMAT == human ]]; then
     remain_days=$(count_remaining_weekdays) 
     if [[ $remain_days != 0 ]]; then
         echo REMAIN: $remain_days days, \
-            min: $(( (140 - total_hours) / remain_days )) hours/day, \
-            avg: $(( (160 - total_hours) / remain_days )) hours/day
+            min: $(( (140 - total_hours) / remain_days + 1 )) hours/day +1 hour lunch, \
+            avg: $(( (160 - total_hours) / remain_days + 1 )) hours/day +1 hour lunch
     fi
 
     echo

@@ -10,9 +10,8 @@ COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(git python tmux vi-mode docker systemd)
-plugins+=(notify)
-plugins+=(zsh-completions zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search)
+plugins=(git python tmux tmuxinator vi-mode systemd)
+plugins+=(zsh-syntax-highlighting zsh-autosuggestions)
 
 # kubectl
 if hash kubectl >/dev/null 2>&1; then
@@ -39,6 +38,7 @@ zmodload -i zsh/complist
 
 # set options
 setopt extendedglob
+setopt HIST_FIND_NO_DUPS
 
 # load my awesome theme
 source ~/.my-theme.zsh-theme
@@ -109,7 +109,7 @@ export GOPATH=$HOME/.golang
 
 add_path ${HOME}/.npm-global/bin
 add_path ${HOME}/.config/yarn/global/node_modules/.bin
-add_path ${HOME}/.gem/ruby/2.4.0/bin
+add_path ${HOME}/.gem/ruby/2.5.0/bin
 add_path ${HOME}/.local/bin
 add_path ${GOPATH}/bin
 add_path /snap/bin
@@ -123,7 +123,7 @@ alias -g ON='>/dev/null'
 alias -g EN='2>/dev/null'
 alias -g AN='2>&1 >/dev/null'
 alias -g J=' | jq -SC . | less'
-alias -g L=' | less'
+alias -g L=' | LESS=-iR less'
 alias -g V='--version'
 alias -g W='| w3m -T text/html'
 
@@ -139,6 +139,7 @@ alias tree='tree -I ".git|node_modules|__pycache__"'
 alias http='http --style=rrt'
 alias gs='glances'
 alias p='ipython'
+alias nr='npm run'
 alias di='myougiden -w'
 
 alias ag="ag --color-match='1;33' --color-line-number='2;34;1' --color-path='1;35' --pager less"
@@ -186,6 +187,10 @@ fag() {
 alias -g BR='$(git branch | fzf | sed "s/\*//")'
 alias -g BCMT='$(gll BR | fzf | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
 alias -g CMT='$(gll | fzf | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
+
+# tmux config
+[ -f ~/.gem/ruby/2.5.0/gems/tmuxinator-0.14.0/completion/tmuxinator.zsh ] && \
+    . ~/.gem/ruby/2.5.0/gems/tmuxinator-0.14.0/completion/tmuxinator.zsh
 
 # fkill - kill process
 fkill() {
