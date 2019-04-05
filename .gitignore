@@ -13,6 +13,7 @@
 /.bin/
 /.cache/
 /.cargo/
+/.conda/
 /.dbus/session-bus/
 /.dmrc
 /.docker/.buildNodeID
