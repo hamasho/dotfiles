@@ -11,7 +11,7 @@ CURRENT_COLOR_NUM=0
 # RPROMPT_COLORS=(241 239)
 
 # light theme
-RPROMPT_COLORS=(250 252 250)
+RPROMPT_COLORS=(003 002 003)
 
 prompt_vi_mode() {
     if [ "$KEYMAP" = "main" ]; then
