@@ -74,7 +74,7 @@ set history=2000
 set switchbuf=useopen
 set t_Co=256
 " set background=light
-set background=dark
+set background=light
 
 " Change <leader> to ','
 let mapleader = ","
@@ -104,7 +104,7 @@ let g:lightline#ale#indicator_warnings = "\uf071 "
 let g:lightline#ale#indicator_errors = "\uf05e "
 let g:lightline#ale#indicator_ok = "\uf00c"
 let g:lightline = {
-    \ 'colorscheme': 'seoul256',
+    \ 'colorscheme': 'gruvbox',
     \ 'active': {
     \     'left': [ [ 'mode', 'paste' ],
     \               [ 'gitbranch', 'readonly', 'relativepath', 'tagbar', 'modified'] ],
@@ -445,12 +445,12 @@ augroup END
 colorscheme gruvbox
 let g:gruvbox_italic = 0
 let g:gruvbox_invert_selection = 0
-let g:gruvbox_contrast_dark = "hard"
+let g:gruvbox_contrast = "soft"
 
 hi Normal guibg=NONE ctermbg=NONE
 hi Normal guifg=NONE ctermfg=NONE
-hi LineNr ctermbg=238 guibg=#444444
-hi VertSplit ctermbg=238 guibg=#444444
+" hi LineNr ctermbg=238 guibg=#444444
+" hi VertSplit ctermbg=238 guibg=#444444
 hi Visual cterm=bold
 syn match Braces display '[{}()\[\]]'
 
