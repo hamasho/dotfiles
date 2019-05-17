@@ -219,6 +219,9 @@ let g:ale_linters = {
 \ 'typescript': ['tslint'],
 \ 'c': [],
 \}
+let g:ale_pattern_options = {
+\ '\.spec\.js$': {'ale_linters': [], 'ale_fixers': []},
+\}
 
 " JasvScript
 Plugin 'pangloss/vim-javascript'
@@ -269,6 +272,12 @@ Plugin 'c9s/helper.vim'
 Plugin 'c9s/treemenu.vim'
 Plugin 'c9s/vikube.vim'
 Plugin 'andrewstuart/vim-kubernetes'
+
+" Project specific vimrc
+Plugin 'embear/vim-localvimrc'
+let g:localvimrc_ask = 1
+let g:localvimrc_persistent = 1
+let g:localvimrc_sandbox = 0
 
 call vundle#end()
 

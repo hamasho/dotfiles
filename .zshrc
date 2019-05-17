@@ -129,6 +129,7 @@ alias -g W='| w3m -T text/html'
 
 alias watch='watch --color '
 alias gll='git log --no-color --graph --pretty="%h - %d %s (%cr) <%an>"'
+alias gmmd='_CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD` && git checkout master && git merge $_CURRENT_BRANCH && git branch -d $_CURRENT_BRANCH'
 alias gdiff='git diff --color-words --no-index --word-diff-regex=. --color=always'
 alias gdiff2='git diff --color-words --no-index --color=always'
 alias glances='glances --process-short-name --byte'

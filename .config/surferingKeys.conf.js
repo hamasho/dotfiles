@@ -9,6 +9,9 @@ mapkey('<Ctrl-p>', 'Hello, world!', function() {
 // emulate <Ctrl-[>
 map('<Ctrl-[>', '<Esc>');
 
+// Toggle SurferingKeys by Alt-ESC
+map('<Alt-Esc>', '<Alt-s>');
+
 // open mermaid
 map('<Ctrl-Alt-f>', '<Ctrl-Alt-d>');
 
