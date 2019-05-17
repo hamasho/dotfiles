@@ -1,4 +1,24 @@
 [MESSAGE CONTROL]
-disable = invalid-name,missing-docstring,global-statement,relative-beyond-top-level,too-few-public-methods,too-many-arguments,too-many-ancestors,too-many-function-args
+disable =
+    global-statement,
+    fixme,
+    invalid-name,
+    missing-docstring,
+    method-hidden,
+    no-self-use,
+    not-context-manager,
+    protected-access,
+    redefined-builtin,
+    relative-beyond-top-level,
+    too-few-public-methods,
+    too-many-arguments,
+    too-many-ancestors,
+    too-many-function-args,
+    too-many-instance-attributes,
+    too-many-locals
 ignored-modules = sqlalchemy,falcon
-ignored-classes=faker.generator.Generator,SQLAlchemy,scoped_session
+ignored-classes =
+    faker.generator.Generator,
+    scoped_session,
+    SQLAlchemy,
+    googleapiclient.discovery.Resource
