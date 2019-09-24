@@ -11,7 +11,7 @@ CURRENT_COLOR_NUM=0
 # RPROMPT_COLORS=(241 239)
 
 # light theme
-RPROMPT_COLORS=(003 002 003)
+RPROMPT_COLORS=(003 002 004 005)
 
 prompt_vi_mode() {
     if [ "$KEYMAP" = "main" ]; then
@@ -75,7 +75,7 @@ rprompt_sector() {
     local result=$1 name=$2 c_color=$RPROMPT_COLORS[$(( CURRENT_COLOR_NUM + 1 ))]
     [[ -z "$result" ]] && return
     [[ -n "$name" ]] && result="${name}:${result}"
-    result="%{$BG[$c_color]%} ${result} "
+    result="%{$BG[$c_color]%}%{$FG[000]%} ${result} "
     echo -n "%{$FG[$c_color]%}${POWERLINE_LEFT}%b${result}"
     CURRENT_COLOR_NUM=$(( ! CURRENT_COLOR_NUM ))
 }

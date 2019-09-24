@@ -88,6 +88,7 @@ export TERM=xterm-256color
 export GREP_COLORS="fn=0;33"
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
+alias vi=vim
 add_path ${HOME}/bin
 add_path ${HOME}/.bin
 export HISTSIZE=2500000
@@ -109,7 +110,7 @@ export GOPATH=$HOME/.golang
 
 add_path ${HOME}/.npm-global/bin
 add_path ${HOME}/.config/yarn/global/node_modules/.bin
-add_path ${HOME}/.gem/ruby/2.5.0/bin
+add_path ${HOME}/.gem/ruby/2.6.0/bin
 add_path ${HOME}/.local/bin
 add_path ${GOPATH}/bin
 add_path /snap/bin
@@ -127,6 +128,7 @@ alias -g L=' | LESS=-iR less'
 alias -g V='--version'
 alias -g W='| w3m -T text/html'
 
+alias agn='ag --nobreak --nofilename --nonumbers'
 alias watch='watch --color '
 alias gll='git log --no-color --graph --pretty="%h - %d %s (%cr) <%an>"'
 alias gdiff='git diff --color-words --no-index --word-diff-regex=. --color=always'
@@ -135,7 +137,7 @@ alias glances='glances --process-short-name --byte'
 alias open='2>/dev/null xdg-open'
 alias pyg='pygmentize -f terminal256 -O style=rrt'
 alias ca='calcurse'
-alias tree='tree -I ".git|node_modules|__pycache__"'
+alias tree='tree -I ".git|node_modules|__pycache__|venv"'
 alias http='http --style=rrt'
 alias gs='glances'
 alias p='ipython'

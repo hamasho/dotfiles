@@ -23,7 +23,7 @@ set showmode " show insert/replace/visual mode
 set noswapfile
 set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 set formatoptions+=j
-set fillchars+=vert:\ 
+set fillchars+=vert:\
 " Use case insensitive search, except when using capital letters
 set ignorecase
 set smartcase
@@ -151,7 +151,7 @@ nnoremap <leader>n :e .<cr>
 " CtrlP
 Plugin 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_working_path_mode = 'a'
-let g:ctrlp_custom_ignore = '\v[\/]node_modules$'
+let g:ctrlp_custom_ignore = 'node_modules\|__pycache__'
 let g:ctrlp_extensions = ['tag']
 
 " Open browser easily
@@ -235,10 +235,16 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " Async syntax checker
 Plugin 'w0rp/ale'
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_open_list = 1
+" let g:ale_fix_on_save = 1
 let g:ale_linters = {
 \ 'python': ['pylint'],
 \ 'typescript': ['tslint'],
 \ 'c': [],
+\}
+let g:ale_fixers = {
+\ '*': ['remove_trailing_lines', 'trim_whitespace'],
+\ 'python': ['black'],
 \}
 
 " JasvScript
@@ -256,9 +262,9 @@ Plugin 'leafgarland/typescript-vim'
 augroup TypeScript
     au!
     au FileType typescript
-        \ setlocal softtabstop=4 |
-        \ setlocal tabstop=4     |
-        \ setlocal shiftwidth=4
+        \ setlocal softtabstop=2 |
+        \ setlocal tabstop=2     |
+        \ setlocal shiftwidth=2
 augroup END
 
 " Emmet (Zen cording HTML)
@@ -445,7 +451,7 @@ augroup END
 colorscheme gruvbox
 let g:gruvbox_italic = 0
 let g:gruvbox_invert_selection = 0
-let g:gruvbox_contrast = "soft"
+let g:gruvbox_contrast_light = "soft"
 
 hi Normal guibg=NONE ctermbg=NONE
 hi Normal guifg=NONE ctermfg=NONE

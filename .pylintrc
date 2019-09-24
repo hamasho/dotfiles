@@ -16,7 +16,10 @@ disable =
     too-many-function-args,
     too-many-instance-attributes,
     too-many-locals
-ignored-modules = sqlalchemy,falcon
+ignored-modules =
+    sqlalchemy,
+    cv2,
+    falcon
 ignored-classes =
     faker.generator.Generator,
     scoped_session,
