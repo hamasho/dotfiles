@@ -236,7 +236,7 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 Plugin 'w0rp/ale'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_linters = {
-\ 'python': ['pylint'],
+\ 'python': ['pylint', 'mypy'],
 \ 'typescript': ['tslint'],
 \ 'c': [],
 \}
@@ -256,12 +256,17 @@ Plugin 'mustache/vim-mustache-handlebars'
 
 " TypeScript
 Plugin 'leafgarland/typescript-vim'
+Plugin 'peitalin/vim-jsx-typescript'
 augroup TypeScript
     au!
     au FileType typescript
-        \ setlocal softtabstop=4 |
-        \ setlocal tabstop=4     |
-        \ setlocal shiftwidth=4
+        \ setlocal softtabstop=2 |
+        \ setlocal tabstop=2     |
+        \ setlocal shiftwidth=2
+    au FileType typescript.tsx
+        \ setlocal softtabstop=2 |
+        \ setlocal tabstop=2     |
+        \ setlocal shiftwidth=2
 augroup END
 
 " Emmet (Zen cording HTML)
@@ -288,11 +293,8 @@ augroup END
 
 Plugin 'Vimjas/vim-python-pep8-indent'
 
-" Kubernetes
-Plugin 'c9s/helper.vim'
-Plugin 'c9s/treemenu.vim'
-Plugin 'c9s/vikube.vim'
-Plugin 'andrewstuart/vim-kubernetes'
+" Golang
+Plugin 'fatih/vim-go'
 
 " Project specific vimrc
 Plugin 'embear/vim-localvimrc'
