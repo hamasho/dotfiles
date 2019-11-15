@@ -414,7 +414,7 @@ client.background       $i3_background
 #############################
 
 # Set inner/outer gaps
-gaps inner 20
+gaps inner 30
 gaps outer -4
 
 # Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.

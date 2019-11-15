@@ -23,7 +23,7 @@ c.TerminalInteractiveShell.confirm_exit = False
 c.TerminalInteractiveShell.editing_mode = 'vi'
 
 # set colors
-c.TerminalInteractiveShell.colors = 'linux'
+c.TerminalInteractiveShell.colors = 'neutral'
 
 
 ### MODULES ###

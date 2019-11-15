@@ -1,0 +1,149 @@
+#!/usr/bin/env python
+
+import calendar
+from datetime import datetime, date as pydate
+import re
+import click
+
+HIST_FILE = '/home/hamasho/.zsh_history'
+ENTRY_REGEX = r'^: (?P<unixtime>\d+):0;(?P<command>.*)$'
+NOW = datetime.now()
+
+
+class Entry:
+    def __init__(self, line):
+        matches = re.search(ENTRY_REGEX, line)
+        if matches is None:
+            raise ValueError('not command line')
+        self.datetime = datetime.fromtimestamp(int(matches.group('unixtime')))
+        self.command = matches.group('command')
+
+
+def load_hist_file():
+    byte_buf = bytearray()
+    with open(HIST_FILE, 'rb') as hist_file:
+        byte_content = hist_file.read()
+
+    is_marking = False
+    for byte in byte_content:
+        if byte == 0x83:
+            is_marking = True
+            continue
+        if is_marking:
+            invert_byte = byte ^ 32
+            byte_buf.append(invert_byte)
+            is_marking = False
+        else:
+            byte_buf.append(byte)
+
+    char_buf = byte_buf.decode('utf-8', 'replace')
+    return char_buf
+
+
+class History:
+    def __init__(self, year=NOW.year, month=NOW.month):
+        self.year = year
+        self.month = month
+        lines = load_hist_file().split('\n')
+        from_time = datetime(year, month, 1, 0, 0, 0)
+        # TODO: 2020 対応
+        to_time = datetime(year, month + 1, 1, 0, 0, 0)
+        entries = []
+        for line in lines[:-1]:
+            try:
+                entry = Entry(line)
+                entries.append(entry)
+            except ValueError:
+                pass
+        entries = sorted(entries, key=lambda e: e.datetime)
+        entries = [entry for entry in entries if from_time <= entry.datetime <= to_time]
+        self.entries = entries
+
+        date_entries = []
+        _, last_day = calendar.monthrange(year, month)
+        for day in range(1, last_day + 1):
+            date = datetime(year, month, day)
+            es = [entry for entry in entries if entry.datetime.date() == date.date()]
+            date_entries.append(((year, month, day), es))
+        self.date_entries = date_entries
+
+    def print_normal(self):
+        total_mins = 0
+        total_days = 0
+        for (year, month, day), entries in self.date_entries:
+            hour_str = ''
+            if entries:
+                (start, end, rest, start_str, end_str, rest_str) = \
+                    parse_entries(entries)
+                total_days += 1
+                today_mins = (int((end - start).seconds) - rest) // 60
+                total_mins += today_mins
+                total_str = f'{today_mins // 60:02d}:{today_mins % 60:02d}'
+                hour_str = f'{start_str}-{end_str} ({rest_str}) => {total_str}'
+            print(f'{year}-{month:02d}-{day:02d}: {hour_str}')
+        print(f'TOTAL DAYS: {total_days}')
+        print(f'TOTAL HOURS: {total_mins // 60}')
+
+    def print_csv(self):
+        'CSV形式で出力: 日付, 入出時間, 退出時間, 休憩時間, 合計時間'
+        for (year, month, day), entries in self.date_entries:
+            if entries:
+                (_, _, _, start, end, rest) = parse_entries(entries)
+            else:
+                start = end = rest = '00:00'
+            date = pydate(year, month, day)
+            print(f'{day},{date.strftime("%a")},{start},{end},{rest}')
+
+    def print_git_commits(self):
+        for (year, month, day), entries in self.date_entries:
+            if not entries:
+                continue
+            print(f'{year} / {month} / {day}')
+            for entry in entries:
+                if re.match(r'^gc[ a]', entry.command):
+                    print(entry.command)
+            print()
+
+
+def parse_entries(entries):
+    '''Analyze command history of the day and return start/end/rest.
+
+    start/end are datetime type, rest is integer.
+    start_str, end_str and rest_str are form of 'HH:MM'.
+    '''
+    start = entries[0].datetime
+    end = entries[-1].datetime
+    rest = calc_rest(start, end)
+    start_str = start.strftime('%H:%M')
+    end_str = end.strftime('%H:%M')
+    rest_min = rest // 60
+    rest_str = f'{rest_min // 60:02d}:{rest_min % 60:02d}'
+    return (start, end, rest, start_str, end_str, rest_str)
+
+
+def calc_rest(start, end):
+    '''Return amount of rest as second'''
+    delta = end - start
+    hour = 60 * 60
+    if delta.seconds > hour * 7:
+        return 60 * 60
+    if delta.seconds > hour * 4:
+        return 30 * 60
+    return 0
+
+
+@click.command()
+@click.option('--csv', '-c', is_flag=True, help='CSVとして出力')
+@click.option('--git', '-g', is_flag=True, help='日付ごとのgit commit logを出力')
+def main(csv, git):
+    history = History()
+    if csv:
+        history.print_csv()
+    elif git:
+        history.print_git_commits()
+    else:
+        history.print_normal()
+
+
+if __name__ == "__main__":
+    main()  # pylint: disable=no-value-for-parameter
