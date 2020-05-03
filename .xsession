@@ -10,7 +10,7 @@
 
 # toggle Control <-> CapsLock
 # but if CapsLock is pressed by alone, behave as Escape
-[[ -f ~/.xmodmap ]] && xmodmap ~/.xmodmap
+[[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
 xcape -e 'Control_L=Escape'
 
 # Hide mouse after 1 second idle
