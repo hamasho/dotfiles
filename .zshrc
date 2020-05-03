@@ -87,10 +87,10 @@ export TERM=xterm-256color
 # export LS_COLORS="di=1;33:ln=34:fi=90:ex=32;1:or=1;36;41:mi=1;37;41"
 export GREP_COLORS="fn=0;33"
 export EDITOR=/usr/bin/vim
+export BROWSER=/usr/bin/firefox
 export VISUAL=/usr/bin/vim
 alias vi=vim
-add_path ${HOME}/bin
-add_path ${HOME}/.bin
+add_path ${HOME}/Bin
 export HISTSIZE=2500000
 export SAVEHIST=$HISTSIZE
 [[ -x /usr/bin/lesspipe.sh ]] && export LESSOPEN='| lesspipe.sh %s'
@@ -106,9 +106,11 @@ export LC_TIME="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 
 export NODE_PATH=$HOME/.npm-global/lib/node_modules
+export N_PREFIX=$HOME/.n
 export GOPATH=$HOME/.golang
 
 add_path ${HOME}/.npm-global/bin
+add_path ${HOME}/.n/bin
 add_path ${HOME}/.config/yarn/global/node_modules/.bin
 add_path ${HOME}/.gem/ruby/2.6.0/bin
 add_path ${HOME}/.local/bin
@@ -143,6 +145,7 @@ alias http='http --style=rrt'
 alias gs='glances'
 alias p='ipython'
 alias nr='npm run'
+alias yr='yarn run'
 alias di='myougiden -w'
 
 alias ag="ag --color-match='1;33' --color-line-number='2;34;1' --color-path='1;35' --pager less"
@@ -153,6 +156,7 @@ alias agr=_ag_raw_func
 
 [[ -d /usr/share/fzf ]] && . /usr/share/fzf/completion.zsh && . /usr/share/fzf/key-bindings.zsh
 alias fzr='fzf --preview "cat {}"'
+alias fzt='fzf --preview "grep -Iq . {} && nkf {} || echo Binary File..."'
 alias fzc='fzf --preview "pygmentize {} 2>/dev/null" || cat {}'
 fzg() {
     # colorize matched pattern
@@ -264,5 +268,7 @@ function j() {
 alias dj='python manage.py'
 
 [ $commands[helm] ] && source <(helm completion zsh)
+
+alias c=/home/hamasho/Repogitories/carte-tools/carte
 
 true

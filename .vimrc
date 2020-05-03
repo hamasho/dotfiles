@@ -22,7 +22,7 @@ set showmatch " highlight matching braces
 set showmode " show insert/replace/visual mode
 set noswapfile
 set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-set formatoptions+=j
+set formatoptions+=jmM
 set fillchars+=vert:\
 " Use case insensitive search, except when using capital letters
 set ignorecase
@@ -89,14 +89,12 @@ call vundle#begin()
 " Let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" Nice status & tab line
-Plugin 'itchyny/lightline.vim'
-
-" ale/lightline bundle
-Plugin 'maximbaz/lightline-ale'
-
 " Colors
 Plugin 'flazz/vim-colorschemes'
+
+" Nice status & tab line
+Plugin 'itchyny/lightline.vim'
+Plugin 'maximbaz/lightline-ale'
 Plugin 'shinchu/lightline-gruvbox.vim'
 
 let g:lightline#ale#indicator_checking = "\uf110"
@@ -107,7 +105,7 @@ let g:lightline = {
     \ 'colorscheme': 'gruvbox',
     \ 'active': {
     \     'left': [ [ 'mode', 'paste' ],
-    \               [ 'gitbranch', 'readonly', 'relativepath', 'tagbar', 'modified'] ],
+    \               [ 'gitbranch', 'readonly', 'relativepath', 'modified'] ],
     \     'right': [ [ 'fileencoding', 'filetype',
     \                   'linter_checking', 'linter_warnings', 'linter_errors', 'linter_ok' ],
     \                [ 'percent' ] ]
@@ -148,10 +146,13 @@ Plugin 'scrooloose/nerdtree'
 let NERDTreeHijackNetrw = 1
 nnoremap <leader>n :e .<cr>
 
+" Project EditorConfig
+"Plugin 'editorconfig/editorconfig-vim'
+
 " CtrlP
 Plugin 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_working_path_mode = 'a'
-let g:ctrlp_custom_ignore = 'node_modules\|__pycache__'
+" let g:ctrlp_custom_ignore = 'node_modules\|__pycache__'
 let g:ctrlp_extensions = ['tag']
 
 " Open browser easily
@@ -176,6 +177,9 @@ Plugin 'tpope/tpope-vim-abolish'
 
 " Async search
 Plugin 'mhinz/vim-grepper'
+let g:grepper = {
+\     'tools': ['ag', 'git', 'grep'],
+\ }
 nnoremap <leader>g :Grepper<cr>
 
 " Local search with index number
@@ -199,6 +203,9 @@ Plugin 'tpope/vim-surround'
 " Easy comment
 Plugin 'vim-scripts/tComment'
 
+" Text table
+Plugin 'dhruvasagar/vim-table-mode'
+
 " Colorize hex
 Plugin 'chrisbra/Colorizer'
 
@@ -211,8 +218,8 @@ Plugin 'michaeljsmith/vim-indent-object'
 """ Coding
 
 " Code tags in page
-Plugin 'majutsushi/tagbar'
-nnoremap <leader>t :TagbarToggle<cr>
+" Plugin 'majutsushi/tagbar'
+" nnoremap <leader>t :TagbarToggle<cr>
 
 " TODO: check vim-easytags slow down python files after first save
 " Automatic update ctags
@@ -239,24 +246,20 @@ let g:ale_open_list = 1
 " let g:ale_fix_on_save = 1
 let g:ale_linters = {
 \ 'python': ['pylint', 'mypy'],
-\ 'typescript': ['tslint'],
+\ 'typescript': ['eslint'],
 \ 'c': [],
 \}
 let g:ale_fixers = {
-\ '*': ['remove_trailing_lines', 'trim_whitespace'],
+\ '\.js$': [],
 \ 'python': ['black'],
 \ '\.spec\.js$': [],
+\ '*': ['remove_trailing_lines', 'trim_whitespace'],
 \}
 
 " JasvScript
 Plugin 'pangloss/vim-javascript'
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_opfirst = 1
-Plugin 'ternjs/tern_for_vim'
-
-Plugin 'posva/vim-vue'
-
-Plugin 'mustache/vim-mustache-handlebars'
 
 " TypeScript
 Plugin 'leafgarland/typescript-vim'
@@ -264,21 +267,24 @@ Plugin 'peitalin/vim-jsx-typescript'
 augroup TypeScript
     au!
     au FileType typescript
-        \ setlocal softtabstop=2 |
-        \ setlocal tabstop=2     |
-        \ setlocal shiftwidth=2
+        \ setlocal softtabstop=4 |
+        \ setlocal tabstop=4     |
+        \ setlocal shiftwidth=4
 augroup END
 
 augroup TypeScriptTsx
     au!
     au FileType typescript.tsx
-        \ setlocal softtabstop=2 |
-        \ setlocal tabstop=2     |
-        \ setlocal shiftwidth=2
+        \ setlocal softtabstop=4 |
+        \ setlocal tabstop=4     |
+        \ setlocal shiftwidth=4
 augroup END
 
 " Emmet (Zen cording HTML)
 Plugin 'mattn/emmet-vim'
+
+" GLSL
+Plugin 'tikhomirov/vim-glsl'
 
 " Markdown
 Plugin 'godlygeek/tabular'
@@ -304,12 +310,6 @@ Plugin 'Vimjas/vim-python-pep8-indent'
 " Golang
 Plugin 'fatih/vim-go'
 
-" Project specific vimrc
-Plugin 'embear/vim-localvimrc'
-let g:localvimrc_ask = 1
-let g:localvimrc_persistent = 1
-let g:localvimrc_sandbox = 0
-
 call vundle#end()
 
 " Basic autocmd {{{1
@@ -317,30 +317,16 @@ call vundle#end()
 " Useful for my Quick Notes feature in my tmuxrc
 augroup LoadOnce
     au!
-    " Don't replace Tabs with spaces when editing makefiles
-    au Filetype makefile setlocal noexpandtab
     " Auto reload .vimrc after saving
     au BufWritePost .vimrc :source ~/.vimrc
-    au BufReadPost .vimrc :set foldmethod=marker
-    au BufNewFile,BufRead *.html set ft=jinja
-
     " Check if file is edited outside vim
     au CursorHold * checktime
 augroup END
-
-" Frequently editing files {{{1
-
-nnoremap 'f :e ~/.vimperatorrc<cr>
-nnoremap 'v :e ~/.vimrc<cr>
-nnoremap 'z :e ~/.zshrc<cr>
 
 " Commands {{{1
 
 nnoremap j gj
 nnoremap k gk
-" press F4 to fix indentation in whole file; overwrites marker 'q' position
-noremap <F4> mqggVG=`qzz
-inoremap <F4> <Esc>mqggVG=`qzza
 noremap Y y$
 nnoremap <c-l> :noh<cr>
 " toggle folding
@@ -388,34 +374,11 @@ augroup HTML
     au FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 augroup END
 
-" Pug {{{2
-Plugin 'digitaltoad/vim-pug'
-
-" Stylus {{{2
-Plugin 'wavded/vim-stylus'
-
-" Jinja2 {{{2
-" Plugin 'Glench/Vim-Jinja2-Syntax'
-Plugin 'lepture/vim-jinja'
-augroup Jinja
-    au!
-    au FileType jinja
-      \ setlocal softtabstop=4 |
-      \ setlocal tabstop=4     |
-      \ setlocal shiftwidth=4
-augroup END
-
 " Python {{{2
 augroup PYTHON
     au!
     au BufRead *.py setlocal foldmethod=indent
     au BufNewFile *.py setlocal foldmethod=indent
-augroup END
-
-" Ruby {{{2
-augroup RUBY
-    au!
-    au FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
 augroup END
 
 " CSS {{{2
@@ -435,14 +398,8 @@ augroup END
 " JavaScript {{{2
 augroup JS
     au!
-    au BufRead *.js setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    au BufNewFile *.js setlocal shiftwidth=2 tabstop=2 softtabstop=2
-augroup END
-
-augroup VUE
-    au!
-    au BufRead *.vue setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    au BufNewFile *.vue setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    au BufRead *.js setlocal shiftwidth=4 tabstop=4 softtabstop=4
+    au BufNewFile *.js setlocal shiftwidth=4 tabstop=4 softtabstop=4
 augroup END
 
 " YAML {{{2
