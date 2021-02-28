@@ -73,6 +73,7 @@ set ttyfast
 set history=2000
 set switchbuf=useopen
 set t_Co=256
+set mouse=a
 " set background=light
 set background=light
 
@@ -102,7 +103,7 @@ let g:lightline#ale#indicator_warnings = "\uf071 "
 let g:lightline#ale#indicator_errors = "\uf05e "
 let g:lightline#ale#indicator_ok = "\uf00c"
 let g:lightline = {
-    \ 'colorscheme': 'gruvbox',
+    \ 'colorscheme': 'seoul256',
     \ 'active': {
     \     'left': [ [ 'mode', 'paste' ],
     \               [ 'gitbranch', 'readonly', 'relativepath', 'modified'] ],
@@ -147,12 +148,12 @@ let NERDTreeHijackNetrw = 1
 nnoremap <leader>n :e .<cr>
 
 " Project EditorConfig
-"Plugin 'editorconfig/editorconfig-vim'
+Plugin 'editorconfig/editorconfig-vim'
 
 " CtrlP
 Plugin 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_working_path_mode = 'a'
-" let g:ctrlp_custom_ignore = 'node_modules\|__pycache__'
+let g:ctrlp_custom_ignore = 'node_modules\|__pycache__\|vendor'
 let g:ctrlp_extensions = ['tag']
 
 " Open browser easily
@@ -247,11 +248,13 @@ let g:ale_open_list = 1
 let g:ale_linters = {
 \ 'python': ['pylint', 'mypy'],
 \ 'typescript': ['eslint'],
+\ 'graphql': [],
 \ 'c': [],
 \}
 let g:ale_fixers = {
 \ '\.js$': [],
 \ 'python': ['black'],
+\ 'vue': ['prettier'],
 \ '\.spec\.js$': [],
 \ '*': ['remove_trailing_lines', 'trim_whitespace'],
 \}
@@ -259,11 +262,13 @@ let g:ale_fixers = {
 " JasvScript
 Plugin 'pangloss/vim-javascript'
 let g:javascript_plugin_jsdoc = 1
-let g:javascript_opfirst = 1
+Plugin 'maxmellon/vim-jsx-pretty'
+Plugin 'posva/vim-vue'
 
 " TypeScript
 Plugin 'leafgarland/typescript-vim'
 Plugin 'peitalin/vim-jsx-typescript'
+Plugin 'Quramy/tsuquyomi'
 augroup TypeScript
     au!
     au FileType typescript
@@ -279,6 +284,9 @@ augroup TypeScriptTsx
         \ setlocal tabstop=4     |
         \ setlocal shiftwidth=4
 augroup END
+
+" GraphQL
+Plugin 'jparise/vim-graphql'
 
 " Emmet (Zen cording HTML)
 Plugin 'mattn/emmet-vim'
@@ -346,6 +354,8 @@ vnoremap <c-n> "+
 
 " Replace all word under the cursor
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
+" Copy entire text
+nnoremap <Leader>c ggVG"+y''
 
 " Ritch key bindings in insert mode
 inoremap <c-f> <right>

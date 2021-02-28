@@ -94,7 +94,7 @@ add_path ${HOME}/Bin
 export HISTSIZE=2500000
 export SAVEHIST=$HISTSIZE
 [[ -x /usr/bin/lesspipe.sh ]] && export LESSOPEN='| lesspipe.sh %s'
-export LESS="-iRXF"
+export LESS="-iRXFS"
 
 export LANG="en_US.UTF-8"
 export LC_COLLATE="en_US.UTF-8"
@@ -107,7 +107,7 @@ export LC_ALL="en_US.UTF-8"
 
 export NODE_PATH=$HOME/.npm-global/lib/node_modules
 export N_PREFIX=$HOME/.n
-export GOPATH=$HOME/.golang
+export GOPATH=$HOME/Repositories/golang
 
 add_path ${HOME}/.npm-global/bin
 add_path ${HOME}/.n/bin
@@ -116,6 +116,7 @@ add_path ${HOME}/.gem/ruby/2.6.0/bin
 add_path ${HOME}/.local/bin
 add_path ${GOPATH}/bin
 add_path /snap/bin
+add_path ${HOME}/.cargo/bin
 
 alias -g C='--color=always | less'
 alias -g G='| ag'
@@ -131,7 +132,7 @@ alias -g V='--version'
 alias -g W='| w3m -T text/html'
 
 alias agn='ag --nobreak --nofilename --nonumbers'
-alias watch='watch --color '
+alias watch='/bin/watch --color '
 alias gll='git log --no-color --graph --pretty="%h - %d %s (%cr) <%an>"'
 alias gmmd='_CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD` && git checkout master && git merge $_CURRENT_BRANCH && git branch -d $_CURRENT_BRANCH'
 alias gdiff='git diff --color-words --no-index --word-diff-regex=. --color=always'
@@ -141,7 +142,7 @@ alias open='2>/dev/null xdg-open'
 alias pyg='pygmentize -f terminal256 -O style=rrt'
 alias ca='calcurse'
 alias tree='tree -I ".git|node_modules|__pycache__|venv|vendor"'
-alias http='http --style=rrt'
+alias http='http --style=autumn'
 alias gs='glances'
 alias p='ipython'
 alias nr='npm run'
@@ -194,6 +195,7 @@ fag() {
 alias -g BR='$(git branch | fzf | sed "s/\*//")'
 alias -g BCMT='$(gll BR | fzf | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
 alias -g CMT='$(gll | fzf | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
+alias -g MF='$(git ls-files -m | fzf)'
 
 # tmux config
 [ -f ~/.gem/ruby/2.5.0/gems/tmuxinator-0.14.0/completion/tmuxinator.zsh ] && \
@@ -269,6 +271,27 @@ alias dj='python manage.py'
 
 [ $commands[helm] ] && source <(helm completion zsh)
 
-alias c=/home/hamasho/Repogitories/carte-tools/carte
+wa() {
+    local file="$1" ext err_msg="supported filetype: js, py, go"
+    [[ -z "$1" ]] && echo "usage: wa FILENAME" && return 1
+    ext="${file##*.}"
+    [[ -z "$ext" ]] && echo "unsupported filename\n${err_msg}" && return 1
+    case "$ext" in
+        js)
+            nodemon -w "${file}" -x "node ${file}"
+            ;;
+        py)
+            nodemon -w "${file}" -x "python ${file}"
+            ;;
+        go)
+            nodemon -w "${file}" -x "go run ${file}"
+            ;;
+        *)
+            echo "unsupported filetype: ${ext}"
+            echo "${err_msg}"
+            return 1
+            ;;
+    esac
+}
 
 true
