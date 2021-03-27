@@ -302,6 +302,8 @@ wa() {
 }
 
 if [[ $(uname) == Darwin ]]; then
+    export EDITOR=/usr/local/bin/vim
+    export VISUAL=$EDITOR
     export BROWSER=
 fi
 
