@@ -6,9 +6,6 @@ mapkey('<Ctrl-p>', 'Hello, world!', function() {
   console.log('hellooooo');
 });
 
-// emulate <Ctrl-[>
-map('<Ctrl-[>', '<Esc>');
-
 // Toggle SurferingKeys by Alt-ESC
 map('<Alt-Esc>', '<Alt-s>');
 
@@ -51,23 +48,15 @@ const colors = {
 }
 
 Hints.style(`
-  border: soid 2px ${colors.yellow1};
+  border: soid 3px ${colors.fg1};
   border-radius: 6px;
   padding: 3px;
-  color: ${colors.fg2};
-  background: ${colors.bg3};
-  background-color: ${colors.bg3};
+  color: ${colors.fg1};
+  background-color: ${colors.bg2};
   font-size: 12px;
+  font-weight: normal;
   font-family: Helvetica, Arial, sans-serif;
 `)
-Hints.style(`
-  border: soid 2px ${colors.yellow1};
-  color: ${colors.purple1};
-  background: ${colors.bg3};
-  background-color: ${colors.bg3};
-  font-size: 12px;
-  font-family: Helvetica, Arial, sans-serif;
-`, 'text')
 Visual.style('marks', 'background-color: #f1fa8c;');
 Visual.style('cursor', 'background-color: #6272a4; color: #f8f8f2');
 
