@@ -55,15 +55,17 @@ Hints.style(`
   border-radius: 6px;
   padding: 3px;
   color: ${colors.fg2};
+  background: ${colors.bg3};
   background-color: ${colors.bg3};
-  font-size: 14px;
+  font-size: 12px;
   font-family: Helvetica, Arial, sans-serif;
 `)
 Hints.style(`
   border: soid 2px ${colors.yellow1};
   color: ${colors.purple1};
+  background: ${colors.bg3};
   background-color: ${colors.bg3};
-  font-size: 14px;
+  font-size: 12px;
   font-family: Helvetica, Arial, sans-serif;
 `, 'text')
 Visual.style('marks', 'background-color: #f1fa8c;');
@@ -73,7 +75,7 @@ Visual.style('cursor', 'background-color: #6272a4; color: #f8f8f2');
 settings.theme = `
 .sk_theme {
     font-family: Helvetica, Arial, sans-serif;
-    font-size: 14pt;
+    font-size: 12pt;
     background: ${colors.bg2};
     color: ${colors.fg1};
 }
@@ -99,7 +101,7 @@ settings.theme = `
     background: ${colors.purple1};
 }
 #sk_status, #sk_find {
-    font-size: 20pt;
+    font-size: 14px;
 }`;
 
 // click `Save` button to make above settings to take effect.
