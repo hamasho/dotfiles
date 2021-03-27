@@ -20,48 +20,83 @@ mapkey('<Ctrl-y>', 'Show me the money', function() {
   Front.showPopup('a well-known phrase uttered by characters in the 1996 film Jerry Maguire (Escape to close).');
 });
 
+// gruvbox dark theme colors
+const colors = {
+  bg0: '#282828',
+  bg1: '#3c3836',
+  bg2: '#504945',
+  bg3: '#665c54',
+  bg4: '#7c6f64',
+  fg0: '#fbf1c7',
+  fg1: '#ebdbb2',
+  fg2: '#d5c4a1',
+  fg3: '#bdae93',
+  fg4: '#a89984',
+  gray0: '#828374',
+  gray1: '#928374',
+  red0: '#cc241d',
+  red1: '#fb4934',
+  green0: '#98971a',
+  green1: '#b8bb26',
+  yellow0: '#d79921',
+  yellow1: '#fabd2f',
+  blue0: '#458488',
+  blue1: '#83a598',
+  purple0: '#b16286',
+  purple1: '#d3869b',
+  aqua0: '#689d6a',
+  aqua1: '#8ec07c',
+  orange0: '#d65d0e',
+  orange1: '#fe8019',
+}
 
-
-Hints.style('border: solid 1px #ff79c6; color: #f8f8f2; background: #282a36; background-color: #282a36; font-size: 10pt; font-family: "Fira Code"');
-Hints.style('border: solid 8px #ff79c6; padding: 1px; background: #282a36; font-family: "Fira Code"', "text");
-// -----------------------------------------------------------------------------------------------------------------------
-// Change search marks and cursor
-// -----------------------------------------------------------------------------------------------------------------------
+Hints.style(`
+  border: soid 2px ${colors.yellow1};
+  border-radius: 6px;
+  padding: 3px;
+  color: ${colors.fg2};
+  background-color: ${colors.bg3};
+  font-size: 14px;
+  font-family: Helvetica, Arial, sans-serif;
+`)
+Hints.style(`
+  border: soid 2px ${colors.yellow1};
+  color: ${colors.purple1};
+  background-color: ${colors.bg3};
+  font-size: 14px;
+  font-family: Helvetica, Arial, sans-serif;
+`, 'text')
 Visual.style('marks', 'background-color: #f1fa8c;');
 Visual.style('cursor', 'background-color: #6272a4; color: #f8f8f2');
 
-// -----------------------------------------------------------------------------------------------------------------------
-// Change theme
-// // Change fonts
-// // Change colors
-// -----------------------------------------------------------------------------------------------------------------------
+
 settings.theme = `
 .sk_theme {
-    font-family: Input Sans Condensed, Charcoal, sans-serif;
-    font-size: 10pt;
-    background: #282828;
-    color: #ebdbb2;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14pt;
+    background: ${colors.bg2};
+    color: ${colors.fg1};
 }
 .sk_theme tbody {
-    color: #b8bb26;
+    color: ${colors.green1};
 }
 .sk_theme input {
-    color: #d9dce0;
+    color: ${colors.fg1};
 }
 .sk_theme .url {
-    color: #98971a;
+    color: ${colors.green1};
 }
 .sk_theme .annotation {
-    color: #b16286;
+    color: ${colors.purple1};
 }
 .sk_theme .omnibar_highlight {
-    color: #ebdbb2;
+    color: ${colors.fg1};
 }
 .sk_theme #sk_omnibarSearchResult ul li:nth-child(odd) {
-    background: #282828;
+    background: ${colors.bg2};
 }
 .sk_theme #sk_omnibarSearchResult ul li.focused {
-    background: #d3869b;
+    background: ${colors.purple1};
 }
 #sk_status, #sk_find {
     font-size: 20pt;
