@@ -84,7 +84,7 @@ export TERM=xterm-256color
 # this TERM is customized one
 # detail: https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
 # export TERM=xterm-256color-italic
-# export LS_COLORS="di=1;33:ln=34:fi=90:ex=32;1:or=1;36;41:mi=1;37;41"
+export LS_COLORS="di=1;33:ln=34:fi=90:ex=32;1:or=1;36;41:mi=1;37;41"
 export GREP_COLORS="fn=0;33"
 export EDITOR=/usr/bin/vim
 export BROWSER=/usr/bin/firefox
@@ -94,7 +94,7 @@ add_path ${HOME}/Bin
 export HISTSIZE=2500000
 export SAVEHIST=$HISTSIZE
 [[ -x /usr/bin/lesspipe.sh ]] && export LESSOPEN='| lesspipe.sh %s'
-export LESS="-iRXFS"
+export LESS="-iRXSF"
 
 export LANG="en_US.UTF-8"
 export LC_COLLATE="en_US.UTF-8"
@@ -138,7 +138,7 @@ alias gmmd='_CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD` && git checkout ma
 alias gdiff='git diff --color-words --no-index --word-diff-regex=. --color=always'
 alias gdiff2='git diff --color-words --no-index --color=always'
 alias glances='glances --process-short-name --byte'
-alias open='2>/dev/null xdg-open'
+type open > /dev/null || alias open='2>/dev/null xdg-open'
 alias pyg='pygmentize -f terminal256 -O style=rrt'
 alias ca='calcurse'
 alias tree='tree -I ".git|node_modules|__pycache__|venv|vendor"'
@@ -156,6 +156,7 @@ function _ag_raw_func() {
 alias agr=_ag_raw_func
 
 [[ -d /usr/share/fzf ]] && . /usr/share/fzf/completion.zsh && . /usr/share/fzf/key-bindings.zsh
+[[ -d /usr/local/opt/fzf/shell ]] && . /usr/local/opt/fzf/shell/completion.zsh && . /usr/local/opt/fzf/shell/key-bindings.zsh
 alias fzr='fzf --preview "cat {}"'
 alias fzt='fzf --preview "grep -Iq . {} && nkf {} || echo Binary File..."'
 alias fzc='fzf --preview "pygmentize {} 2>/dev/null" || cat {}'
@@ -269,6 +270,12 @@ function j() {
 
 alias dj='python manage.py'
 
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+fi
+
 [ $commands[helm] ] && source <(helm completion zsh)
 
 wa() {
@@ -293,5 +300,9 @@ wa() {
             ;;
     esac
 }
+
+if [[ $(uname) == Darwin ]]; then
+    export BROWSER=
+fi
 
 true
