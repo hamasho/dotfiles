@@ -52,6 +52,7 @@ Hints.style(`
   border-radius: 6px;
   padding: 3px;
   color: ${colors.fg1};
+  background: ${colors.bg2};
   background-color: ${colors.bg2};
   font-size: 12px;
   font-weight: normal;
