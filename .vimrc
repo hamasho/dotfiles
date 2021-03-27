@@ -74,8 +74,8 @@ set history=2000
 set switchbuf=useopen
 set t_Co=256
 set mouse=a
-" set background=light
-set background=light
+set background=dark
+"set background=light
 
 " Change <leader> to ','
 let mapleader = ","
@@ -141,6 +141,9 @@ let g:lightline = {
 Plugin 'ryanoasis/vim-devicons'
 
 """ Misc
+
+" For async support (this plugin needs make: cd ~/.vim/bundle/vimproc.vim && make)
+Plugin 'Shougo/vimproc.vim'
 
 " NERDTree
 Plugin 'scrooloose/nerdtree'
@@ -208,7 +211,7 @@ Plugin 'vim-scripts/tComment'
 Plugin 'dhruvasagar/vim-table-mode'
 
 " Colorize hex
-Plugin 'chrisbra/Colorizer'
+Plugin 'ap/vim-css-color'
 
 " Automatic closing
 Plugin 'jiangmiao/auto-pairs'
@@ -244,16 +247,19 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 Plugin 'w0rp/ale'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_open_list = 1
-" let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 1
 let g:ale_linters = {
 \ 'python': ['pylint', 'mypy'],
 \ 'typescript': ['eslint'],
+\ 'typescriptreact': ['eslint', 'stylelint'],
 \ 'graphql': [],
 \ 'c': [],
 \}
 let g:ale_fixers = {
 \ '\.js$': [],
 \ 'python': ['black'],
+\ 'typescript': ['eslint', 'prettier'],
+\ 'typescriptreact': ['eslint', 'prettier', 'stylelint'],
 \ 'vue': ['prettier'],
 \ '\.spec\.js$': [],
 \ '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -267,22 +273,26 @@ Plugin 'posva/vim-vue'
 
 " TypeScript
 Plugin 'leafgarland/typescript-vim'
-Plugin 'peitalin/vim-jsx-typescript'
+"Plugin 'peitalin/vim-jsx-typescript'
 Plugin 'Quramy/tsuquyomi'
 augroup TypeScript
     au!
     au FileType typescript
-        \ setlocal softtabstop=4 |
-        \ setlocal tabstop=4     |
-        \ setlocal shiftwidth=4
+        \ setlocal softtabstop=2 |
+        \ setlocal tabstop=2     |
+        \ setlocal shiftwidth=2
 augroup END
 
 augroup TypeScriptTsx
     au!
     au FileType typescript.tsx
-        \ setlocal softtabstop=4 |
-        \ setlocal tabstop=4     |
-        \ setlocal shiftwidth=4
+        \ setlocal softtabstop=2 |
+        \ setlocal tabstop=2     |
+        \ setlocal shiftwidth=2
+    au FileType typescriptreact
+        \ setlocal softtabstop=2 |
+        \ setlocal tabstop=2     |
+        \ setlocal shiftwidth=2
 augroup END
 
 " GraphQL
@@ -408,14 +418,20 @@ augroup END
 " JavaScript {{{2
 augroup JS
     au!
-    au BufRead *.js setlocal shiftwidth=4 tabstop=4 softtabstop=4
-    au BufNewFile *.js setlocal shiftwidth=4 tabstop=4 softtabstop=4
+    au BufRead *.js setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    au BufNewFile *.js setlocal shiftwidth=2 tabstop=2 softtabstop=2
 augroup END
 
 " YAML {{{2
 augroup YAML
     au!
     au FileType yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+augroup END
+
+" quickfix {{{2
+augroup Quickfix
+    au!
+    au FileType qf setlocal wrap
 augroup END
 
 " All files {{{2
@@ -432,6 +448,7 @@ colorscheme gruvbox
 let g:gruvbox_italic = 0
 let g:gruvbox_invert_selection = 0
 let g:gruvbox_contrast_light = "soft"
+let g:gruvbox_contrast_dark = "soft"
 
 hi Normal guibg=NONE ctermbg=NONE
 hi Normal guifg=NONE ctermfg=NONE
