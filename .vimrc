@@ -23,7 +23,7 @@ set showmode " show insert/replace/visual mode
 set noswapfile
 set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 set formatoptions+=jmM
-set fillchars+=vert:\
+set fillchars+=vert:│
 " Use case insensitive search, except when using capital letters
 set ignorecase
 set smartcase
@@ -50,7 +50,7 @@ set sidescrolloff=5
 set lazyredraw
 " Set the command window height to 2 lines, to avoid many cases of having to
 " "press <Enter> to continue"
-"set cmdheight=1
+" set cmdheight=2
 set number relativenumber
 set nowrap
 set nrformats-=octal
@@ -137,8 +137,40 @@ let g:lightline = {
     \ },
 \ }
 
-" Pretty file type icons
-Plugin 'ryanoasis/vim-devicons'
+""" Coding
+
+" Snippets
+Plugin 'honza/vim-snippets'
+Plugin 'SirVer/ultisnips'
+
+" For code complition
+" cd ~/.vim/bundle/coc.nvim && yarn install --frozen-lockfile
+Plugin 'neoclide/coc.nvim'
+let g:coc_global_extensions = [
+    \ 'coc-json',
+    \ 'coc-pyright',
+    \ 'coc-ultisnips',
+    \ 'coc-tsserver',
+    \ 'coc-rust-analyzer',
+\ ]
+"    \ 'coc-tabnine',
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
 
 """ Misc
 
@@ -149,6 +181,12 @@ Plugin 'Shougo/vimproc.vim'
 Plugin 'scrooloose/nerdtree'
 let NERDTreeHijackNetrw = 1
 nnoremap <leader>n :e .<cr>
+
+" fzf
+" install: fzf#install()
+set rtp+=/usr/local/opt/fzf
+Plugin 'junegunn/fzf.vim'
+nnoremap F :Files<cr>
 
 " Project EditorConfig
 Plugin 'editorconfig/editorconfig-vim'
@@ -210,6 +248,10 @@ Plugin 'vim-scripts/tComment'
 " Text table
 Plugin 'dhruvasagar/vim-table-mode'
 
+" Colorize parentheses/blackets
+Plugin 'frazrepo/vim-rainbow'
+let g:rainbow_active = 1
+
 " Colorize hex
 Plugin 'ap/vim-css-color'
 
@@ -221,27 +263,9 @@ Plugin 'michaeljsmith/vim-indent-object'
 
 """ Coding
 
-" Code tags in page
-" Plugin 'majutsushi/tagbar'
-" nnoremap <leader>t :TagbarToggle<cr>
-
-" TODO: check vim-easytags slow down python files after first save
-" Automatic update ctags
-" Plugin 'xolox/vim-misc'
-" Plugin 'xolox/vim-easytags'
-
-" Easy tag navigation
-Plugin 'devjoe/vim-codequery'
-
-" Ultimate snippets
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-let g:UltiSnipsExpandTrigger       = "<tab>"
-let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
 " Complete source
 " Plugin 'maralla/completor.vim'
+" Plugin 'codota/tabnine-vim'
 
 " Async syntax checker
 Plugin 'w0rp/ale'
@@ -275,6 +299,7 @@ Plugin 'posva/vim-vue'
 Plugin 'leafgarland/typescript-vim'
 "Plugin 'peitalin/vim-jsx-typescript'
 Plugin 'Quramy/tsuquyomi'
+let g:tsuquyomi_use_vimproc = 1
 augroup TypeScript
     au!
     au FileType typescript
@@ -304,6 +329,10 @@ Plugin 'mattn/emmet-vim'
 " GLSL
 Plugin 'tikhomirov/vim-glsl'
 
+" Rust
+Plugin 'rust-lang/rust.vim'
+let g:rustfmt_autosave = 1
+
 " Markdown
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
@@ -318,21 +347,18 @@ augroup MarkDown
 augroup END
 
 " Python
-" Plugin 'klen/python-mode'
-" let g:pymode_options_max_line_length = 80
-" let g:pymode_rope = 0
-" let g:pymode_lint = 0
+Plugin 'klen/python-mode'
+let g:pymode_options_max_line_length = 80
+let g:pymode_rope = 0
+let g:pymode_lint = 0
 
 Plugin 'Vimjas/vim-python-pep8-indent'
-
-" Golang
-Plugin 'fatih/vim-go'
 
 call vundle#end()
 
 " Basic autocmd {{{1
 
-" Useful for my Quick Notes feature in my tmuxrc
+" Useful for my Quick Notes feature in my vimrc
 augroup LoadOnce
     au!
     " Auto reload .vimrc after saving
@@ -399,6 +425,7 @@ augroup PYTHON
     au!
     au BufRead *.py setlocal foldmethod=indent
     au BufNewFile *.py setlocal foldmethod=indent
+    au FileType python let b:coc_root_patterns = ['main.py', '.git', '.env']
 augroup END
 
 " CSS {{{2
@@ -444,17 +471,17 @@ augroup END
 
 " Set colors {{{1
 
-colorscheme gruvbox
 let g:gruvbox_italic = 0
 let g:gruvbox_invert_selection = 0
 let g:gruvbox_contrast_light = "soft"
 let g:gruvbox_contrast_dark = "soft"
+colorscheme gruvbox
 
 hi Normal guibg=NONE ctermbg=NONE
 hi Normal guifg=NONE ctermfg=NONE
 " hi LineNr ctermbg=238 guibg=#444444
-" hi VertSplit ctermbg=238 guibg=#444444
-hi Visual cterm=bold
+hi VertSplit ctermbg=NONE guibg=NONE
+hi Pmenu ctermbg=238 guibg=#665c54
 syn match Braces display '[{}()\[\]]'
 
 filetype indent plugin on
