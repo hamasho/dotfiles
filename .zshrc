@@ -89,12 +89,15 @@ export GREP_COLORS="fn=0;33"
 export EDITOR=/usr/bin/vim
 export BROWSER=/usr/bin/firefox
 export VISUAL=/usr/bin/vim
-alias vi=vim
+alias vi=nvim
+alias vim=nvim
+alias e=nvim
 add_path ${HOME}/Bin
 export HISTSIZE=2500000
 export SAVEHIST=$HISTSIZE
 [[ -x /usr/bin/lesspipe.sh ]] && export LESSOPEN='| lesspipe.sh %s'
-export LESS="-iRXSF"
+export LESS="-iRXF"
+export BAT_THEME="zenburn"
 
 export LANG="en_US.UTF-8"
 export LC_COLLATE="en_US.UTF-8"
@@ -139,12 +142,11 @@ alias gdiff='git diff --color-words --no-index --word-diff-regex=. --color=alway
 alias gdiff2='git diff --color-words --no-index --color=always'
 alias glances='glances --process-short-name --byte'
 type open > /dev/null || alias open='2>/dev/null xdg-open'
-alias pyg='pygmentize -f terminal256 -O style=rrt'
 alias ca='calcurse'
 alias tree='tree -I ".git|node_modules|__pycache__|venv|vendor"'
-alias http='http --style=autumn'
+alias http='http --style=material'
 alias gs='glances'
-alias p='ipython'
+alias p='ipython --colors=Linux'
 alias nr='npm run'
 alias yr='yarn run'
 alias di='myougiden -w'
@@ -157,9 +159,8 @@ alias agr=_ag_raw_func
 
 [[ -d /usr/share/fzf ]] && . /usr/share/fzf/completion.zsh && . /usr/share/fzf/key-bindings.zsh
 [[ -d /usr/local/opt/fzf/shell ]] && . /usr/local/opt/fzf/shell/completion.zsh && . /usr/local/opt/fzf/shell/key-bindings.zsh
-alias fzr='fzf --preview "cat {}"'
-alias fzt='fzf --preview "grep -Iq . {} && nkf {} || echo Binary File..."'
-alias fzc='fzf --preview "pygmentize {} 2>/dev/null" || cat {}'
+alias fzr='fzf --preview "bat {}"'
+alias fzc='fzf --preview "bat {} 2>/dev/null" || cat {}'
 fzg() {
     # colorize matched pattern
     # usage: fzg PATTERN
@@ -268,13 +269,12 @@ function j() {
     pwd
 }
 
-alias dj='python manage.py'
-
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
 fi
+export NLTK_DATA="$HOME/.nltk_data"
 
 [ $commands[helm] ] && source <(helm completion zsh)
 
@@ -302,7 +302,7 @@ wa() {
 }
 
 if [[ $(uname) == Darwin ]]; then
-    export EDITOR=/usr/local/bin/vim
+    export EDITOR=/usr/local/bin/nvim
     export VISUAL=$EDITOR
     export BROWSER=
 fi
