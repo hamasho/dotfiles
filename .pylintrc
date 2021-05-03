@@ -1,3 +1,5 @@
+init-hook='import sys; sys.path.append(".")'
+
 [MESSAGE CONTROL]
 disable =
     global-statement,

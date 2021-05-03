@@ -1,5 +1,5 @@
 // disable emoji compilation
-settings.startToShowEmoji = false;
+iunmap(":");
 
 // make sure this config is loaded
 mapkey('<Ctrl-p>', 'Hello, world!', function() {
