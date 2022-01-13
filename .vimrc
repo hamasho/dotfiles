@@ -194,7 +194,7 @@ Plugin 'editorconfig/editorconfig-vim'
 " CtrlP
 Plugin 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_working_path_mode = 'a'
-let g:ctrlp_custom_ignore = 'node_modules\|__pycache__\|vendor'
+let g:ctrlp_custom_ignore = 'node_modules\|__pycache__\|vendor\|dist'
 let g:ctrlp_extensions = ['tag']
 
 " Open browser easily
@@ -229,6 +229,7 @@ Plugin 'henrik/vim-indexed-search'
 
 " Git helper
 Plugin 'tpope/vim-fugitive'
+Plugin 'tyru/open-browser-github.vim'
 
 """ Editing
 
@@ -286,13 +287,12 @@ let g:ale_fixers = {
 \ 'typescriptreact': ['eslint', 'prettier', 'stylelint'],
 \ 'vue': ['prettier'],
 \ '\.spec\.js$': [],
-\ '*': ['remove_trailing_lines', 'trim_whitespace'],
+\ '*': [],
 \}
 
 " JasvScript
 Plugin 'pangloss/vim-javascript'
 let g:javascript_plugin_jsdoc = 1
-Plugin 'maxmellon/vim-jsx-pretty'
 Plugin 'posva/vim-vue'
 
 " TypeScript
@@ -320,8 +320,14 @@ augroup TypeScriptTsx
         \ setlocal shiftwidth=2
 augroup END
 
+" JSX
+Plugin 'maxmellon/vim-jsx-pretty'
+
 " GraphQL
 Plugin 'jparise/vim-graphql'
+
+" Styled component
+Plugin 'styled-components/vim-styled-components'
 
 " Emmet (Zen cording HTML)
 Plugin 'mattn/emmet-vim'
@@ -329,9 +335,18 @@ Plugin 'mattn/emmet-vim'
 " GLSL
 Plugin 'tikhomirov/vim-glsl'
 
+" PHP
+Plugin 'StanAngeloff/php.vim'
+
+" Go
+Plugin 'fatih/vim-go'
+
 " Rust
 Plugin 'rust-lang/rust.vim'
 let g:rustfmt_autosave = 1
+
+" Swift
+Plugin 'keith/swift.vim'
 
 " Markdown
 Plugin 'godlygeek/tabular'

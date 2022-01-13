@@ -23,7 +23,6 @@ if hash kubectl >/dev/null 2>&1; then
 fi
 
 # initialize PATH
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export MANPATH="/usr/local/man:$MANPATH"
 zstyle ':completion:*' list-prompt   ''
 zstyle ':completion:*' select-prompt ''
@@ -111,6 +110,7 @@ export LC_ALL="en_US.UTF-8"
 export NODE_PATH=$HOME/.npm-global/lib/node_modules
 export N_PREFIX=$HOME/.n
 export GOPATH=$HOME/Repositories/golang
+add_path /usr/local/go/bin
 
 add_path ${HOME}/.npm-global/bin
 add_path ${HOME}/.n/bin
@@ -135,7 +135,7 @@ alias -g V='--version'
 alias -g W='| w3m -T text/html'
 
 alias agn='ag --nobreak --nofilename --nonumbers'
-alias watch='/bin/watch --color '
+alias watch='watch --color '
 alias gll='git log --no-color --graph --pretty="%h - %d %s (%cr) <%an>"'
 alias gmmd='_CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD` && git checkout master && git merge $_CURRENT_BRANCH && git branch -d $_CURRENT_BRANCH'
 alias gdiff='git diff --color-words --no-index --word-diff-regex=. --color=always'
@@ -151,7 +151,7 @@ alias nr='npm run'
 alias yr='yarn run'
 alias di='myougiden -w'
 
-alias ag="ag --color-match='1;33' --color-line-number='2;34;1' --color-path='1;35' --pager less"
+alias ag="ag --color-match='1;33' --color-line-number='1;34;1' --color-path='1;35' --pager less"
 function _ag_raw_func() {
     ag --nofilename --nonumbers $@ | sort -u | sed '/^$/d'
 }
@@ -270,7 +270,7 @@ function j() {
 }
 
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+add_path ${PYENV_ROOT}/shims
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
 fi
@@ -304,7 +304,16 @@ wa() {
 if [[ $(uname) == Darwin ]]; then
     export EDITOR=/usr/local/bin/nvim
     export VISUAL=$EDITOR
-    export BROWSER=
+    export BROWSER=/Applications/Firefox.app/Contents/MacOS/firefox-bin
 fi
 
 true
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/shinsuke.hamasho.ts/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/shinsuke.hamasho.ts/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/shinsuke.hamasho.ts/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/shinsuke.hamasho.ts/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
