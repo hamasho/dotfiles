@@ -194,7 +194,7 @@ Plugin 'editorconfig/editorconfig-vim'
 " CtrlP
 Plugin 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_working_path_mode = 'a'
-let g:ctrlp_custom_ignore = 'node_modules\|__pycache__\|vendor\|dist'
+let g:ctrlp_custom_ignore = 'node_modules\|__pycache__\|vendor\|dist\|venv'
 let g:ctrlp_extensions = ['tag']
 
 " Open browser easily
@@ -350,6 +350,7 @@ Plugin 'keith/swift.vim'
 
 " Markdown
 Plugin 'godlygeek/tabular'
+Plugin 'mzlogin/vim-markdown-toc'
 Plugin 'plasticboy/vim-markdown'
 let g:vim_markdown_toc_autofit = 1
 set conceallevel=0
