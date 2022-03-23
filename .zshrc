@@ -1,5 +1,6 @@
 # Path to your oh-my-zsh installation.
 export ZSH=${HOME}/.oh-my-zsh
+export ZSH_CUSTOM="${ZSH}/custom"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
@@ -10,16 +11,23 @@ COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(git python tmux tmuxinator vi-mode systemd)
-plugins+=(zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git python vi-mode)
 
-# kubectl
-if hash kubectl >/dev/null 2>&1; then
-    plugins+=(kubectl)
-    alias kg='kubectl get'
-    alias kd='kubectl describe'
-    alias kgall='kubectl get pod,svc,deploy,sts,ingress,pvc'
-    alias -g KAN=--all-namespaces
+if [[ -d "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" ]]; then
+    plugins+=(zsh-autosuggestions)
+else
+    echo "No zsh-autosuggestions available! Install by the following command"
+    echo "git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions"
+fi
+if [[ -d "${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting" ]]; then
+    plugins+=(zsh-syntax-highlighting)
+else
+    echo "No zsh-syntax-highlighting available! Install by the following command"
+    echo "git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+fi
+
+if hash tmux >/dev/null 2>&1; then
+    plugins+=(tmux)
 fi
 
 # initialize PATH
@@ -35,17 +43,16 @@ zmodload -i zsh/complist
 
 # User configuration
 
+# Set ZSH prompt theme
+if hash starship >/dev/null 2>&1; then
+    eval "$(starship init zsh)"
+fi
+
 # set options
 setopt extendedglob
 setopt HIST_FIND_NO_DUPS
 
-# load my awesome theme
-source ~/.my-theme.zsh-theme
-
 [[ -f ~/.dir_colors ]] && eval $(dircolors ~/.dir_colors)
-
-# Compilation flags
-export ARCHFLAGS="-arch x86_64"
 
 # Stop send 'stop' signal
 stty -ixon
@@ -85,12 +92,14 @@ export TERM=xterm-256color
 # export TERM=xterm-256color-italic
 export LS_COLORS="di=1;33:ln=34:fi=90:ex=32;1:or=1;36;41:mi=1;37;41"
 export GREP_COLORS="fn=0;33"
-export EDITOR=/usr/bin/vim
-export BROWSER=/usr/bin/firefox
-export VISUAL=/usr/bin/vim
-alias vi=nvim
-alias vim=nvim
-alias e=nvim
+export EDITOR=nvim
+export VISUAL=$EDITOR
+if [[ $(uname) == Darwin ]]; then
+    export BROWSER=/Applications/Firefox.app/Contents/MacOS/firefox-bin
+else
+    export BROWSER=/usr/bin/firefox
+fi
+
 add_path ${HOME}/Bin
 export HISTSIZE=2500000
 export SAVEHIST=$HISTSIZE
@@ -107,18 +116,7 @@ export LC_NUMERIC="en_US.UTF-8"
 export LC_TIME="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 
-export NODE_PATH=$HOME/.npm-global/lib/node_modules
-export N_PREFIX=$HOME/.n
-export GOPATH=$HOME/Repositories/golang
-add_path /usr/local/go/bin
-
-add_path ${HOME}/.npm-global/bin
-add_path ${HOME}/.n/bin
-add_path ${HOME}/.config/yarn/global/node_modules/.bin
-add_path ${HOME}/.gem/ruby/2.6.0/bin
 add_path ${HOME}/.local/bin
-add_path ${GOPATH}/bin
-add_path /snap/bin
 add_path ${HOME}/.cargo/bin
 
 alias -g C='--color=always | less'
@@ -132,7 +130,6 @@ alias -g AN='2>&1 >/dev/null'
 alias -g J=' | jq -SC . | less'
 alias -g L=' | LESS=-iR less'
 alias -g V='--version'
-alias -g W='| w3m -T text/html'
 
 alias agn='ag --nobreak --nofilename --nonumbers'
 alias watch='watch --color '
@@ -140,16 +137,13 @@ alias gll='git log --no-color --graph --pretty="%h - %d %s (%cr) <%an>"'
 alias gmmd='_CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD` && git checkout master && git merge $_CURRENT_BRANCH && git branch -d $_CURRENT_BRANCH'
 alias gdiff='git diff --color-words --no-index --word-diff-regex=. --color=always'
 alias gdiff2='git diff --color-words --no-index --color=always'
-alias glances='glances --process-short-name --byte'
 type open > /dev/null || alias open='2>/dev/null xdg-open'
-alias ca='calcurse'
 alias tree='tree -I ".git|node_modules|__pycache__|venv|vendor"'
 alias http='http --style=material'
-alias gs='glances'
+alias gs='glances --process-short-name --byte'
 alias p='ipython --colors=Linux'
 alias nr='npm run'
 alias yr='yarn run'
-alias di='myougiden -w'
 
 alias ag="ag --color-match='1;33' --color-line-number='1;34;1' --color-path='1;35' --pager less"
 function _ag_raw_func() {
@@ -199,10 +193,6 @@ alias -g BCMT='$(gll BR | fzf | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
 alias -g CMT='$(gll | fzf | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
 alias -g MF='$(git ls-files -m | fzf)'
 
-# tmux config
-[ -f ~/.gem/ruby/2.5.0/gems/tmuxinator-0.14.0/completion/tmuxinator.zsh ] && \
-    . ~/.gem/ruby/2.5.0/gems/tmuxinator-0.14.0/completion/tmuxinator.zsh
-
 # fkill - kill process
 fkill() {
     local pid
@@ -225,34 +215,8 @@ ftags() {
                                       -c "silent tag $(cut -f2 <<< "$line")"
 }
 
-if hash virtualenvwrapper_lazy.sh >/dev/null 2>&1; then
-    export WORKON_HOME=$HOME/.virtualenvs
-    export PROJECT_HOME=$HOME/devel/repos
-    export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
-    export VIRTUAL_ENV_DISABLE_PROMPT=1
-    . `which virtualenvwrapper_lazy.sh`
-fi
-
-# if nvm is installed, use node managed by nvm
-if [[ -f /usr/share/nvm/init-nvm.sh ]]; then
-    source /usr/share/nvm/init-nvm.sh
-fi
-
 [[ -e ~/.zshrc.local ]] && . ~/.zshrc.local
 
-alias pcq='pacaur -Qo'
-alias pcl='pacaur -Ql'
-alias pci='pacaur -Qi'
-alias pcs='pacaur -Ss'
-function pcif() {
-    if [[ -z "$1" ]]; then
-        echo 'get package information from file'
-        echo 'usage: pcif PATH'
-        return 1
-    fi
-    local package=$(pacaur -Qoq $1)
-    pacaur -Qi "$package"
-}
 
 if hash fasd >/dev/null 2>&1; then
     eval "$(fasd --init auto)"
@@ -276,9 +240,6 @@ add_path ${PYENV_ROOT}/shims
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
 fi
-export NLTK_DATA="$HOME/.nltk_data"
-
-[ $commands[helm] ] && source <(helm completion zsh)
 
 wa() {
     local file="$1" ext err_msg="supported filetype: js, py, go"
@@ -303,13 +264,6 @@ wa() {
     esac
 }
 
-if [[ $(uname) == Darwin ]]; then
-    export EDITOR=/usr/local/bin/nvim
-    export VISUAL=$EDITOR
-    export BROWSER=/Applications/Firefox.app/Contents/MacOS/firefox-bin
-fi
-
-
 if [[ -f '/usr/local/opt/asdf/libexec/asdf.sh' ]]; then
     . /usr/local/opt/asdf/libexec/asdf.sh
 fi
@@ -319,8 +273,5 @@ if hash direnv >/dev/null 2>&1; then
 fi
 
 add_path "/usr/local/opt/mysql-client/bin"
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
 
 true
