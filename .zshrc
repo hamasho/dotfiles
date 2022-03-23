@@ -30,6 +30,10 @@ if hash tmux >/dev/null 2>&1; then
     plugins+=(tmux)
 fi
 
+if [[ -x "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 source $ZSH/oh-my-zsh.sh
 
 autoload -U compinit
@@ -37,10 +41,6 @@ compinit
 zmodload -i zsh/complist
 
 # User configuration
-
-if [[ -x "/opt/homebrew/bin/brew" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
 
 # Set ZSH prompt theme
 if hash starship >/dev/null 2>&1; then
