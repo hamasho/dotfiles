@@ -254,20 +254,22 @@ function pcif() {
     pacaur -Qi "$package"
 }
 
-eval "$(fasd --init auto)"
-alias a='fasd -a'        # any
-alias s='fasd -si'       # show / search / select
-alias d='fasd -d'        # directory
-alias f='fasd -f'        # file
-alias sd='fasd -sid'     # interactive directory selection
-alias sf='fasd -sif'     # interactive file selection
-alias jj='fasd_cd -d -i' # cd with interactive selection
-# jump to directory fazy
-function j() {
-    # alias j='fasd_cd -d'     # cd, same functionality as j in autojump
-    fasd_cd -d "$@"
-    pwd
-}
+if hash fasd >/dev/null 2>&1; then
+    eval "$(fasd --init auto)"
+    alias a='fasd -a'        # any
+    alias s='fasd -si'       # show / search / select
+    alias d='fasd -d'        # directory
+    alias f='fasd -f'        # file
+    alias sd='fasd -sid'     # interactive directory selection
+    alias sf='fasd -sif'     # interactive file selection
+    alias jj='fasd_cd -d -i' # cd with interactive selection
+    # jump to directory fazy
+    function j() {
+        # alias j='fasd_cd -d'     # cd, same functionality as j in autojump
+        fasd_cd -d "$@"
+        pwd
+    }
+fi
 
 export PYENV_ROOT="$HOME/.pyenv"
 add_path ${PYENV_ROOT}/shims
@@ -307,13 +309,18 @@ if [[ $(uname) == Darwin ]]; then
     export BROWSER=/Applications/Firefox.app/Contents/MacOS/firefox-bin
 fi
 
-true
+
+if [[ -f '/usr/local/opt/asdf/libexec/asdf.sh' ]]; then
+    . /usr/local/opt/asdf/libexec/asdf.sh
+fi
+
+if hash direnv >/dev/null 2>&1; then
+    eval "$(direnv hook zsh)"
+fi
+
+add_path "/usr/local/opt/mysql-client/bin"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/shinsuke.hamasho.ts/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/shinsuke.hamasho.ts/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/shinsuke.hamasho.ts/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/shinsuke.hamasho.ts/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+true
