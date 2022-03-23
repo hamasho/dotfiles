@@ -30,11 +30,6 @@ if hash tmux >/dev/null 2>&1; then
     plugins+=(tmux)
 fi
 
-# initialize PATH
-export MANPATH="/usr/local/man:$MANPATH"
-zstyle ':completion:*' list-prompt   ''
-zstyle ':completion:*' select-prompt ''
-
 source $ZSH/oh-my-zsh.sh
 
 autoload -U compinit
@@ -42,6 +37,10 @@ compinit
 zmodload -i zsh/complist
 
 # User configuration
+
+if [[ -x "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
 # Set ZSH prompt theme
 if hash starship >/dev/null 2>&1; then
@@ -152,7 +151,10 @@ function _ag_raw_func() {
 alias agr=_ag_raw_func
 
 [[ -d /usr/share/fzf ]] && . /usr/share/fzf/completion.zsh && . /usr/share/fzf/key-bindings.zsh
-[[ -d /usr/local/opt/fzf/shell ]] && . /usr/local/opt/fzf/shell/completion.zsh && . /usr/local/opt/fzf/shell/key-bindings.zsh
+if [[ -d "${HOMEBREW_PREFIX}/opt/fzf/shell" ]]; then
+    . "${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh"
+    . "${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh"
+fi
 alias fzr='fzf --preview "bat {}"'
 alias fzc='fzf --preview "bat {} 2>/dev/null" || cat {}'
 fzg() {
@@ -264,14 +266,14 @@ wa() {
     esac
 }
 
-if [[ -f '/usr/local/opt/asdf/libexec/asdf.sh' ]]; then
-    . /usr/local/opt/asdf/libexec/asdf.sh
+if [[ -f "${HOMEBREW_PREFIX}/opt/asdf/libexec/asdf.sh" ]]; then
+    . "${HOMEBREW_PREFIX}/opt/asdf/libexec/asdf.sh"
 fi
 
 if hash direnv >/dev/null 2>&1; then
     eval "$(direnv hook zsh)"
 fi
 
-add_path "/usr/local/opt/mysql-client/bin"
+add_path "${HOMEBREW_PREFIX}/opt/mysql-client/bin"
 
 true
