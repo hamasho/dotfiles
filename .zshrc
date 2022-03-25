@@ -11,7 +11,7 @@ COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(git python vi-mode)
+plugins=(git python vi-mode aws)
 
 if [[ -d "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" ]]; then
     plugins+=(zsh-autosuggestions)
@@ -26,12 +26,15 @@ else
     echo "git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 fi
 
+if [[ -x "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 if hash tmux >/dev/null 2>&1; then
     plugins+=(tmux)
 fi
-
-if [[ -x "/opt/homebrew/bin/brew" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+if hash asdf >/dev/null 2>&1; then
+    plugins+=(asdf)
 fi
 
 source $ZSH/oh-my-zsh.sh
@@ -89,7 +92,6 @@ export TERM=xterm-256color
 # this TERM is customized one
 # detail: https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
 # export TERM=xterm-256color-italic
-export LS_COLORS="di=1;33:ln=34:fi=90:ex=32;1:or=1;36;41:mi=1;37;41"
 export GREP_COLORS="fn=0;33"
 export EDITOR=nvim
 export VISUAL=$EDITOR
@@ -104,7 +106,7 @@ export HISTSIZE=2500000
 export SAVEHIST=$HISTSIZE
 [[ -x /usr/bin/lesspipe.sh ]] && export LESSOPEN='| lesspipe.sh %s'
 export LESS="-iRXF"
-export BAT_THEME="zenburn"
+export BAT_THEME="gruvbox-dark"
 
 export LANG="en_US.UTF-8"
 export LC_COLLATE="en_US.UTF-8"
@@ -219,6 +221,7 @@ ftags() {
 
 [[ -e ~/.zshrc.local ]] && . ~/.zshrc.local
 
+alias pm="python manage.py"
 
 if hash fasd >/dev/null 2>&1; then
     eval "$(fasd --init auto)"
@@ -266,12 +269,8 @@ wa() {
     esac
 }
 
-if [[ -f "${HOMEBREW_PREFIX}/opt/asdf/libexec/asdf.sh" ]]; then
-    . "${HOMEBREW_PREFIX}/opt/asdf/libexec/asdf.sh"
-fi
-
-if hash direnv >/dev/null 2>&1; then
-    eval "$(direnv hook zsh)"
+if hash direnv >/dev/null 2>&1 && hash asdf >/dev/null 2>&1; then
+    eval "$(asdf exec direnv hook zsh)"
 fi
 
 add_path "${HOMEBREW_PREFIX}/opt/mysql-client/bin"

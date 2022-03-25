@@ -5,7 +5,6 @@ filetype off
 set hidden
 
 " Use true colour in vim
-" detail:
 " https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
 let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
@@ -75,7 +74,7 @@ set switchbuf=useopen
 set t_Co=256
 set mouse=a
 set background=dark
-"set background=light
+set updatetime=300
 
 " Change <leader> to ','
 let mapleader = ","
@@ -98,12 +97,8 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'maximbaz/lightline-ale'
 Plugin 'shinchu/lightline-gruvbox.vim'
 
-let g:lightline#ale#indicator_checking = "\uf110"
-let g:lightline#ale#indicator_warnings = "\uf071 "
-let g:lightline#ale#indicator_errors = "\uf05e "
-let g:lightline#ale#indicator_ok = "\uf00c"
 let g:lightline = {
-    \ 'colorscheme': 'seoul256',
+    \ 'colorscheme': 'Tomorrow_Night',
     \ 'active': {
     \     'left': [ [ 'mode', 'paste' ],
     \               [ 'gitbranch', 'readonly', 'relativepath', 'modified'] ],
@@ -153,12 +148,13 @@ let g:coc_global_extensions = [
     \ 'coc-tsserver',
     \ 'coc-rust-analyzer',
 \ ]
-"    \ 'coc-tabnine',
+
 " GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> <c-]> <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -175,16 +171,17 @@ endfunction
 """ Misc
 
 " For async support (this plugin needs make: cd ~/.vim/bundle/vimproc.vim && make)
-Plugin 'Shougo/vimproc.vim'
+"Plugin 'Shougo/vimproc.vim'
 
 " NERDTree
 Plugin 'scrooloose/nerdtree'
 let NERDTreeHijackNetrw = 1
 nnoremap <leader>n :e .<cr>
+nnoremap <leader>N :NERDTreeFind<cr>
 
 " fzf
 " install: fzf#install()
-set rtp+=/usr/local/opt/fzf
+set rtp+=/opt/homebrew/opt/fzf
 Plugin 'junegunn/fzf.vim'
 nnoremap F :Files<cr>
 
@@ -195,13 +192,11 @@ Plugin 'editorconfig/editorconfig-vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_working_path_mode = 'a'
 let g:ctrlp_custom_ignore = 'node_modules\|__pycache__\|vendor\|dist\|venv'
-let g:ctrlp_extensions = ['tag']
 
 " Open browser easily
 Plugin 'tyru/open-browser.vim'
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
-vmap gx <Plug>(openbrowser-smart-search)
 
 " Easy motion
 Plugin 'easymotion/vim-easymotion'
@@ -220,7 +215,7 @@ Plugin 'tpope/tpope-vim-abolish'
 " Async search
 Plugin 'mhinz/vim-grepper'
 let g:grepper = {
-\     'tools': ['ag', 'git', 'grep'],
+\     'tools': ['ag', 'git'],
 \ }
 nnoremap <leader>g :Grepper<cr>
 
@@ -230,6 +225,7 @@ Plugin 'henrik/vim-indexed-search'
 " Git helper
 Plugin 'tpope/vim-fugitive'
 Plugin 'tyru/open-browser-github.vim'
+nnoremap <leader>o :OpenGithubFile<cr>
 
 """ Editing
 
@@ -264,17 +260,13 @@ Plugin 'michaeljsmith/vim-indent-object'
 
 """ Coding
 
-" Complete source
-" Plugin 'maralla/completor.vim'
-" Plugin 'codota/tabnine-vim'
-
 " Async syntax checker
 Plugin 'w0rp/ale'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_open_list = 1
 let g:ale_fix_on_save = 1
 let g:ale_linters = {
-\ 'python': ['pylint', 'mypy'],
+\ 'python': ['pylint'],
 \ 'typescript': ['eslint'],
 \ 'typescriptreact': ['eslint', 'stylelint'],
 \ 'graphql': [],
@@ -487,7 +479,6 @@ augroup END
 
 " Set colors {{{1
 
-let g:gruvbox_italic = 0
 let g:gruvbox_invert_selection = 0
 let g:gruvbox_contrast_light = "soft"
 let g:gruvbox_contrast_dark = "soft"
@@ -495,9 +486,6 @@ colorscheme gruvbox
 
 hi Normal guibg=NONE ctermbg=NONE
 hi Normal guifg=NONE ctermfg=NONE
-" hi LineNr ctermbg=238 guibg=#444444
-hi VertSplit ctermbg=NONE guibg=NONE
-hi Pmenu ctermbg=238 guibg=#665c54
 syn match Braces display '[{}()\[\]]'
 
 filetype indent plugin on
