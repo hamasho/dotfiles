@@ -54,8 +54,6 @@ fi
 setopt extendedglob
 setopt HIST_FIND_NO_DUPS
 
-[[ -f ~/.dir_colors ]] && eval $(dircolors ~/.dir_colors)
-
 # Stop send 'stop' signal
 stty -ixon
 
@@ -92,7 +90,6 @@ export TERM=xterm-256color
 # this TERM is customized one
 # detail: https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
 # export TERM=xterm-256color-italic
-export GREP_COLORS="fn=0;33"
 export EDITOR=nvim
 export VISUAL=$EDITOR
 if [[ $(uname) == Darwin ]]; then
@@ -100,6 +97,8 @@ if [[ $(uname) == Darwin ]]; then
 else
     export BROWSER=/usr/bin/firefox
 fi
+# LSCOLORS is set somewhere but disable here to avoid confusion
+unset LSCOLORS
 
 add_path ${HOME}/Bin
 export HISTSIZE=2500000
