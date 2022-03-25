@@ -1,22 +1,3 @@
-// disable emoji compilation
-iunmap(":");
-
-// make sure this config is loaded
-mapkey('<Ctrl-p>', 'Hello, world!', function() {
-  console.log('hellooooo');
-});
-
-// Toggle SurferingKeys by Alt-ESC
-map('<Alt-Esc>', '<Alt-s>');
-
-// open mermaid
-map('<Ctrl-Alt-f>', '<Ctrl-Alt-d>');
-
-// an example to create a new mapping `ctrl-y`
-mapkey('<Ctrl-y>', 'Show me the money', function() {
-  Front.showPopup('a well-known phrase uttered by characters in the 1996 film Jerry Maguire (Escape to close).');
-});
-
 // gruvbox dark theme colors
 const colors = {
   bg0: '#282828',
@@ -47,7 +28,7 @@ const colors = {
   orange1: '#fe8019',
 }
 
-Hints.style(`
+api.Hints.style(`
   border: soid 3px ${colors.fg1};
   border-radius: 6px;
   padding: 3px;
@@ -58,9 +39,8 @@ Hints.style(`
   font-weight: normal;
   font-family: Helvetica, Arial, sans-serif;
 `)
-Visual.style('marks', 'background-color: #f1fa8c;');
-Visual.style('cursor', 'background-color: #6272a4; color: #f8f8f2');
-
+api.Visual.style('marks', `background-color: ${colors.bg3};`);
+api.Visual.style('cursor', 'background-color: #6272a4; color: #f8f8f2');
 
 settings.theme = `
 .sk_theme {
@@ -93,5 +73,3 @@ settings.theme = `
 #sk_status, #sk_find {
     font-size: 14px;
 }`;
-
-// click `Save` button to make above settings to take effect.
