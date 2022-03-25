@@ -1,0 +1,19 @@
+# vi: ft=dosini
+[main]
+
+smart_completion = True
+multi_line = False
+destructive_warning = True
+log_file = ~/.mycli.log
+log_level = INFO
+timing = True
+table_format = ascii
+syntax_style = native
+key_bindings = emacs
+wider_completion_menu = True
+prompt = '\d> '
+prompt_continuation = '->'
+less_chatty = True
+auto_vertical_output = True
+keyword_casing = upper
+enable_pager = True
