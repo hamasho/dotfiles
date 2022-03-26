@@ -1,0 +1,27 @@
+add_newline = false
+
+[aws]
+disabled = true
+
+[git_branch]
+format = "[$symbol$branch]($style) "
+
+[git_status]
+style = "bold green"
+format = '([$all_status $ahead_behind]($style) )'
+
+conflicted = "🏳"
+ahead = "➡"
+behind = "⬅"
+diverged = "😵"
+up_to_date = ""
+
+untracked = "👀"
+stashed = "📦"
+modified = "❌"
+staged = '[++\($count\)](green)'
+renamed = "❌"
+deleted = "❌"
+
+[python]
+format = '[${symbol}${pyenv_prefix}(\($virtualenv\) )]($style)'
