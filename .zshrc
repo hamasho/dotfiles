@@ -11,8 +11,11 @@ COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(git python vi-mode aws)
+plugins=(git python vi-mode aws docker)
 
+if [[ -d "${ZSH_CUSTOM}/plugins/poetry" ]]; then
+    plugins+=(poetry)
+fi
 if [[ -d "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" ]]; then
     plugins+=(zsh-autosuggestions)
 else
@@ -103,9 +106,8 @@ unset LSCOLORS
 add_path ${HOME}/Bin
 export HISTSIZE=2500000
 export SAVEHIST=$HISTSIZE
-[[ -x /usr/bin/lesspipe.sh ]] && export LESSOPEN='| lesspipe.sh %s'
 export LESS="-iRXF"
-export BAT_THEME="gruvbox-dark"
+export BAT_OPTS="--theme=gruvbox-dark --style='numbers,header,grid' --wrap=never --italic-text=always"
 
 export LANG="en_US.UTF-8"
 export LC_COLLATE="en_US.UTF-8"
@@ -115,9 +117,6 @@ export LC_MONETARY="en_US.UTF-8"
 export LC_NUMERIC="en_US.UTF-8"
 export LC_TIME="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
-
-add_path ${HOME}/.local/bin
-add_path ${HOME}/.cargo/bin
 
 alias -g C='--color=always | less'
 alias -g G='| ag'
@@ -156,8 +155,7 @@ if [[ -d "${HOMEBREW_PREFIX}/opt/fzf/shell" ]]; then
     . "${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh"
     . "${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh"
 fi
-alias fzr='fzf --preview "bat {}"'
-alias fzc='fzf --preview "bat {} 2>/dev/null" || cat {}'
+alias f-files='fzf --preview "bat --style=numbers --color=always {} 2>/dev/null"'
 fzg() {
     # colorize matched pattern
     # usage: fzg PATTERN
@@ -187,7 +185,7 @@ fag() {
     local file
     file="$(ag --nobreak --noheading $@ | fzf -0 -1 | awk -F: '{print $1 " +" $2}')"
     if [[ -n $file ]]; then
-        vim $file
+        ${EDITOR:-vim} $file
     fi
 }
 
@@ -217,8 +215,6 @@ ftags() {
   ) && ${EDITOR:-vim} $(cut -f3 <<< "$line") -c "set nocst" \
                                       -c "silent tag $(cut -f2 <<< "$line")"
 }
-
-[[ -e ~/.zshrc.local ]] && . ~/.zshrc.local
 
 alias pm="python manage.py"
 
@@ -272,6 +268,11 @@ if hash direnv >/dev/null 2>&1 && hash asdf >/dev/null 2>&1; then
     eval "$(asdf exec direnv hook zsh)"
 fi
 
+# Prioritize locally installed python packages over asdf
+add_path ${HOME}/.local/bin
+
 add_path "${HOMEBREW_PREFIX}/opt/mysql-client/bin"
 
-true
+[[ -e ~/.zshrc.local ]] && . ~/.zshrc.local
+
+export PATH="$HOME/.poetry/bin:$PATH"

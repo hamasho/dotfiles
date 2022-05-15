@@ -1,3 +1,7 @@
+api.map('h', '<Ctrl-Tab>');
+api.map('l', '<Shift-Ctrl-Tab>');
+
+
 // gruvbox dark theme colors
 const colors = {
   bg0: '#282828',
@@ -43,33 +47,68 @@ api.Visual.style('marks', `background-color: ${colors.bg3};`);
 api.Visual.style('cursor', 'background-color: #6272a4; color: #f8f8f2');
 
 settings.theme = `
+:root {
+    --theme-ace-bg:#282828ab; /*Note the fourth channel, this adds transparency*/
+    --theme-ace-bg-accent:#3c3836;
+    --theme-ace-fg:#ebdbb2;
+    --theme-ace-fg-accent:#7c6f64;
+    --theme-ace-cursor:#928374;
+    --theme-ace-select:#458588;
+}
+
 .sk_theme {
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 12pt;
-    background: ${colors.bg2};
-    color: ${colors.fg1};
+    font-family: Input Sans Condensed, Charcoal, sans-serif;
+    font-size: 10pt;
+    background: #282828;
+    color: #ebdbb2;
 }
 .sk_theme tbody {
-    color: ${colors.green1};
+    color: ${colors.fg4};
 }
 .sk_theme input {
-    color: ${colors.fg1};
+    color: #d9dce0;
 }
 .sk_theme .url {
-    color: ${colors.green1};
+    color: ${colors.green0};
 }
 .sk_theme .annotation {
-    color: ${colors.purple1};
+    color: #b16286;
 }
 .sk_theme .omnibar_highlight {
-    color: ${colors.fg1};
+    color: #ebdbb2;
 }
 .sk_theme #sk_omnibarSearchResult ul li:nth-child(odd) {
-    background: ${colors.bg2};
+    background: #282828;
 }
 .sk_theme #sk_omnibarSearchResult ul li.focused {
-    background: ${colors.purple1};
+    background: ${colors.bg2};
 }
 #sk_status, #sk_find {
-    font-size: 14px;
-}`;
+    font-size: 12pt;
+}
+
+#sk_editor {
+    border-radius: 8px;
+    height: 50% !important; /*Remove this to restore the default editor size*/
+    background: var(--theme-ace-bg) !important;
+}
+.ace_dialog-bottom {
+    border-top: 1px solid var(--theme-ace-bg) !important;
+}
+.ace-chrome .ace_print-margin, .ace_gutter, .ace_gutter-cell, .ace_dialog{
+    background: var(--theme-ace-bg-accent) !important;
+}
+.ace-chrome{
+    color: var(--theme-ace-fg) !important;
+}
+.ace_cursor{
+    color: var(--theme-ace-cursor) !important;
+}
+.normal-mode .ace_cursor{
+    background-color: var(--theme-ace-cursor) !important;
+    border: var(--theme-ace-cursor) !important;
+}
+.ace_marker-layer .ace_selection {
+    background: var(--theme-ace-select) !important;
+}
+`;

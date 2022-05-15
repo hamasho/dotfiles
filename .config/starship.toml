@@ -1,14 +1,20 @@
 add_newline = false
 
+[character]
+success_symbol = "[❯](white)[❯](green)[❯](bold green)"
+error_symbol = "[❯](white)[❯](red)[❯](bold red)"
+vicmd_symbol = "[❮](white)[❮](blue)[❮](bold blue)"
+
 [aws]
 disabled = true
 
 [git_branch]
-format = "[$symbol$branch]($style) "
+style = "bold blue"
+format = "[$symbol$branch]($style)"
 
 [git_status]
 style = "bold green"
-format = '([$all_status $ahead_behind]($style) )'
+format = '([$all_status $ahead_behind]($style))'
 
 conflicted = "🏳"
 ahead = "➡"
@@ -18,10 +24,13 @@ up_to_date = ""
 
 untracked = "👀"
 stashed = "📦"
-modified = "❌"
+modified = "[*](bold red)"
 staged = '[++\($count\)](green)'
-renamed = "❌"
-deleted = "❌"
+renamed = "[*](bold red)"
+deleted = "[*](bold red)"
 
 [python]
 format = '[${symbol}${pyenv_prefix}(\($virtualenv\) )]($style)'
+
+[nodejs]
+disabled = true

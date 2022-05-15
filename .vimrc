@@ -183,7 +183,8 @@ nnoremap <leader>N :NERDTreeFind<cr>
 " install: fzf#install()
 set rtp+=/opt/homebrew/opt/fzf
 Plugin 'junegunn/fzf.vim'
-nnoremap F :Files<cr>
+nnoremap FF :Files<cr>
+nnoremap FA :Ag<cr>
 
 " Project EditorConfig
 Plugin 'editorconfig/editorconfig-vim'
@@ -223,7 +224,13 @@ nnoremap <leader>g :Grepper<cr>
 Plugin 'henrik/vim-indexed-search'
 
 " Git helper
+" All git command battery included!
 Plugin 'tpope/vim-fugitive'
+" Handler for :GBrowse to open files on github
+Plugin 'tpope/vim-rhubarb'
+" Mark modified lines
+Plugin 'airblade/vim-gitgutter'
+let g:gitgutter_enabled = 0
 Plugin 'tyru/open-browser-github.vim'
 nnoremap <leader>o :OpenGithubFile<cr>
 
@@ -266,21 +273,24 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_open_list = 1
 let g:ale_fix_on_save = 1
 let g:ale_linters = {
-\ 'python': ['pylint'],
+\ 'python': ['pylint', 'mypy'],
 \ 'typescript': ['eslint'],
 \ 'typescriptreact': ['eslint', 'stylelint'],
 \ 'graphql': [],
 \ 'c': [],
 \}
 let g:ale_fixers = {
-\ '\.js$': [],
-\ 'python': ['black'],
+\ '\.js$': ['eslint', 'prettier'],
+\ 'python': ['black', 'isort'],
 \ 'typescript': ['eslint', 'prettier'],
 \ 'typescriptreact': ['eslint', 'prettier', 'stylelint'],
 \ 'vue': ['prettier'],
 \ '\.spec\.js$': [],
 \ '*': [],
 \}
+
+" Syntax highlight for everything
+Plugin 'sheerun/vim-polyglot'
 
 " JasvScript
 Plugin 'pangloss/vim-javascript'
@@ -302,6 +312,7 @@ augroup END
 
 augroup TypeScriptTsx
     au!
+    au BufNewFile,BufRead *.tsx set filetype=typescript.tsx
     au FileType typescript.tsx
         \ setlocal softtabstop=2 |
         \ setlocal tabstop=2     |
@@ -360,8 +371,6 @@ let g:pymode_options_max_line_length = 80
 let g:pymode_rope = 0
 let g:pymode_lint = 0
 
-Plugin 'Vimjas/vim-python-pep8-indent'
-
 call vundle#end()
 
 " Basic autocmd {{{1
@@ -399,7 +408,7 @@ vnoremap <c-n> "+
 " Replace all word under the cursor
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
 " Copy entire text
-nnoremap <Leader>c ggVG"+y''
+nnoremap <Leader>c ggVG"+y''<c-o>
 
 " Ritch key bindings in insert mode
 inoremap <c-f> <right>
@@ -421,6 +430,12 @@ cnoremap <c-e> <end>
 command! Q :mksession! | qa
 
 " For each filetype {{{1
+
+" Git Commit {{{2
+augroup GitCommit
+    au!
+    au FileType gitcommit setlocal tw=140
+augroup END
 
 " HTML {{{2
 augroup HTML
@@ -466,7 +481,7 @@ augroup END
 " quickfix {{{2
 augroup Quickfix
     au!
-    au FileType qf setlocal wrap
+    au FileType qf setlocal nowrap
 augroup END
 
 " All files {{{2
