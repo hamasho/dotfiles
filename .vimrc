@@ -147,6 +147,7 @@ let g:coc_global_extensions = [
     \ 'coc-ultisnips',
     \ 'coc-tsserver',
     \ 'coc-rust-analyzer',
+    \ 'coc-solargraph',
 \ ]
 
 " GoTo code navigation.
@@ -238,6 +239,24 @@ nnoremap <leader>o :OpenGithubFile<cr>
 
 " Easy align
 Plugin 'junegunn/vim-easy-align'
+let g:easy_align_delimiters = {
+\ '/': {
+\     'pattern':         '//\+\|/\*\|\*/',
+\     'delimiter_align': 'l',
+\     'ignore_groups':   ['!Comment'] },
+\ ']': {
+\     'pattern':       '[[\]]',
+\     'left_margin':   0,
+\     'right_margin':  0,
+\     'stick_to_left': 0
+\   },
+\ ')': {
+\     'pattern':       '[()]',
+\     'left_margin':   0,
+\     'right_margin':  0,
+\     'stick_to_left': 0
+\   }
+\ }
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
@@ -277,6 +296,7 @@ let g:ale_linters = {
 \ 'typescript': ['eslint'],
 \ 'typescriptreact': ['eslint', 'stylelint'],
 \ 'graphql': [],
+\ 'ruby': ['rubocop'],
 \ 'c': [],
 \}
 let g:ale_fixers = {
@@ -285,6 +305,7 @@ let g:ale_fixers = {
 \ 'typescript': ['eslint', 'prettier'],
 \ 'typescriptreact': ['eslint', 'prettier', 'stylelint'],
 \ 'vue': ['prettier'],
+\ 'ruby': ['rubocop'],
 \ '\.spec\.js$': [],
 \ '*': [],
 \}
@@ -300,7 +321,7 @@ Plugin 'posva/vim-vue'
 " TypeScript
 Plugin 'leafgarland/typescript-vim'
 "Plugin 'peitalin/vim-jsx-typescript'
-Plugin 'Quramy/tsuquyomi'
+"Plugin 'Quramy/tsuquyomi'
 let g:tsuquyomi_use_vimproc = 1
 augroup TypeScript
     au!
@@ -351,6 +372,9 @@ let g:rustfmt_autosave = 1
 " Swift
 Plugin 'keith/swift.vim'
 
+" Ruby
+Plugin 'tpope/vim-rails'
+
 " Markdown
 Plugin 'godlygeek/tabular'
 Plugin 'mzlogin/vim-markdown-toc'
@@ -379,7 +403,7 @@ call vundle#end()
 augroup LoadOnce
     au!
     " Auto reload .vimrc after saving
-    au BufWritePost .vimrc :source ~/.vimrc
+    au BufWritePost .vimrc nested :source ~/.vimrc
     " Check if file is edited outside vim
     au CursorHold * checktime
 augroup END
@@ -434,7 +458,7 @@ command! Q :mksession! | qa
 " Git Commit {{{2
 augroup GitCommit
     au!
-    au FileType gitcommit setlocal tw=140
+    au FileType gitcommit setlocal tw=200
 augroup END
 
 " HTML {{{2
@@ -478,10 +502,10 @@ augroup YAML
     au FileType yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
 augroup END
 
-" quickfix {{{2
+" Quickfix {{{2
 augroup Quickfix
     au!
-    au FileType qf setlocal nowrap
+    au FileType qf setlocal wrap
 augroup END
 
 " All files {{{2
