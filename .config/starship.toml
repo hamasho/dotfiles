@@ -5,12 +5,16 @@ success_symbol = "[❯](white)[❯](green)[❯](bold green)"
 error_symbol = "[❯](white)[❯](red)[❯](bold red)"
 vicmd_symbol = "[❮](white)[❮](blue)[❮](bold blue)"
 
+[cmd_duration]
+min_time = 1000
+format = "*[$duration](bold yellow)*"
+
 [aws]
 disabled = true
 
 [git_branch]
 style = "bold blue"
-format = "[$symbol$branch]($style)"
+format = "[$symbol$branch]($style) "
 
 [git_status]
 style = "bold green"
@@ -23,7 +27,7 @@ diverged = "😵"
 up_to_date = ""
 
 untracked = "👀"
-stashed = "📦"
+stashed = ""
 modified = "[*](bold red)"
 staged = '[++\($count\)](green)'
 renamed = "[*](bold red)"
