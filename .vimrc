@@ -81,21 +81,17 @@ let mapleader = ","
 
 " Plugin manager {{{1
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin()
 
 """ Appearance
 
-" Let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
 " Colors
-Plugin 'flazz/vim-colorschemes'
+Plug 'flazz/vim-colorschemes'
 
 " Nice status & tab line
-Plugin 'itchyny/lightline.vim'
-Plugin 'maximbaz/lightline-ale'
-Plugin 'shinchu/lightline-gruvbox.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'maximbaz/lightline-ale'
+Plug 'shinchu/lightline-gruvbox.vim'
 
 let g:lightline = {
     \ 'colorscheme': 'Tomorrow_Night',
@@ -135,12 +131,12 @@ let g:lightline = {
 """ Coding
 
 " Snippets
-Plugin 'honza/vim-snippets'
-Plugin 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
 
 " For code complition
 " cd ~/.vim/bundle/coc.nvim && yarn install --frozen-lockfile
-Plugin 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', { 'do': 'yarn install --frozen-lockfile' }
 let g:coc_global_extensions = [
     \ 'coc-json',
     \ 'coc-pyright',
@@ -175,7 +171,7 @@ endfunction
 "Plugin 'Shougo/vimproc.vim'
 
 " NERDTree
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 let NERDTreeHijackNetrw = 1
 nnoremap <leader>n :e .<cr>
 nnoremap <leader>N :NERDTreeFind<cr>
@@ -183,62 +179,62 @@ nnoremap <leader>N :NERDTreeFind<cr>
 " fzf
 " install: fzf#install()
 set rtp+=/opt/homebrew/opt/fzf
-Plugin 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim'
 nnoremap FF :Files<cr>
 nnoremap FA :Ag<cr>
 
 " Project EditorConfig
-Plugin 'editorconfig/editorconfig-vim'
+Plug 'editorconfig/editorconfig-vim'
 
 " CtrlP
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_working_path_mode = 'a'
 let g:ctrlp_custom_ignore = 'node_modules\|__pycache__\|vendor\|dist\|venv'
 
 " Open browser easily
-Plugin 'tyru/open-browser.vim'
+Plug 'tyru/open-browser.vim'
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
 
 " Easy motion
-Plugin 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion'
 map s <plug>(easymotion-s)
 map <leader>s <plug>(easymotion-overwin-f)
 
 " Jump to various pairs
-Plugin 'tpope/vim-unimpaired'
+Plug 'tpope/vim-unimpaired'
 
 " Find closing pair
-Plugin 'adelarsq/vim-matchit'
+Plug 'adelarsq/vim-matchit'
 
 " Great search
-Plugin 'tpope/tpope-vim-abolish'
+Plug 'tpope/tpope-vim-abolish'
 
 " Async search
-Plugin 'mhinz/vim-grepper'
+Plug 'mhinz/vim-grepper'
 let g:grepper = {
 \     'tools': ['ag', 'git'],
 \ }
 nnoremap <leader>g :Grepper<cr>
 
 " Local search with index number
-Plugin 'henrik/vim-indexed-search'
+Plug 'henrik/vim-indexed-search'
 
 " Git helper
 " All git command battery included!
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 " Handler for :GBrowse to open files on github
-Plugin 'tpope/vim-rhubarb'
+Plug 'tpope/vim-rhubarb'
 " Mark modified lines
-Plugin 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 let g:gitgutter_enabled = 0
-Plugin 'tyru/open-browser-github.vim'
+Plug 'tyru/open-browser-github.vim'
 nnoremap <leader>o :OpenGithubFile<cr>
 
 """ Editing
 
 " Easy align
-Plugin 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-easy-align'
 let g:easy_align_delimiters = {
 \ '/': {
 \     'pattern':         '//\+\|/\*\|\*/',
@@ -263,31 +259,31 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " Surround
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 
 " Easy comment
-Plugin 'vim-scripts/tComment'
+Plug 'vim-scripts/tComment'
 
 " Text table
-Plugin 'dhruvasagar/vim-table-mode'
+Plug 'dhruvasagar/vim-table-mode'
 
 " Colorize parentheses/blackets
-Plugin 'frazrepo/vim-rainbow'
+Plug 'frazrepo/vim-rainbow'
 let g:rainbow_active = 1
 
 " Colorize hex
-Plugin 'ap/vim-css-color'
+Plug 'ap/vim-css-color'
 
 " Automatic closing
-Plugin 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 
 " Indentation level selecting
-Plugin 'michaeljsmith/vim-indent-object'
+Plug 'michaeljsmith/vim-indent-object'
 
 """ Coding
 
 " Async syntax checker
-Plugin 'w0rp/ale'
+Plug 'w0rp/ale'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_open_list = 1
 let g:ale_fix_on_save = 1
@@ -311,15 +307,15 @@ let g:ale_fixers = {
 \}
 
 " Syntax highlight for everything
-Plugin 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 
 " JasvScript
-Plugin 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript'
 let g:javascript_plugin_jsdoc = 1
-Plugin 'posva/vim-vue'
+Plug 'posva/vim-vue'
 
 " TypeScript
-Plugin 'leafgarland/typescript-vim'
+Plug 'leafgarland/typescript-vim'
 "Plugin 'peitalin/vim-jsx-typescript'
 "Plugin 'Quramy/tsuquyomi'
 let g:tsuquyomi_use_vimproc = 1
@@ -345,40 +341,40 @@ augroup TypeScriptTsx
 augroup END
 
 " JSX
-Plugin 'maxmellon/vim-jsx-pretty'
+Plug 'maxmellon/vim-jsx-pretty'
 
 " GraphQL
-Plugin 'jparise/vim-graphql'
+Plug 'jparise/vim-graphql'
 
 " Styled component
-Plugin 'styled-components/vim-styled-components'
+Plug 'styled-components/vim-styled-components'
 
 " Emmet (Zen cording HTML)
-Plugin 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim'
 
 " GLSL
-Plugin 'tikhomirov/vim-glsl'
+Plug 'tikhomirov/vim-glsl'
 
 " PHP
-Plugin 'StanAngeloff/php.vim'
+Plug 'StanAngeloff/php.vim'
 
 " Go
-Plugin 'fatih/vim-go'
+Plug 'fatih/vim-go'
 
 " Rust
-Plugin 'rust-lang/rust.vim'
+Plug 'rust-lang/rust.vim'
 let g:rustfmt_autosave = 1
 
 " Swift
-Plugin 'keith/swift.vim'
+Plug 'keith/swift.vim'
 
 " Ruby
-Plugin 'tpope/vim-rails'
+Plug 'tpope/vim-rails'
 
 " Markdown
-Plugin 'godlygeek/tabular'
-Plugin 'mzlogin/vim-markdown-toc'
-Plugin 'plasticboy/vim-markdown'
+Plug 'godlygeek/tabular'
+Plug 'mzlogin/vim-markdown-toc'
+Plug 'plasticboy/vim-markdown'
 let g:vim_markdown_toc_autofit = 1
 set conceallevel=0
 augroup MarkDown
@@ -390,12 +386,12 @@ augroup MarkDown
 augroup END
 
 " Python
-Plugin 'klen/python-mode'
+Plug 'klen/python-mode'
 let g:pymode_options_max_line_length = 80
 let g:pymode_rope = 0
 let g:pymode_lint = 0
 
-call vundle#end()
+call plug#end()
 
 " Basic autocmd {{{1
 
