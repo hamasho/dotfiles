@@ -62,10 +62,6 @@ set nojoinspaces " no extra space after '.' when joining lines
 set shiftwidth=4 " set indentation depth to 4 columns
 set softtabstop=4 " backspacing over 4 spaces like over tabs
 set tabstop=4 " set tabulator length to 4 columns
-" Folding
-set foldenable
-set foldlevelstart=10   " open most folds by default
-set foldmethod=syntax
 set shortmess=atIT
 set showtabline=1
 set ttyfast
@@ -86,7 +82,7 @@ call plug#begin()
 """ Appearance
 
 " Colors
-Plug 'flazz/vim-colorschemes'
+Plug 'ellisonleao/gruvbox.nvim'
 
 " Nice status & tab line
 Plug 'itchyny/lightline.vim'
@@ -130,16 +126,14 @@ let g:lightline = {
 
 """ Coding
 
-" Snippets
+" " Snippets
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 
 " For code complition
-" cd ~/.vim/bundle/coc.nvim && yarn install --frozen-lockfile
 Plug 'neoclide/coc.nvim', { 'do': 'yarn install --frozen-lockfile' }
 let g:coc_global_extensions = [
     \ 'coc-json',
-    \ 'coc-pyright',
     \ 'coc-ultisnips',
     \ 'coc-tsserver',
     \ 'coc-rust-analyzer',
@@ -165,10 +159,25 @@ function! s:show_documentation()
   endif
 endfunction
 
+" Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+" Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+" let g:coq_settings = { 'auto_start': 'shut-up' }
+
 """ Misc
 
-" For async support (this plugin needs make: cd ~/.vim/bundle/vimproc.vim && make)
-"Plugin 'Shougo/vimproc.vim'
+" For fuzzy find everything
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+nnoremap <C-p><C-f> <cmd>Telescope find_files<cr>
+nnoremap <C-p><C-g> <cmd>Telescope live_grep<cr>
+nnoremap <C-p><C-b> <cmd>Telescope buffers<cr>
+
+" CtrlP
+Plug 'ctrlpvim/ctrlp.vim'
+let g:ctrlp_map = '<c-p><c-p>'
+let g:ctrlp_working_path_mode = 'a'
+let g:ctrlp_custom_ignore = 'node_modules\|__pycache__\|vendor\|dist\|venv'
 
 " NERDTree
 Plug 'scrooloose/nerdtree'
@@ -185,11 +194,6 @@ nnoremap FA :Ag<cr>
 
 " Project EditorConfig
 Plug 'editorconfig/editorconfig-vim'
-
-" CtrlP
-Plug 'ctrlpvim/ctrlp.vim'
-let g:ctrlp_working_path_mode = 'a'
-let g:ctrlp_custom_ignore = 'node_modules\|__pycache__\|vendor\|dist\|venv'
 
 " Open browser easily
 Plug 'tyru/open-browser.vim'
@@ -226,8 +230,8 @@ Plug 'tpope/vim-fugitive'
 " Handler for :GBrowse to open files on github
 Plug 'tpope/vim-rhubarb'
 " Mark modified lines
-Plug 'airblade/vim-gitgutter'
-let g:gitgutter_enabled = 0
+" Plug 'airblade/vim-gitgutter'
+" let g:gitgutter_enabled = 0
 Plug 'tyru/open-browser-github.vim'
 nnoremap <leader>o :OpenGithubFile<cr>
 
@@ -306,8 +310,8 @@ let g:ale_fixers = {
 \ '*': [],
 \}
 
-" Syntax highlight for everything
-Plug 'sheerun/vim-polyglot'
+" Better syntax highlight and more
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " JasvScript
 Plug 'pangloss/vim-javascript'
@@ -316,8 +320,6 @@ Plug 'posva/vim-vue'
 
 " TypeScript
 Plug 'leafgarland/typescript-vim'
-"Plugin 'peitalin/vim-jsx-typescript'
-"Plugin 'Quramy/tsuquyomi'
 let g:tsuquyomi_use_vimproc = 1
 augroup TypeScript
     au!
@@ -343,30 +345,11 @@ augroup END
 " JSX
 Plug 'maxmellon/vim-jsx-pretty'
 
-" GraphQL
-Plug 'jparise/vim-graphql'
-
 " Styled component
 Plug 'styled-components/vim-styled-components'
 
 " Emmet (Zen cording HTML)
 Plug 'mattn/emmet-vim'
-
-" GLSL
-Plug 'tikhomirov/vim-glsl'
-
-" PHP
-Plug 'StanAngeloff/php.vim'
-
-" Go
-Plug 'fatih/vim-go'
-
-" Rust
-Plug 'rust-lang/rust.vim'
-let g:rustfmt_autosave = 1
-
-" Swift
-Plug 'keith/swift.vim'
 
 " Ruby
 Plug 'tpope/vim-rails'
@@ -392,6 +375,25 @@ let g:pymode_rope = 0
 let g:pymode_lint = 0
 
 call plug#end()
+
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all"
+  ensure_installed = { "lua", "vim", "python", "typescript", "tsx", "javascript" },
+
+  highlight = {
+    enable = true,
+  },
+  indent = {
+    enabled = true,
+  },
+}
+EOF
+" Folding
+set foldenable
+set foldlevelstart=10   " open most folds by default
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 
 " Basic autocmd {{{1
 
@@ -466,8 +468,6 @@ augroup END
 " Python {{{2
 augroup PYTHON
     au!
-    au BufRead *.py setlocal foldmethod=indent
-    au BufNewFile *.py setlocal foldmethod=indent
     au FileType python let b:coc_root_patterns = ['main.py', '.git', '.env']
 augroup END
 
