@@ -10,11 +10,7 @@ EXEC_LINES = ['print()']
 ### CONFIGS ###
 
 # simple start up banner
-c.TerminalInteractiveShell.banner1 = (
-    "Python %s, IPython %s. (type '?' for help)" % (
-        sys.version.split()[0], IPython.__version__,
-    )
-)
+c.TerminalIPythonApp.display_banner = False
 
 # not confirm exit
 c.TerminalInteractiveShell.confirm_exit = False
@@ -30,10 +26,7 @@ c.TerminalInteractiveShell.colors = 'neutral'
 
 # enable autoreload
 EXTENSIONS.append('autoreload')
-EXEC_LINES.extend([
-    '%autoreload 2',
-    'print("warn: disable autoreload for better performance (\\"%autoreload 1\\")")',
-])
+EXEC_LINES.extend(['%autoreload 2'])
 
 
 ### FINALIZE ###
