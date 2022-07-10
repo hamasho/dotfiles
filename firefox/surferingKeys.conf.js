@@ -1,6 +1,8 @@
 api.map('h', '<Ctrl-Tab>');
 api.map('l', '<Shift-Ctrl-Tab>');
 
+settings.hintAlign = 'left';
+
 
 // gruvbox dark theme colors
 const colors = {
