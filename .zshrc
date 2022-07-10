@@ -277,6 +277,9 @@ add_path "${HOMEBREW_PREFIX}/opt/mysql-client/bin"
 
 export PATH="$HOME/.poetry/bin:$PATH"
 
+[[ -e ~/.asdf/plugins/java/set-java-home.zsh ]] && \
+    . ~/.asdf/plugins/java/set-java-home.zsh
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"

@@ -139,6 +139,7 @@ let g:coc_global_extensions = [
     \ 'coc-pyright',
     \ 'coc-rust-analyzer',
     \ 'coc-solargraph',
+    \ 'coc-metals',
 \ ]
 
 " GoTo code navigation.
@@ -366,7 +367,8 @@ augroup MarkDown
     au FileType markdown
         \ setlocal softtabstop=2 |
         \ setlocal tabstop=2     |
-        \ setlocal shiftwidth=2
+        \ setlocal shiftwidth=2  |
+        \ setlocal wrap
 augroup END
 
 " Python
