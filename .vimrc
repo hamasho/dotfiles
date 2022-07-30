@@ -82,15 +82,14 @@ call plug#begin()
 """ Appearance
 
 " Colors
-Plug 'ellisonleao/gruvbox.nvim'
+Plug 'shaunsingh/nord.nvim'
 
 " Nice status & tab line
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
-Plug 'shinchu/lightline-gruvbox.vim'
 
 let g:lightline = {
-    \ 'colorscheme': 'Tomorrow_Night',
+    \ 'colorscheme': 'nord',
     \ 'active': {
     \     'left': [ [ 'mode', 'paste' ],
     \               [ 'gitbranch', 'readonly', 'relativepath', 'modified'] ],
@@ -128,13 +127,13 @@ let g:lightline = {
 
 " " Snippets
 Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ultisnips'
 
 " For code complition
 Plug 'neoclide/coc.nvim', { 'do': 'yarn install --frozen-lockfile' }
 let g:coc_global_extensions = [
     \ 'coc-json',
-    \ 'coc-ultisnips',
+    "\ 'coc-ultisnips',
     \ 'coc-tsserver',
     \ 'coc-pyright',
     \ 'coc-rust-analyzer',
@@ -236,6 +235,7 @@ Plug 'tpope/vim-rhubarb'
 " let g:gitgutter_enabled = 0
 Plug 'tyru/open-browser-github.vim'
 nnoremap <leader>o :OpenGithubFile<cr>
+noremap <leader>O :'<,'>OpenGithubFile<cr>
 
 """ Editing
 
@@ -294,7 +294,7 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_open_list = 1
 let g:ale_fix_on_save = 1
 let g:ale_linters = {
-\ 'python': ['pylint', 'mypy'],
+\ 'python': ['pylint', 'flake8', 'mypy'],
 \ 'typescript': ['eslint'],
 \ 'typescriptreact': ['eslint', 'stylelint'],
 \ 'graphql': [],
@@ -372,10 +372,10 @@ augroup MarkDown
 augroup END
 
 " Python
-Plug 'klen/python-mode'
-let g:pymode_options_max_line_length = 80
-let g:pymode_rope = 0
-let g:pymode_lint = 0
+"Plug 'klen/python-mode'
+"let g:pymode_options_max_line_length = 80
+"let g:pymode_rope = 0
+"let g:pymode_lint = 0
 
 call plug#end()
 
@@ -517,10 +517,7 @@ augroup END
 
 " Set colors {{{1
 
-let g:gruvbox_invert_selection = 0
-let g:gruvbox_contrast_light = "soft"
-let g:gruvbox_contrast_dark = "soft"
-colorscheme gruvbox
+colorscheme nord
 
 hi Normal guibg=NONE ctermbg=NONE
 hi Normal guifg=NONE ctermfg=NONE
