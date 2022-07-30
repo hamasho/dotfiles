@@ -1,114 +1,216 @@
 api.map('h', '<Ctrl-Tab>');
 api.map('l', '<Shift-Ctrl-Tab>');
 
+settings.hintAlign = 'left'
 
-// gruvbox dark theme colors
-const colors = {
-  bg0: '#282828',
-  bg1: '#3c3836',
-  bg2: '#504945',
-  bg3: '#665c54',
-  bg4: '#7c6f64',
-  fg0: '#fbf1c7',
-  fg1: '#ebdbb2',
-  fg2: '#d5c4a1',
-  fg3: '#bdae93',
-  fg4: '#a89984',
-  gray0: '#828374',
-  gray1: '#928374',
-  red0: '#cc241d',
-  red1: '#fb4934',
-  green0: '#98971a',
-  green1: '#b8bb26',
-  yellow0: '#d79921',
-  yellow1: '#fabd2f',
-  blue0: '#458488',
-  blue1: '#83a598',
-  purple0: '#b16286',
-  purple1: '#d3869b',
-  aqua0: '#689d6a',
-  aqua1: '#8ec07c',
-  orange0: '#d65d0e',
-  orange1: '#fe8019',
-}
+// Color schema
+// Copied from this file
+// https://github.com/Foldex/surfingkeys-config/blob/master/themes.js
 
+// ---- Hints ----
+// Nord
 api.Hints.style(`
-  border: soid 3px ${colors.fg1};
-  border-radius: 6px;
-  padding: 3px;
-  color: ${colors.fg1};
-  background: ${colors.bg2};
-  background-color: ${colors.bg2};
+  border: solid 2px #4C566A;
+  background: initial;
+  background-color: #3B4252;
+  padding: 0px 2px;
+  color: #81a1c1;
   font-size: 12px;
   font-weight: normal;
-  font-family: Helvetica, Arial, sans-serif;
-`)
-api.Visual.style('marks', `background-color: ${colors.bg3};`);
-api.Visual.style('cursor', 'background-color: #6272a4; color: #f8f8f2');
+`);
+api.Visual.style('marks', 'background-color: #A3BE8C99;');
+api.Visual.style('cursor', 'background-color: #88C0D0;');
 
 settings.theme = `
 :root {
-    --theme-ace-bg:#282828ab; /*Note the fourth channel, this adds transparency*/
-    --theme-ace-bg-accent:#3c3836;
-    --theme-ace-fg:#ebdbb2;
-    --theme-ace-fg-accent:#7c6f64;
-    --theme-ace-cursor:#928374;
-    --theme-ace-select:#458588;
+  /* Font */
+  --font: Monaco, 'Courier New', sans;
+  --font-size: 16;
+  --font-weight: normal;
+  /* --- THEMES --- */
+  /* --      NORD      -- */
+  --fg: #E5E9F0;
+  --bg: #3B4252;
+  --bg-dark: #2E3440;
+  --border: #4C566A;
+  --main-fg: #88C0D0;
+  --accent-fg: #A3BE8C;
+  --info-fg: #5E81AC;
+  --select: #4C566A;
+  /* --orange: #D08770; */
+  /* --red: #BF616A; */
+  /* --yellow: #EBCB8B; */
 }
-
+/* ---------- Generic ---------- */
 .sk_theme {
-    font-family: Input Sans Condensed, Charcoal, sans-serif;
-    font-size: 10pt;
-    background: #282828;
-    color: #ebdbb2;
+background: var(--bg);
+color: var(--fg);
+  background-color: var(--bg);
+  border-color: var(--border);
+  font-family: var(--font);
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+}
+input {
+  font-family: var(--font);
+  font-weight: var(--font-weight);
 }
 .sk_theme tbody {
-    color: ${colors.fg4};
+  color: var(--fg);
 }
 .sk_theme input {
-    color: #d9dce0;
+  color: var(--fg);
+}
+/* Hints */
+#sk_hints .begin {
+  color: var(--accent-fg) !important;
+}
+#sk_tabs .sk_tab {
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+}
+#sk_tabs .sk_tab_title {
+  color: var(--fg);
+}
+#sk_tabs .sk_tab_url {
+  color: var(--main-fg);
+}
+#sk_tabs .sk_tab_hint {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--accent-fg);
+}
+.sk_theme #sk_frame {
+  background: var(--bg);
+  opacity: 0.2;
+  color: var(--accent-fg);
+}
+/* ---------- Omnibar ---------- */
+.sk_theme .title {
+  color: var(--accent-fg);
 }
 .sk_theme .url {
-    color: ${colors.green0};
+  color: var(--main-fg);
 }
 .sk_theme .annotation {
-    color: #b16286;
+  color: var(--accent-fg);
 }
 .sk_theme .omnibar_highlight {
-    color: #ebdbb2;
+  color: var(--accent-fg);
+}
+.sk_theme .omnibar_timestamp {
+  color: var(--info-fg);
+}
+.sk_theme .omnibar_visitcount {
+  color: var(--accent-fg);
 }
 .sk_theme #sk_omnibarSearchResult ul li:nth-child(odd) {
-    background: #282828;
+  background: var(--bg-dark);
 }
 .sk_theme #sk_omnibarSearchResult ul li.focused {
-    background: ${colors.bg2};
+  background: var(--border);
 }
-#sk_status, #sk_find {
-    font-size: 12pt;
+.sk_theme #sk_omnibarSearchArea {
+  border-top-color: var(--border);
+  border-bottom-color: var(--border);
 }
-
+.sk_theme #sk_omnibarSearchArea input,
+.sk_theme #sk_omnibarSearchArea span {
+  font-size: var(--font-size);
+}
+.sk_theme .separator {
+  color: var(--accent-fg);
+}
+/* ---------- Popup Notification Banner ---------- */
+#sk_banner {
+  font-family: var(--font);
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+  background: var(--bg);
+  border-color: var(--border);
+  color: var(--fg);
+  opacity: 0.9;
+}
+/* ---------- Popup Keys ---------- */
+#sk_keystroke {
+  background-color: var(--bg);
+}
+.sk_theme kbd .candidates {
+  color: var(--info-fg);
+}
+.sk_theme span.annotation {
+  color: var(--accent-fg);
+}
+/* ---------- Popup Translation Bubble ---------- */
+#sk_bubble {
+  background-color: var(--bg) !important;
+  color: var(--fg) !important;
+  border-color: var(--border) !important;
+}
+#sk_bubble * {
+  color: var(--fg) !important;
+}
+#sk_bubble div.sk_arrow div:nth-of-type(1) {
+  border-top-color: var(--border) !important;
+  border-bottom-color: var(--border) !important;
+}
+#sk_bubble div.sk_arrow div:nth-of-type(2) {
+  border-top-color: var(--bg) !important;
+  border-bottom-color: var(--bg) !important;
+}
+/* ---------- Search ---------- */
+#sk_status,
+#sk_find {
+  font-size: var(--font-size);
+  border-color: var(--border);
+}
+.sk_theme kbd {
+  background: var(--bg-dark);
+  border-color: var(--border);
+  box-shadow: none;
+  color: var(--fg);
+}
+.sk_theme .feature_name span {
+  color: var(--main-fg);
+}
+/* ---------- ACE Editor ---------- */
 #sk_editor {
-    border-radius: 8px;
-    height: 50% !important; /*Remove this to restore the default editor size*/
-    background: var(--theme-ace-bg) !important;
+  background: var(--bg-dark) !important;
+  height: 50% !important;
+  /* Remove this to restore the default editor size */
 }
 .ace_dialog-bottom {
-    border-top: 1px solid var(--theme-ace-bg) !important;
+  border-top: 1px solid var(--bg) !important;
 }
-.ace-chrome .ace_print-margin, .ace_gutter, .ace_gutter-cell, .ace_dialog{
-    background: var(--theme-ace-bg-accent) !important;
+.ace-chrome .ace_print-margin,
+.ace_gutter,
+.ace_gutter-cell,
+.ace_dialog {
+  background: var(--bg) !important;
 }
-.ace-chrome{
-    color: var(--theme-ace-fg) !important;
+.ace-chrome {
+  color: var(--fg) !important;
 }
-.ace_cursor{
-    color: var(--theme-ace-cursor) !important;
+.ace_gutter,
+.ace_dialog {
+  color: var(--fg) !important;
 }
-.normal-mode .ace_cursor{
-    background-color: var(--theme-ace-cursor) !important;
-    border: var(--theme-ace-cursor) !important;
+.ace_cursor {
+  color: var(--fg) !important;
+}
+.normal-mode .ace_cursor {
+  background-color: var(--fg) !important;
+  border: var(--fg) !important;
+  opacity: 0.7 !important;
 }
 .ace_marker-layer .ace_selection {
-    background: var(--theme-ace-select) !important;
+  background: var(--select) !important;
+}
+.ace_editor,
+.ace_dialog span,
+.ace_dialog input {
+  font-family: var(--font);
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
 }
 `;
