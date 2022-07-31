@@ -42,6 +42,7 @@ set laststatus=2
 set confirm
 set visualbell
 set t_vb=
+set cursorline
 set scrolloff=99
 set sidescrolloff=5
 set lazyredraw
@@ -83,43 +84,7 @@ call plug#begin()
 Plug 'shaunsingh/nord.nvim'
 
 " Nice status & tab line
-Plug 'itchyny/lightline.vim'
-Plug 'maximbaz/lightline-ale'
-
-let g:lightline = {
-    \ 'colorscheme': 'nord',
-    \ 'active': {
-    \     'left': [ [ 'mode', 'paste' ],
-    \               [ 'gitbranch', 'readonly', 'relativepath', 'modified'] ],
-    \     'right': [ [ 'fileencoding', 'filetype',
-    \                   'linter_checking', 'linter_warnings', 'linter_errors', 'linter_ok' ],
-    \                [ 'percent' ] ]
-    \ },
-    \ 'inactive': {
-    \     'left': [ [ 'filename', 'modified'] ],
-    \     'right': [ [ 'percent' ] ]
-    \ },
-    \ 'component' : {
-    \     'tagbar': '%{tagbar#currenttag("%s", "", "f")}'
-    \ },
-    \ 'component_type' : {
-    \     'linter_checking': 'left',
-    \     'linter_warning': 'warnings',
-    \     'linter_errors': 'error',
-    \     'linter_ok': 'left',
-    \ },
-    \ 'component_function': {
-    \     'gitbranch': 'fugitive#head',
-    \     'linter_checking': 'lightline#ale#checking',
-    \     'linter_warnings': 'lightline#ale#warnings',
-    \     'linter_errors': 'lightline#ale#errors',
-    \     'linter_ok': 'lightline#ale#ok',
-    \ },
-    \ 'tabline': {
-    \     'left': [ [ 'tabs' ] ],
-    \     'right': [ [ ] ],
-    \ },
-\ }
+Plug 'nvim-lualine/lualine.nvim'
 
 """ Coding
 
@@ -372,6 +337,14 @@ augroup END
 
 call plug#end()
 
+lua << END
+require('lualine').setup {
+    options = {
+        icons_enabled = false,
+    }
+}
+END
+
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
@@ -385,6 +358,7 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
+
 " Folding
 set foldenable
 set foldlevelstart=10   " open most folds by default
