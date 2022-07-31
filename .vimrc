@@ -42,8 +42,6 @@ set laststatus=2
 set confirm
 set visualbell
 set t_vb=
-set cursorline
-set cursorcolumn
 set scrolloff=99
 set sidescrolloff=5
 set lazyredraw
@@ -358,6 +356,7 @@ Plug 'tpope/vim-rails'
 
 " Markdown
 Plug 'godlygeek/tabular'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'plasticboy/vim-markdown'
 let g:vim_markdown_toc_autofit = 1
@@ -370,12 +369,6 @@ augroup MarkDown
         \ setlocal shiftwidth=2  |
         \ setlocal wrap
 augroup END
-
-" Python
-"Plug 'klen/python-mode'
-"let g:pymode_options_max_line_length = 80
-"let g:pymode_rope = 0
-"let g:pymode_lint = 0
 
 call plug#end()
 
@@ -518,9 +511,6 @@ augroup END
 " Set colors {{{1
 
 colorscheme nord
-
-hi Normal guibg=NONE ctermbg=NONE
-hi Normal guifg=NONE ctermfg=NONE
-syn match Braces display '[{}()\[\]]'
+hi Normal guibg=NONE ctermbg=NONE guifg=NONE ctermfg=NONE
 
 filetype indent plugin on
