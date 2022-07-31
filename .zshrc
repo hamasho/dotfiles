@@ -205,19 +205,6 @@ fkill() {
     fi
 }
 
-# ftags - search ctags
-ftags() {
-  local line
-  [ -e tags ] &&
-  line=$(
-    awk 'BEGIN { FS="\t" } !/^!/ {print toupper($4)"\t"$1"\t"$2"\t"$3}' tags |
-    cut -c1-80 | fzf --nth=1,2
-  ) && ${EDITOR:-vim} $(cut -f3 <<< "$line") -c "set nocst" \
-                                      -c "silent tag $(cut -f2 <<< "$line")"
-}
-
-alias pm="python manage.py"
-
 if hash fasd >/dev/null 2>&1; then
     eval "$(fasd --init auto)"
     alias a='fasd -a'        # any
@@ -233,12 +220,6 @@ if hash fasd >/dev/null 2>&1; then
         fasd_cd -d "$@"
         pwd
     }
-fi
-
-export PYENV_ROOT="$HOME/.pyenv"
-add_path ${PYENV_ROOT}/shims
-if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init -)"
 fi
 
 wa() {
@@ -270,33 +251,15 @@ fi
 
 # Prioritize locally installed python packages over asdf
 add_path ${HOME}/.local/bin
-
 add_path "${HOMEBREW_PREFIX}/opt/mysql-client/bin"
 
 [[ -e ~/.zshrc.local ]] && . ~/.zshrc.local
 
 export PATH="$HOME/.poetry/bin:$PATH"
 
-[[ -e ~/.asdf/plugins/java/set-java-home.zsh ]] && \
-    . ~/.asdf/plugins/java/set-java-home.zsh
+[[ -e ~/.asdf/plugins/java/set-java-home.zsh ]] && . ~/.asdf/plugins/java/set-java-home.zsh
 
 # OpenBLAS for numpy, etc...
 if [[ -n "$(brew --prefix openblas 2> /dev/null)" ]]; then
     export OPENBLAS="$(brew --prefix openblas)"
 fi
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/homebrew/Caskroom/miniforge/base/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
