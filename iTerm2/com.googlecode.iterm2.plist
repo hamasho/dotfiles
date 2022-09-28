@@ -1045,12 +1045,20 @@
 	</dict>
 	<key>Default Bookmark Guid</key>
 	<string>6CB4D011-655D-4FBA-828D-EB4C58356E58</string>
+	<key>DimBackgroundWindows</key>
+	<false/>
+	<key>DimInactiveSplitPanes</key>
+	<true/>
+	<key>DimOnlyText</key>
+	<false/>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
 	<key>HideScrollbar</key>
 	<true/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
 	<true/>
+	<key>MaxVertically</key>
+	<false/>
 	<key>NeverWarnAboutShortLivedSessions_6CB4D011-655D-4FBA-828D-EB4C58356E58</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_6CB4D011-655D-4FBA-828D-EB4C58356E58_selection</key>
@@ -1279,16 +1287,14 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.19183900952339172</real>
+				<real>0.25098039215686274</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.15255947411060333</real>
+				<real>0.20392156862745098</real>
 				<key>Red Component</key>
-				<real>0.1357133686542511</real>
+				<real>0.1803921568627451</real>
 			</dict>
-			<key>Background Image Location</key>
-			<string>/Users/hamasho/Repogitory/dotfiles/wallpaper.jpeg</string>
 			<key>Badge Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -1303,7 +1309,7 @@
 				<real>0.20252507925033569</real>
 			</dict>
 			<key>Blend</key>
-			<real>0.19651664402173918</real>
+			<real>0.096516644021739137</real>
 			<key>Blinking Cursor</key>
 			<false/>
 			<key>Blur</key>
@@ -1792,7 +1798,7 @@
 			<key>Use Non-ASCII Font</key>
 			<false/>
 			<key>Vertical Spacing</key>
-			<real>1</real>
+			<real>1.01</real>
 			<key>Visual Bell</key>
 			<true/>
 			<key>Window Type</key>
@@ -1834,14 +1840,22 @@
 			<string>kNextWindowPointerAction</string>
 		</dict>
 	</dict>
+	<key>QuitWhenAllWindowsClosed</key>
+	<true/>
+	<key>SmartPlacement</key>
+	<false/>
 	<key>SoundForEsc</key>
 	<false/>
+	<key>SplitPaneDimmingAmount</key>
+	<real>0.39755669751213596</real>
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>5</integer>
 	<key>TerminalMargin</key>
 	<integer>10</integer>
 	<key>TerminalVMargin</key>
 	<integer>10</integer>
+	<key>UseBorder</key>
+	<false/>
 	<key>VisualIndicatorForEsc</key>
 	<false/>
 	<key>kCPKSelectionViewPreferredModeKey</key>
