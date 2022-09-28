@@ -130,6 +130,7 @@ alias -g J=' | jq -SC . | less'
 alias -g L=' | LESS=-iR less'
 alias -g V='--version'
 
+alias o='docker'
 alias agn='ag --nobreak --nofilename --nonumbers'
 alias watch='watch --color '
 alias gll='git log --no-color --graph --pretty="%h - %d %s (%cr) <%an>"'
