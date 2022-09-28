@@ -36,3 +36,9 @@ tmux:
 		[[ -f $${HOME}/.tmux.conf ]] && rm $${HOME}/.tmux.conf; \
 		ln -s $(DOTFILE_DIR)/.tmux.conf $${HOME}/.tmux.conf; \
 	fi
+
+easy_move_resize:
+	if [[ ! -f /Applications/Easy\ Move+Resize.app ]]; then \
+		brew install --cask easy-move-plus-resize; \
+		xattr -dr com.apple.quarantine /Applications/Easy\ Move+Resize.app; \
+	fi
