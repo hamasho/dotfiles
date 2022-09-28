@@ -1,4 +1,10 @@
 add_newline = false
+# Move all information on right prompt
+format = """$character"""
+right_format = """$all"""
+
+[line_break]
+disabled = true
 
 [character]
 success_symbol = "[❯](white)[❯](green)[❯](bold green)"
