@@ -36,8 +36,9 @@ set autoindent
 set cindent
 set nostartofline
 set noruler
-" Always display the status line, even if only one window is displayed
-set laststatus=2
+" Display status line for current buffer only
+set laststatus=3
+set cmdheight=0
 " Rise a dialogue asking if you wish to save changed files.
 set confirm
 set visualbell
@@ -46,10 +47,6 @@ set cursorline
 set scrolloff=99
 set sidescrolloff=5
 set lazyredraw
-" Set the command window height to 2 lines, to avoid many cases of having to
-" "press <Enter> to continue"
-" set cmdheight=2
-set number relativenumber
 set nowrap
 set nrformats-=octal
 " Quickly time out on keycodes, but never time out on mappings
@@ -90,18 +87,16 @@ Plug 'nvim-lualine/lualine.nvim'
 
 " " Snippets
 Plug 'honza/vim-snippets'
-"Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 
 " For code complition
 Plug 'neoclide/coc.nvim', { 'do': 'yarn install --frozen-lockfile' }
 let g:coc_global_extensions = [
     \ 'coc-json',
-    "\ 'coc-ultisnips',
+    \ 'coc-ultisnips',
     \ 'coc-tsserver',
     \ 'coc-pyright',
-    \ 'coc-rust-analyzer',
     \ 'coc-solargraph',
-    \ 'coc-metals',
 \ ]
 
 " GoTo code navigation.
@@ -348,7 +343,7 @@ END
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "lua", "vim", "python", "typescript", "tsx", "javascript" },
+  ensure_installed = { "lua", "vim", "python", "html", "typescript", "tsx", "javascript" },
 
   highlight = {
     enable = true,
@@ -486,5 +481,6 @@ augroup END
 
 colorscheme nord
 hi Normal guibg=NONE ctermbg=NONE guifg=NONE ctermfg=NONE
+hi VertSplit guifg=grey
 
 filetype indent plugin on
