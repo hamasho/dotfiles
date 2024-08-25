@@ -1,7 +1,9 @@
 api.map('h', '<Ctrl-Tab>');
 api.map('l', '<Shift-Ctrl-Tab>');
+api.iunmap('<Ctrl-e>')
 
 settings.hintAlign = 'left';
+settings.enableEmojiInsertion = false;
 
 // Color schema
 // Copied from this file
