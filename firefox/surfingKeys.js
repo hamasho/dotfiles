@@ -1,6 +1,8 @@
-api.map('h', '<Ctrl-Tab>');
-api.map('l', '<Shift-Ctrl-Tab>');
 api.iunmap('<Ctrl-e>')
+api.imap(';', ':')
+api.addVimMapKey({
+  keys: ';', type: 'keyToKey', toKeys: ':', context: 'normal'
+})
 
 settings.hintAlign = 'left';
 settings.enableEmojiInsertion = false;
@@ -13,12 +15,13 @@ settings.enableEmojiInsertion = false;
 // Nord
 api.Hints.style(`
   border: solid 2px #4C566A;
+  border-radius: 4px;
   background: initial;
   background-color: #3B4252;
-  padding: 0px 2px;
-  color: #81a1c1;
-  font-size: 12px;
+  color: #D8DEE9;
+  font-size: 13px;
   font-weight: normal;
+  padding: 2px;
 `);
 api.Visual.style('marks', 'background-color: #A3BE8C99;');
 api.Visual.style('cursor', 'background-color: #88C0D0;');

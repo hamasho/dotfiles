@@ -11,11 +11,11 @@ COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(git python vi-mode aws docker)
+plugins=(git vi-mode aws docker)
 
-if [[ -d "${ZSH_CUSTOM}/plugins/poetry" ]]; then
-    plugins+=(poetry)
-fi
+# if [[ -d "${ZSH_CUSTOM}/plugins/poetry" ]]; then
+#     plugins+=(poetry)
+# fi
 if [[ -d "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" ]]; then
     plugins+=(zsh-autosuggestions)
 else
@@ -36,10 +36,8 @@ fi
 if hash tmux >/dev/null 2>&1; then
     plugins+=(tmux)
 fi
-if hash asdf >/dev/null 2>&1; then
-    plugins+=(asdf)
-fi
 
+[[ -f $HOME/.profile ]] && source $HOME/.profile
 source $ZSH/oh-my-zsh.sh
 
 autoload -U compinit
@@ -95,9 +93,11 @@ export TERM=xterm-256color
 # export TERM=xterm-256color-italic
 export EDITOR=nvim
 export VISUAL=$EDITOR
-if [[ $(uname) == Darwin ]]; then
+if [[ -x /Applications/Firefox.app/Contents/MacOS/firefox-bin ]]; then
     export BROWSER=/Applications/Firefox.app/Contents/MacOS/firefox-bin
-else
+elif [[ -x /Applications/Firefox.app/Contents/MacOS/firefox ]]; then
+    export BROWSER=/Applications/Firefox.app/Contents/MacOS/firefox
+elif [[ -x  usr/bin/firefox ]]; then
     export BROWSER=/usr/bin/firefox
 fi
 # LSCOLORS is set somewhere but disable here to avoid confusion
@@ -107,7 +107,7 @@ add_path ${HOME}/Bin
 export HISTSIZE=2500000
 export SAVEHIST=$HISTSIZE
 export LESS="-iRXF"
-export BAT_OPTS="--theme=gruvbox-dark --style='numbers,header,grid' --wrap=never --italic-text=always"
+export BAT_OPTS="--theme=Nord --style='numbers,header,grid' --wrap=never --italic-text=always"
 
 export LANG="en_US.UTF-8"
 export LC_COLLATE="en_US.UTF-8"
@@ -120,6 +120,8 @@ export LC_ALL="en_US.UTF-8"
 
 alias -g C='--color=always | less'
 alias -g G='| ag'
+alias -g PC='| pbcopy'
+alias -g PB='| pbcopy'
 alias -g GV='| ag -v'
 alias -g H='2>&1 --help | less'
 alias -g E='2>&1'
@@ -131,6 +133,8 @@ alias -g L=' | LESS=-iR less'
 alias -g V='--version'
 
 alias o='docker'
+alias dc='docker compose'
+alias v='nvim'
 alias agn='ag --nobreak --nofilename --nonumbers'
 alias watch='watch --color '
 alias gll='git log --no-color --graph --pretty="%h - %d %s (%cr) <%an>"'
@@ -142,6 +146,7 @@ alias tree='tree -I ".git|node_modules|__pycache__|venv|vendor"'
 alias http='http --style=material'
 alias gs='glances --process-short-name --byte'
 alias p='ipython --colors=Linux'
+alias python='uv run python'
 alias nr='npm run'
 alias yr='yarn run'
 
@@ -212,9 +217,9 @@ if hash fasd >/dev/null 2>&1; then
     alias s='fasd -si'       # show / search / select
     alias d='fasd -d'        # directory
     alias f='fasd -f'        # file
-    alias sd='fasd -sid'     # interactive directory selection
-    alias sf='fasd -sif'     # interactive file selection
-    alias jj='fasd_cd -d -i' # cd with interactive selection
+    alias sid='fasd -sid'     # interactive directory selection
+    alias sif='fasd -sif'     # interactive file selection
+    alias jjj='fasd_cd -d -i' # cd with interactive selection
     # jump to directory fazy
     function j() {
         # alias j='fasd_cd -d'     # cd, same functionality as j in autojump
@@ -246,21 +251,29 @@ wa() {
     esac
 }
 
-if hash direnv >/dev/null 2>&1 && hash asdf >/dev/null 2>&1; then
-    eval "$(asdf exec direnv hook zsh)"
-fi
+add_path "/Applications/Docker.app/Contents/Resources/bin"
 
-# Prioritize locally installed python packages over asdf
-add_path ${HOME}/.local/bin
+# Rust
+source "$HOME/.cargo/env"
+
+# Python
+#add_path ${HOME}/.local/bin
 add_path "${HOMEBREW_PREFIX}/opt/mysql-client/bin"
-
-[[ -e ~/.zshrc.local ]] && . ~/.zshrc.local
-
-export PATH="$HOME/.poetry/bin:$PATH"
-
-[[ -e ~/.asdf/plugins/java/set-java-home.zsh ]] && . ~/.asdf/plugins/java/set-java-home.zsh
 
 # OpenBLAS for numpy, etc...
 if [[ -n "$(brew --prefix openblas 2> /dev/null)" ]]; then
     export OPENBLAS="$(brew --prefix openblas)"
 fi
+source ${HOME}/.ghcup/env
+
+add_path /Applications/SuperCollider.app/Contents/MacOS
+
+[[ -e ~/.zshrc.local ]] && . ~/.zshrc.local
+
+. "$HOME/.local/bin/env"
+
+eval "$(uv generate-shell-completion zsh)"
+
+# Task Master aliases added on 10/13/2025
+alias tm='task-master'
+alias taskmaster='task-master'

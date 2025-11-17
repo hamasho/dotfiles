@@ -15,7 +15,10 @@ vicmd_symbol = "[❮](white)[❮](blue)[❮](bold blue)"
 min_time = 1000
 format = "*[$duration](bold yellow)*"
 
+# Somehow cloud ⛅ emoji breaks prompt so excludes cloud related prompts
 [aws]
+disabled = true
+[gcloud]
 disabled = true
 
 [git_branch]

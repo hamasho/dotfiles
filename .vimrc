@@ -4,8 +4,8 @@ syntax on
 filetype off
 set hidden
 
-" Use true colour in vim
-" https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
+" " Use true colour in vim
+" " https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
 let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
@@ -37,8 +37,10 @@ set cindent
 set nostartofline
 set noruler
 " Display status line for current buffer only
-set laststatus=3
-set cmdheight=0
+set laststatus=2
+set cmdheight=1
+set number relativenumber
+set numberwidth=3
 " Rise a dialogue asking if you wish to save changed files.
 set confirm
 set visualbell
@@ -77,9 +79,6 @@ call plug#begin()
 
 """ Appearance
 
-" Colors
-Plug 'shaunsingh/nord.nvim'
-
 " Nice status & tab line
 Plug 'nvim-lualine/lualine.nvim'
 
@@ -87,14 +86,15 @@ Plug 'nvim-lualine/lualine.nvim'
 
 " " Snippets
 Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ultisnips'
 
-" For code complition
+" For code complition (language server, LSP)
 Plug 'neoclide/coc.nvim', { 'do': 'yarn install --frozen-lockfile' }
 let g:coc_global_extensions = [
     \ 'coc-json',
     \ 'coc-ultisnips',
     \ 'coc-tsserver',
+    \ 'coc-vetur',
     \ 'coc-pyright',
     \ 'coc-solargraph',
 \ ]
@@ -252,7 +252,9 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_open_list = 1
 let g:ale_fix_on_save = 1
 let g:ale_linters = {
-\ 'python': ['pylint', 'flake8', 'mypy'],
+\ 'python': ['pylint', 'mypy'],
+"\ 'python': ['pylint', 'flake8', 'mypy'],
+\ 'javascript': ['eslint'],
 \ 'typescript': ['eslint'],
 \ 'typescriptreact': ['eslint', 'stylelint'],
 \ 'graphql': [],
@@ -261,9 +263,11 @@ let g:ale_linters = {
 \}
 let g:ale_fixers = {
 \ '\.js$': ['eslint', 'prettier'],
+\ 'javascript': ['eslint', 'prettier'],
 \ 'python': ['black', 'isort'],
 \ 'typescript': ['eslint', 'prettier'],
 \ 'typescriptreact': ['eslint', 'prettier', 'stylelint'],
+\ 'typescript.tsx': ['eslint', 'prettier', 'stylelint'],
 \ 'vue': ['prettier'],
 \ 'ruby': ['rubocop'],
 \ '\.spec\.js$': [],
@@ -276,7 +280,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " JasvScript
 Plug 'pangloss/vim-javascript'
 let g:javascript_plugin_jsdoc = 1
-Plug 'posva/vim-vue'
+Plug 'leafOfTree/vim-vue-plugin'
 
 " TypeScript
 Plug 'leafgarland/typescript-vim'
@@ -311,8 +315,17 @@ Plug 'styled-components/vim-styled-components'
 " Emmet (Zen cording HTML)
 Plug 'mattn/emmet-vim'
 
+" Prisma
+Plug 'prisma/vim-prisma'
+
 " Ruby
 Plug 'tpope/vim-rails'
+
+" SuperCollider
+Plug 'davidgranstrom/scnvim'
+
+" TidalCycle
+Plug 'tidalcycles/vim-tidal'
 
 " Markdown
 Plug 'godlygeek/tabular'
@@ -330,12 +343,23 @@ augroup MarkDown
         \ setlocal wrap
 augroup END
 
+" Colors
+Plug 'shaunsingh/nord.nvim'
+
 call plug#end()
 
 lua << END
 require('lualine').setup {
     options = {
         icons_enabled = false,
+    },
+    sections = {
+        lualine_c = {
+            {
+                    'filename',
+                    path = 1,
+                }
+            }
     }
 }
 END
@@ -354,9 +378,14 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
+" SuperCollider
+lua << EOF
+require('scnvim').setup({})
+EOF
+
 " Folding
 set foldenable
-set foldlevelstart=10   " open most folds by default
+set foldlevelstart=99
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 
@@ -480,7 +509,6 @@ augroup END
 " Set colors {{{1
 
 colorscheme nord
-hi Normal guibg=NONE ctermbg=NONE guifg=NONE ctermfg=NONE
-hi VertSplit guifg=grey
+highlight Normal guibg=NONE ctermbg=NONE
 
 filetype indent plugin on
