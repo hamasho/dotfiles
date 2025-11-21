@@ -130,14 +130,10 @@ nnoremap <leader>n :e .<cr>
 nnoremap <leader>N :NERDTreeFind<cr>
 
 " fzf
-" install: fzf#install()
 set rtp+=/opt/homebrew/opt/fzf
 Plug 'junegunn/fzf.vim'
 nnoremap FF :Files<cr>
 nnoremap FA :Ag<cr>
-
-" Project EditorConfig
-Plug 'editorconfig/editorconfig-vim'
 
 " Open browser easily
 Plug 'tyru/open-browser.vim'
@@ -151,70 +147,18 @@ map <leader>s <plug>(easymotion-overwin-f)
 
 " Jump to various pairs
 Plug 'tpope/vim-unimpaired'
-
 " Find closing pair
 Plug 'adelarsq/vim-matchit'
 
 " Great search
 Plug 'tpope/tpope-vim-abolish'
 
-" Async search
-Plug 'mhinz/vim-grepper'
-let g:grepper = {
-\     'tools': ['ag', 'git'],
-\ }
-nnoremap <leader>g :Grepper<cr>
-
-" Local search with index number
-Plug 'henrik/vim-indexed-search'
-
-" Git helper
-" All git command battery included!
-Plug 'tpope/vim-fugitive'
-" Handler for :GBrowse to open files on github
-Plug 'tpope/vim-rhubarb'
-" Mark modified lines
-" Plug 'airblade/vim-gitgutter'
-" let g:gitgutter_enabled = 0
-Plug 'tyru/open-browser-github.vim'
-nnoremap <leader>o :OpenGithubFile<cr>
-noremap <leader>O :'<,'>OpenGithubFile<cr>
-
 """ Editing
-
-" Easy align
-Plug 'junegunn/vim-easy-align'
-let g:easy_align_delimiters = {
-\ '/': {
-\     'pattern':         '//\+\|/\*\|\*/',
-\     'delimiter_align': 'l',
-\     'ignore_groups':   ['!Comment'] },
-\ ']': {
-\     'pattern':       '[[\]]',
-\     'left_margin':   0,
-\     'right_margin':  0,
-\     'stick_to_left': 0
-\   },
-\ ')': {
-\     'pattern':       '[()]',
-\     'left_margin':   0,
-\     'right_margin':  0,
-\     'stick_to_left': 0
-\   }
-\ }
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
 " Surround
 Plug 'tpope/vim-surround'
 
 " Easy comment
 Plug 'vim-scripts/tComment'
-
-" Text table
-Plug 'dhruvasagar/vim-table-mode'
 
 " Colorize parentheses/blackets
 Plug 'frazrepo/vim-rainbow'
@@ -230,34 +174,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'michaeljsmith/vim-indent-object'
 
 """ Coding
-
-" Async syntax checker
-Plug 'w0rp/ale'
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_open_list = 1
-let g:ale_fix_on_save = 1
-let g:ale_linters = {
-\ 'python': ['pylint', 'mypy'],
-"\ 'python': ['pylint', 'flake8', 'mypy'],
-\ 'javascript': ['eslint'],
-\ 'typescript': ['eslint'],
-\ 'typescriptreact': ['eslint', 'stylelint'],
-\ 'graphql': [],
-\ 'ruby': ['rubocop'],
-\ 'c': [],
-\}
-let g:ale_fixers = {
-\ '\.js$': ['eslint', 'prettier'],
-\ 'javascript': ['eslint', 'prettier'],
-\ 'python': ['black', 'isort'],
-\ 'typescript': ['eslint', 'prettier'],
-\ 'typescriptreact': ['eslint', 'prettier', 'stylelint'],
-\ 'typescript.tsx': ['eslint', 'prettier', 'stylelint'],
-\ 'vue': ['prettier'],
-\ 'ruby': ['rubocop'],
-\ '\.spec\.js$': [],
-\ '*': [],
-\}
 
 " Better syntax highlight and more
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -294,78 +210,28 @@ augroup END
 " JSX
 Plug 'maxmellon/vim-jsx-pretty'
 
-" Styled component
-Plug 'styled-components/vim-styled-components'
-
 " Emmet (Zen cording HTML)
 Plug 'mattn/emmet-vim'
-
-" Prisma
-Plug 'prisma/vim-prisma'
-
-" Ruby
-Plug 'tpope/vim-rails'
-
-" SuperCollider
-Plug 'davidgranstrom/scnvim'
-
-" TidalCycle
-Plug 'tidalcycles/vim-tidal'
-
-" Markdown
-Plug 'godlygeek/tabular'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-Plug 'mzlogin/vim-markdown-toc'
-Plug 'plasticboy/vim-markdown'
-let g:vim_markdown_toc_autofit = 1
-set conceallevel=0
-augroup MarkDown
-    au!
-    au FileType markdown
-        \ setlocal softtabstop=2 |
-        \ setlocal tabstop=2     |
-        \ setlocal shiftwidth=2  |
-        \ setlocal wrap
-augroup END
 
 " Colors
 Plug 'shaunsingh/nord.nvim'
 
 call plug#end()
 
-lua << END
+lua << EOF
 require('lualine').setup {
-    options = {
-        icons_enabled = false,
-    },
+    options = { icons_enabled = false },
     sections = {
         lualine_c = {
-            {
-                    'filename',
-                    path = 1,
-                }
-            }
+            { 'filename', path = 1 }
+        }
     }
 }
-END
-
-lua << EOF
 require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all"
   ensure_installed = { "lua", "vim", "python", "html", "typescript", "tsx", "javascript" },
-
-  highlight = {
-    enable = true,
-  },
-  indent = {
-    enabled = true,
-  },
+  highlight = { enable = true },
+  indent = { enabled = true },
 }
-EOF
-
-" SuperCollider
-lua << EOF
-require('scnvim').setup({})
 EOF
 
 " Folding
