@@ -1,50 +1,36 @@
-import asyncio
 from IPython import get_ipython
-from IPython.terminal.prompts import Prompts, Token
+from prompt_toolkit.key_binding import KeyBindings
 from prompt_toolkit.keys import Keys
-from prompt_toolkit.filters import ViInsertMode
-from prompt_toolkit.key_binding.bindings.named_commands import get_by_name
-
+from prompt_toolkit.filters import vi_insert_mode
 
 ip = get_ipython()
 
+# Emacs-style keybindings in vi insert mode
+kb = KeyBindings()
 
-## Prompt
-class MyPrompt(Prompts):
-    def in_prompt_tokens(self, cli=None):
-        return [
-            (Token.Prompt, '['),
-            (Token.PromptNum, str(self.shell.execution_count)),
-            (Token.Prompt, ']> '),
-        ]
+@kb.add(Keys.ControlA, filter=vi_insert_mode)
+def _(event):
+    event.current_buffer.cursor_position = 0
 
-    def out_prompt_tokens(self, cli=None):
-        return [
-            (Token.OutPrompt, '['),
-            (Token.OutPromptNum, str(self.shell.execution_count)),
-            (Token.OutPrompt, ']: '),
-        ]
+@kb.add(Keys.ControlE, filter=vi_insert_mode)
+def _(event):
+    event.current_buffer.cursor_position = len(event.current_buffer.text)
 
-ip.prompts = MyPrompt(ip)
+@kb.add(Keys.ControlB, filter=vi_insert_mode)
+def _(event):
+    event.current_buffer.cursor_position -= 1
 
+@kb.add(Keys.ControlF, filter=vi_insert_mode)
+def _(event):
+    event.current_buffer.cursor_position += 1
 
-## Keyboard Shortcuts
-registry = ip.pt_app.key_bindings
-vi_ins = ViInsertMode()
+@kb.add(Keys.ControlK, filter=vi_insert_mode)
+def _(event):
+    buffer = event.current_buffer
+    buffer.delete(count=len(buffer.text) - buffer.cursor_position)
 
-# use emacs bindings in vi insert mode
-registry.add_binding(Keys.ControlA, filter=vi_ins)(get_by_name('beginning-of-line'))
-registry.add_binding(Keys.ControlB, filter=vi_ins)(get_by_name('backward-char'))
-registry.add_binding(Keys.ControlE, filter=vi_ins)(get_by_name('end-of-line'))
-registry.add_binding(Keys.ControlF, filter=vi_ins)(get_by_name('forward-char'))
-registry.add_binding(Keys.ControlK, filter=vi_ins)(get_by_name('kill-line'))
-registry.add_binding(Keys.ControlY, filter=vi_ins)(get_by_name('yank'))
+@kb.add(Keys.ControlY, filter=vi_insert_mode)
+def _(event):
+    event.current_buffer.paste_clipboard_data(event.app.clipboard.get_data())
 
-##
-## Util functions
-##
-
-def aw(future):
-    '''Mock `await` keyword'''
-    loop = asyncio.get_event_loop()
-    return loop.run_until_complete(future)
+ip.pt_app.key_bindings = kb
