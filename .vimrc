@@ -82,58 +82,25 @@ Plug 'nvim-lualine/lualine.nvim'
 
 """ Coding
 
-" For code complition (language server, LSP)
-Plug 'neoclide/coc.nvim', { 'do': 'yarn install --frozen-lockfile' }
-let g:coc_global_extensions = [
-    \ 'coc-json',
-    \ 'coc-tsserver',
-    \ 'coc-pyright',
-\ ]
-
-" GoTo code navigation.
-nmap <silent> <c-]> <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
+" Native LSP
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'L3MON4D3/LuaSnip'
 
 """ Misc
 
-" For fuzzy find everything
+" Fuzzy finder
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-nnoremap <C-p><C-f> <cmd>Telescope find_files<cr>
-nnoremap <C-p><C-g> <cmd>Telescope live_grep<cr>
-nnoremap <C-p><C-b> <cmd>Telescope buffers<cr>
-
-" CtrlP
-Plug 'ctrlpvim/ctrlp.vim'
-let g:ctrlp_map = '<c-p><c-p>'
-let g:ctrlp_working_path_mode = 'a'
-let g:ctrlp_custom_ignore = 'node_modules\|__pycache__\|vendor\|dist\|venv'
-
-" NERDTree
-Plug 'scrooloose/nerdtree'
-let NERDTreeHijackNetrw = 1
-nnoremap <leader>n :e .<cr>
-nnoremap <leader>N :NERDTreeFind<cr>
-
-" fzf
-set rtp+=/opt/homebrew/opt/fzf
-Plug 'junegunn/fzf.vim'
-nnoremap FF :Files<cr>
-nnoremap FA :Ag<cr>
+nnoremap <C-p> <cmd>Telescope find_files<cr>
+nnoremap FF <cmd>Telescope find_files<cr>
+nnoremap FA <cmd>Telescope live_grep<cr>
+nnoremap <leader>b <cmd>Telescope buffers<cr>
+nnoremap <leader>n :Telescope file_browser<cr>
 
 " Open browser easily
 Plug 'tyru/open-browser.vim'
@@ -175,43 +142,17 @@ Plug 'michaeljsmith/vim-indent-object'
 
 """ Coding
 
-" Better syntax highlight and more
+" Better syntax highlight
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-" JasvScript
-Plug 'pangloss/vim-javascript'
-let g:javascript_plugin_jsdoc = 1
-Plug 'leafOfTree/vim-vue-plugin'
-
-" TypeScript
-Plug 'leafgarland/typescript-vim'
-let g:tsuquyomi_use_vimproc = 1
-augroup TypeScript
-    au!
-    au FileType typescript
-        \ setlocal softtabstop=2 |
-        \ setlocal tabstop=2     |
-        \ setlocal shiftwidth=2
-augroup END
-
-augroup TypeScriptTsx
-    au!
-    au BufNewFile,BufRead *.tsx set filetype=typescript.tsx
-    au FileType typescript.tsx
-        \ setlocal softtabstop=2 |
-        \ setlocal tabstop=2     |
-        \ setlocal shiftwidth=2
-    au FileType typescriptreact
-        \ setlocal softtabstop=2 |
-        \ setlocal tabstop=2     |
-        \ setlocal shiftwidth=2
-augroup END
-
-" JSX
-Plug 'maxmellon/vim-jsx-pretty'
-
-" Emmet (Zen cording HTML)
+" Emmet (Zen coding HTML)
 Plug 'mattn/emmet-vim'
+
+" Language-specific indentation
+augroup FileTypeIndentation
+    au!
+    au FileType typescript,typescriptreact,javascript,javascriptreact,json,html,css setlocal softtabstop=2 tabstop=2 shiftwidth=2
+augroup END
 
 " Colors
 Plug 'shaunsingh/nord.nvim'
@@ -219,6 +160,7 @@ Plug 'shaunsingh/nord.nvim'
 call plug#end()
 
 lua << EOF
+-- Lualine
 require('lualine').setup {
     options = { icons_enabled = false },
     sections = {
@@ -227,11 +169,86 @@ require('lualine').setup {
         }
     }
 }
+
+-- Treesitter
 require'nvim-treesitter.configs'.setup {
   ensure_installed = { "lua", "vim", "python", "html", "typescript", "tsx", "javascript" },
   highlight = { enable = true },
   indent = { enabled = true },
 }
+
+-- Completion
+local cmp_ok, cmp = pcall(require, 'cmp')
+if not cmp_ok then return end
+
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+  }, {
+    { name = 'buffer' },
+    { name = 'path' },
+  })
+})
+
+-- LSP setup
+local lspconfig_ok, _ = pcall(require, 'lspconfig')
+if lspconfig_ok then
+  local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+  -- Python
+  vim.lsp.config.pyright = { capabilities = capabilities }
+
+  -- TypeScript/JavaScript
+  vim.lsp.config.ts_ls = { capabilities = capabilities }
+
+  -- JSON
+  vim.lsp.config.jsonls = { capabilities = capabilities }
+
+  -- Enable LSP servers
+  vim.lsp.enable({'pyright', 'ts_ls', 'jsonls'})
+end
+
+-- LSP keybindings
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    local opts = { buffer = ev.buf }
+    vim.keymap.set('n', '<C-]>', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, opts)
+  end,
+})
 EOF
 
 " Folding
