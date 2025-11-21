@@ -1,26 +1,12 @@
-## ----------------------------------------------------------------------
-## Set up a computer
-##
-## Target OS: Mac
-## ----------------------------------------------------------------------
-
 DOTFILE_DIR = $(shell pwd)
 
 BREWPATH = /opt/homebrew/bin/brew
 
-CORE_PACKAGES = tmux neovim the_silver_searcher fzf fd gh tree moreutils
-CORE_PACKAGES += asdf fasd starship bat colordiff wget jq ripgrep
-CORE_PACKAGES += tmuxinator
+CORE_PACKAGES = tmux neovim fzf fd gh sd tree moreutils
+CORE_PACKAGES += fasd starship bat colordiff wget jq ripgrep
 
 help:  ## Show this help.
 	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST)
-
-brew:  ## Install homebrew
-	@if [[ ! -x $(BREWPATH) ]]; then \
-		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
-	else \
-		echo "brew is already installed." ;\
-	fi
 
 install_core: brew  ## Install necessary brew packages
 	$(BREWPATH) install $(CORE_PACKAGES)
@@ -35,10 +21,4 @@ tmux:
 	if [[ ! -L $${HOME}/.tmux.conf ]]; then \
 		[[ -f $${HOME}/.tmux.conf ]] && rm $${HOME}/.tmux.conf; \
 		ln -s $(DOTFILE_DIR)/.tmux.conf $${HOME}/.tmux.conf; \
-	fi
-
-easy_move_resize:
-	if [[ ! -f /Applications/Easy\ Move+Resize.app ]]; then \
-		brew install --cask easy-move-plus-resize; \
-		xattr -dr com.apple.quarantine /Applications/Easy\ Move+Resize.app; \
 	fi

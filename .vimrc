@@ -78,25 +78,16 @@ let mapleader = ","
 call plug#begin()
 
 """ Appearance
-
-" Nice status & tab line
 Plug 'nvim-lualine/lualine.nvim'
 
 """ Coding
-
-" " Snippets
-Plug 'honza/vim-snippets'
-"Plug 'SirVer/ultisnips'
 
 " For code complition (language server, LSP)
 Plug 'neoclide/coc.nvim', { 'do': 'yarn install --frozen-lockfile' }
 let g:coc_global_extensions = [
     \ 'coc-json',
-    \ 'coc-ultisnips',
     \ 'coc-tsserver',
-    \ 'coc-vetur',
     \ 'coc-pyright',
-    \ 'coc-solargraph',
 \ ]
 
 " GoTo code navigation.
@@ -104,8 +95,6 @@ nmap <silent> <c-]> <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
@@ -117,10 +106,6 @@ function! s:show_documentation()
     execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
-
-" Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
-" Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
-" let g:coq_settings = { 'auto_start': 'shut-up' }
 
 """ Misc
 
