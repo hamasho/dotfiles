@@ -2,20 +2,11 @@
 export ZSH=${HOME}/.oh-my-zsh
 export ZSH_CUSTOM="${ZSH}/custom"
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
 HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 plugins=(git vi-mode aws docker)
 
-# if [[ -d "${ZSH_CUSTOM}/plugins/poetry" ]]; then
-#     plugins+=(poetry)
-# fi
 if [[ -d "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" ]]; then
     plugins+=(zsh-autosuggestions)
 else
@@ -44,14 +35,11 @@ autoload -U compinit
 compinit
 zmodload -i zsh/complist
 
-# User configuration
+### === User configuration ===
 
-# Set ZSH prompt theme
 if hash starship >/dev/null 2>&1; then
     eval "$(starship init zsh)"
 fi
-
-# set options
 setopt extendedglob
 setopt HIST_FIND_NO_DUPS
 
@@ -97,11 +85,9 @@ if [[ -x /Applications/Firefox.app/Contents/MacOS/firefox-bin ]]; then
     export BROWSER=/Applications/Firefox.app/Contents/MacOS/firefox-bin
 elif [[ -x /Applications/Firefox.app/Contents/MacOS/firefox ]]; then
     export BROWSER=/Applications/Firefox.app/Contents/MacOS/firefox
-elif [[ -x  usr/bin/firefox ]]; then
+elif [[ -x /usr/bin/firefox ]]; then
     export BROWSER=/usr/bin/firefox
 fi
-# LSCOLORS is set somewhere but disable here to avoid confusion
-unset LSCOLORS
 
 add_path ${HOME}/Bin
 export HISTSIZE=2500000
@@ -149,12 +135,6 @@ alias p='ipython --colors=Linux'
 alias python='uv run python'
 alias nr='npm run'
 alias yr='yarn run'
-
-alias ag="ag --color-match='1;33' --color-line-number='1;34;1' --color-path='1;35' --pager less"
-function _ag_raw_func() {
-    ag --nofilename --nonumbers $@ | sort -u | sed '/^$/d'
-}
-alias agr=_ag_raw_func
 
 [[ -d /usr/share/fzf ]] && . /usr/share/fzf/completion.zsh && . /usr/share/fzf/key-bindings.zsh
 if [[ -d "${HOMEBREW_PREFIX}/opt/fzf/shell" ]]; then
@@ -253,19 +233,6 @@ wa() {
 
 add_path "/Applications/Docker.app/Contents/Resources/bin"
 
-# Rust
-source "$HOME/.cargo/env"
-
-# Python
-#add_path ${HOME}/.local/bin
-add_path "${HOMEBREW_PREFIX}/opt/mysql-client/bin"
-
-# OpenBLAS for numpy, etc...
-if [[ -n "$(brew --prefix openblas 2> /dev/null)" ]]; then
-    export OPENBLAS="$(brew --prefix openblas)"
-fi
-source ${HOME}/.ghcup/env
-
 add_path /Applications/SuperCollider.app/Contents/MacOS
 
 [[ -e ~/.zshrc.local ]] && . ~/.zshrc.local
@@ -273,7 +240,3 @@ add_path /Applications/SuperCollider.app/Contents/MacOS
 . "$HOME/.local/bin/env"
 
 eval "$(uv generate-shell-completion zsh)"
-
-# Task Master aliases added on 10/13/2025
-alias tm='task-master'
-alias taskmaster='task-master'

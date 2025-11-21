@@ -84,6 +84,8 @@ Plug 'nvim-lualine/lualine.nvim'
 
 " Native LSP
 Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -217,22 +219,31 @@ cmp.setup({
   })
 })
 
--- LSP setup
-local lspconfig_ok, _ = pcall(require, 'lspconfig')
-if lspconfig_ok then
-  local capabilities = require('cmp_nvim_lsp').default_capabilities()
+-- Mason (LSP installer)
+local mason_ok, mason = pcall(require, 'mason')
+local mason_lspconfig_ok, mason_lspconfig = pcall(require, 'mason-lspconfig')
+local lspconfig_ok, lspconfig = pcall(require, 'lspconfig')
 
-  -- Python
-  vim.lsp.config.pyright = { capabilities = capabilities }
+if mason_ok and mason_lspconfig_ok and lspconfig_ok then
+  mason.setup()
+  mason_lspconfig.setup({
+    ensure_installed = { 'pyright', 'ts_ls', 'jsonls' },
+    automatic_installation = true,
+  })
 
-  -- TypeScript/JavaScript
-  vim.lsp.config.ts_ls = { capabilities = capabilities }
+  -- LSP setup
+  local cmp_nvim_lsp_ok, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
+  local capabilities = cmp_nvim_lsp_ok and cmp_nvim_lsp.default_capabilities() or vim.lsp.protocol.make_client_capabilities()
 
-  -- JSON
-  vim.lsp.config.jsonls = { capabilities = capabilities }
-
-  -- Enable LSP servers
-  vim.lsp.enable({'pyright', 'ts_ls', 'jsonls'})
+  if mason_lspconfig.setup_handlers then
+    mason_lspconfig.setup_handlers({
+      function(server_name)
+        lspconfig[server_name].setup({
+          capabilities = capabilities,
+        })
+      end,
+    })
+  end
 end
 
 -- LSP keybindings
