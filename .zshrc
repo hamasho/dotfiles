@@ -24,9 +24,9 @@ if [[ -x "/opt/homebrew/bin/brew" ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-if hash tmux >/dev/null 2>&1; then
-    plugins+=(tmux)
-fi
+# if hash tmux >/dev/null 2>&1; then
+#     plugins+=(tmux)
+# fi
 
 [[ -f $HOME/.profile ]] && source $HOME/.profile
 source $ZSH/oh-my-zsh.sh
@@ -154,6 +154,14 @@ fzgg() {
     ag -l "$1" | fzf --preview "egrep --color=always '$1|' {}"
 }
 
+fzff() {
+    fd -t f "$1" | fzf \
+        --layout=reverse \
+        --preview 'bat --color=always {}' \
+        --preview-window 'right,75%,border-left' \
+        --bind 'ctrl-b:preview-page-up,ctrl-f:preview-page-down,ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down'
+}
+
 # open file for view/edit
 #   - CTRL-O to open with `open` command,
 #   - CTRL-E or Enter key to open with the $EDITOR
@@ -191,22 +199,7 @@ fkill() {
     fi
 }
 
-if hash fasd >/dev/null 2>&1; then
-    eval "$(fasd --init auto)"
-    alias a='fasd -a'        # any
-    alias s='fasd -si'       # show / search / select
-    alias d='fasd -d'        # directory
-    alias f='fasd -f'        # file
-    alias sid='fasd -sid'     # interactive directory selection
-    alias sif='fasd -sif'     # interactive file selection
-    alias jjj='fasd_cd -d -i' # cd with interactive selection
-    # jump to directory fazy
-    function j() {
-        # alias j='fasd_cd -d'     # cd, same functionality as j in autojump
-        fasd_cd -d "$@"
-        pwd
-    }
-fi
+eval "$(zoxide init zsh)"
 
 wa() {
     local file="$1" ext err_msg="supported filetype: js, py, go"
