@@ -49,7 +49,7 @@ set cursorline
 set scrolloff=99
 set sidescrolloff=5
 set lazyredraw
-set nowrap
+set wrap
 set nrformats-=octal
 " Quickly time out on keycodes, but never time out on mappings
 set notimeout ttimeout ttimeoutlen=200
@@ -86,6 +86,9 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
+
+" Python venv detection (for uv, poetry, etc.)
+Plug 'linux-cultist/venv-selector.nvim'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -149,6 +152,8 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Emmet (Zen coding HTML)
 Plug 'mattn/emmet-vim'
+
+Plug 'gruvw/strudel.nvim', { 'do': 'npm ci' }
 
 " Language-specific indentation
 augroup FileTypeIndentation
@@ -227,7 +232,7 @@ local lspconfig_ok, lspconfig = pcall(require, 'lspconfig')
 if mason_ok and mason_lspconfig_ok and lspconfig_ok then
   mason.setup()
   mason_lspconfig.setup({
-    ensure_installed = { 'pyright', 'ts_ls', 'jsonls' },
+    ensure_installed = { 'pyright', 'ruff', 'ts_ls', 'jsonls' },
     automatic_installation = true,
   })
 
@@ -260,7 +265,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, opts)
   end,
 })
+
+require('strudel').setup()
 EOF
+nnoremap <leader><enter> :StrudelUpdate<cr>
+nnoremap <leader>. :StrudelStop<cr>
 
 " Folding
 set foldenable

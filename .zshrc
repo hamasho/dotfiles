@@ -1,11 +1,26 @@
 # Path to your oh-my-zsh installation.
+#
 export ZSH=${HOME}/.oh-my-zsh
 export ZSH_CUSTOM="${ZSH}/custom"
 
 HYPHEN_INSENSITIVE="true"
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(git vi-mode aws docker)
+# Cache the output of `eval $(cmd)` to reduce start up time
+cached_eval() {
+    local bin_path
+    bin_path=$(command -v "$1") || return 1
+    local cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/zsh-eval"
+    local cache_file="$cache_dir/$1.zsh"
+    if [[ ! -f $cache_file || $bin_path -nt $cache_file ]]; then
+        [[ -d $cache_dir ]] || mkdir -p "$cache_dir"
+        "$@" > "$cache_file"
+    fi
+    source "$cache_file"
+}
+
+#plugins=(git vi-mode aws docker)
+plugins=(git vi-mode)
 
 if [[ -d "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" ]]; then
     plugins+=(zsh-autosuggestions)
@@ -21,7 +36,7 @@ else
 fi
 
 if [[ -x "/opt/homebrew/bin/brew" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+    cached_eval brew shellenv
 fi
 
 # if hash tmux >/dev/null 2>&1; then
@@ -29,16 +44,17 @@ fi
 # fi
 
 [[ -f $HOME/.profile ]] && source $HOME/.profile
+# Disable compiling compilation and check update to improve performance
+ZSH_DISABLE_COMPFIX=true
+zstyle ':omz:update' mode disabled
 source $ZSH/oh-my-zsh.sh
 
-autoload -U compinit
-compinit
 zmodload -i zsh/complist
 
 ### === User configuration ===
 
 if hash starship >/dev/null 2>&1; then
-    eval "$(starship init zsh)"
+    cached_eval starship init zsh
 fi
 setopt extendedglob
 setopt HIST_FIND_NO_DUPS
@@ -94,6 +110,7 @@ export HISTSIZE=2500000
 export SAVEHIST=$HISTSIZE
 export LESS="-iRXF"
 export BAT_OPTS="--theme=Nord --style='numbers,header,grid' --wrap=never --italic-text=always"
+export VI_MODE_DISABLE_CLIPBOARD=true
 
 export LANG="en_US.UTF-8"
 export LC_COLLATE="en_US.UTF-8"
@@ -183,10 +200,14 @@ fag() {
     fi
 }
 
-alias -g BR='$(git branch | fzf | sed "s/\*//")'
-alias -g BCMT='$(gll BR | fzf | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
-alias -g CMT='$(gll | fzf | sed -E "s/^[*\\/| ]+(\w+) .*$/\1/")'
+alias -g BR='$(git branch | fzf | sed "s/^[* ]*//")'
+alias -g BCMT='$(gll BR | fzf | sed -E "s/^[*\\/| ]+([0-9a-f]+) .*$/\1/")'
+alias -g CMT='$(gll | fzf | sed -E "s/^[*\\/| ]+([0-9a-f]+) .*$/\1/")'
 alias -g MF='$(git ls-files -m | fzf)'
+
+rgp() {
+    exec rg --pretty --smart-case "$@" | less -RFX
+}
 
 # fkill - kill process
 fkill() {
@@ -199,7 +220,7 @@ fkill() {
     fi
 }
 
-eval "$(zoxide init zsh)"
+cached_eval "$(zoxide init zsh)"
 
 wa() {
     local file="$1" ext err_msg="supported filetype: js, py, go"
@@ -232,4 +253,4 @@ add_path /Applications/SuperCollider.app/Contents/MacOS
 
 . "$HOME/.local/bin/env"
 
-eval "$(uv generate-shell-completion zsh)"
+cached_eval "$(uv generate-shell-completion zsh)"

@@ -30,20 +30,26 @@ style = "bold green"
 format = '([$all_status $ahead_behind]($style))'
 
 conflicted = "🏳"
-ahead = "➡"
-behind = "⬅"
+ahead = "[→](bold red)"
+behind = "[←](bold red)"
 diverged = "😵"
 up_to_date = ""
 
-untracked = "👀"
+untracked = "[?](bold yellow)"
 stashed = ""
 modified = "[*](bold red)"
-staged = '[++\($count\)](green)'
+staged = '[+\($count\)](green)'
 renamed = "[*](bold red)"
 deleted = "[*](bold red)"
 
 [python]
-format = '[${symbol}${pyenv_prefix}(\($virtualenv\) )]($style)'
+disabled = true
+
+[package]
+disabled = true
+
+[directory]
+fish_style_pwd_dir_length = 1
 
 [nodejs]
 disabled = true
