@@ -27,13 +27,7 @@ format = "[$symbol$branch]($style) "
 
 [git_status]
 style = "bold green"
-format = '([$all_status $ahead_behind]($style))'
-
-conflicted = "🏳"
-ahead = "[→](bold red)"
-behind = "[←](bold red)"
-diverged = "😵"
-up_to_date = ""
+format = '([$all_status$ahead_behind]($style))'
 
 untracked = "[?](bold yellow)"
 stashed = ""
@@ -41,6 +35,12 @@ modified = "[*](bold red)"
 staged = '[+\($count\)](green)'
 renamed = "[*](bold red)"
 deleted = "[*](bold red)"
+
+up_to_date = ""
+ahead = "[→](bold red)"
+behind = "[←](bold red)"
+conflicted = "[conflict](bold red)"
+diverged = "[diverged](bold red)"
 
 [python]
 disabled = true
